@@ -6,9 +6,11 @@ import { containers } from './containers/index';
 import { components } from './components/index';
 import { orgUnitFilterReducer } from './store/reducers';
 import { orgUnitFilterEffects } from './store/effects';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
+    CommonModule,
     StoreModule.forFeature('orgUnitFilter', orgUnitFilterReducer),
     EffectsModule.forFeature(orgUnitFilterEffects)
   ],

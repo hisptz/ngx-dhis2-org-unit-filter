@@ -12,9 +12,11 @@
         <!-- end of header for level section -->
 
         <!-- level list -->
-        <li>
+        <li *ngFor="let orgUnitLevel of orgUnitLevels">
           <a class="ngx-dhis2-org-unit-level-group__item">
-            <img [src]="tickIcon">Level name
+            <!-- <img [src]="tickIcon"> -->
+            <span class="ngx-dhis2-org-unit-level-group__item-selection-holder"></span>
+            <span class="ngx-dhis2-org-unit-level-group__item-name">{{orgUnitLevel.name}}</span>
           </a>
         </li>
         <!-- end of level list -->
@@ -28,22 +30,23 @@
         <!-- group list -->
         <li>
           <a class="ngx-dhis2-org-unit-level-group__item">
-            <img [src]="tickIcon">Group name
+            <!-- <img [src]="tickIcon"> -->
+            <span class="ngx-dhis2-org-unit-level-group__item-selection-holder"></span>
+            <span class="ngx-dhis2-org-unit-level-group__item-name">Group name</span>
           </a>
         </li>
         <li>
           <a class="ngx-dhis2-org-unit-level-group__item">
-            <img [src]="tickIcon">Group name
+            <img [src]="tickIcon">
+            <!-- <span class="ngx-dhis2-org-unit-level-group__item-selection-holder"></span> -->
+            <span class="ngx-dhis2-org-unit-level-group__item-name">Group name</span>
           </a>
         </li>
         <li>
           <a class="ngx-dhis2-org-unit-level-group__item">
-            Group name
-          </a>
-        </li>
-        <li>
-          <a class="ngx-dhis2-org-unit-level-group__item">
-            <img [src]="tickIcon">Group name
+            <img [src]="tickIcon">
+            <!-- <span class="ngx-dhis2-org-unit-level-group__item-selection-holder"></span> -->
+            <span class="ngx-dhis2-org-unit-level-group__item-name">Group name</span>
           </a>
         </li>
         <!-- end of group list -->

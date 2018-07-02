@@ -63,4 +63,6 @@ export const getOrgUnitLevelHasErrorState = (state: OrgUnitLevelState) =>
 export const getOrgUnitLevelErrorState = (state: OrgUnitLevelState) =>
   state.error;
 
-export const { selectAll, selectEntities } = orgUnitLevelAdapter.getSelectors();
+export const {
+  selectAll: selectAllOrgUnitLevels
+} = orgUnitLevelAdapter.getSelectors();

@@ -55,9 +55,16 @@
 
 .ngx-dhis2-org-unit-level-group__item > img {
   height: 15px;
-  margin-right: 4px;
 }
 
 .ngx-dhis2-org-unit-level-group__item:hover {
   background-color: #eeeeee;
+}
+
+.ngx-dhis2-org-unit-level-group__item-selection-holder {
+  width: 15px;
+}
+
+.ngx-dhis2-org-unit-level-group__item-name {
+  margin-left: 5px;
 }

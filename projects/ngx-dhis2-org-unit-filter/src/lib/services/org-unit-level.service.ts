@@ -11,7 +11,9 @@ export class OrgUnitLevelService {
   loadAll(): Observable<OrgUnitLevel> {
     console.log('Here');
     return this.httpClient
-      .get(`organisationUnitLevels.json?fields=id,name,level&paging=false`)
+      .get(
+        `organisationUnitLevels.json?fields=id,name,level&paging=false&order=level:asc`
+      )
       .pipe(map((res: any) => res.organisationUnitLevels || []));
   }
 }
