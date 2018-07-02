@@ -116,6 +116,46 @@
           }
         }
       }
+    },
+    "ngx-dhis2-org-unit-filter": {
+      "root": "projects/ngx-dhis2-org-unit-filter",
+      "sourceRoot": "projects/ngx-dhis2-org-unit-filter/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-dhis2-org-unit-filter/tsconfig.lib.json",
+            "project": "projects/ngx-dhis2-org-unit-filter/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/ngx-dhis2-org-unit-filter/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-dhis2-org-unit-filter/src/test.ts",
+            "tsConfig": "projects/ngx-dhis2-org-unit-filter/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-dhis2-org-unit-filter/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-dhis2-org-unit-filter/tsconfig.lib.json",
+              "projects/ngx-dhis2-org-unit-filter/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ngx-dhis2-org-unit-module"

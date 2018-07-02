@@ -2,13 +2,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { NgxDhis2OrgUnitFilterModule } from 'ngx-dhis2-org-unit-filter';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    NgxDhis2OrgUnitFilterModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
