@@ -2,18 +2,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NgxDhis2HttpClientService } from '@hisptz/ngx-dhis2-http-client';
-import { OrgUnitLevel } from '../models';
+import { OrgUnitGroup } from '../models';
 
 @Injectable({ providedIn: 'root' })
-export class OrgUnitLevelService {
+export class OrgUnitGroupService {
   constructor(private httpClient: NgxDhis2HttpClientService) {}
 
-  loadAll(): Observable<OrgUnitLevel> {
+  loadAll(): Observable<OrgUnitGroup> {
     console.log('Here');
     return this.httpClient
-      .get(
-        `organisationUnitLevels.json?fields=id,name,level&paging=false&order=level:asc`
-      )
-      .pipe(map((res: any) => res.organisationUnitLevels || []));
+      .get(`organisationUnitGroups.json?fields=id,name&paging=false`)
+      .pipe(map((res: any) => res.organisationUnitGroups || []));
   }
 }

@@ -28,25 +28,11 @@
         <!-- end of header for group selections -->
 
         <!-- group list -->
-        <li>
+        <li *ngFor="let orgUnitGroup of orgUnitGroups">
           <a class="ngx-dhis2-org-unit-level-group__item">
             <!-- <img [src]="tickIcon"> -->
             <span class="ngx-dhis2-org-unit-level-group__item-selection-holder"></span>
-            <span class="ngx-dhis2-org-unit-level-group__item-name">Group name</span>
-          </a>
-        </li>
-        <li>
-          <a class="ngx-dhis2-org-unit-level-group__item">
-            <img [src]="tickIcon">
-            <!-- <span class="ngx-dhis2-org-unit-level-group__item-selection-holder"></span> -->
-            <span class="ngx-dhis2-org-unit-level-group__item-name">Group name</span>
-          </a>
-        </li>
-        <li>
-          <a class="ngx-dhis2-org-unit-level-group__item">
-            <img [src]="tickIcon">
-            <!-- <span class="ngx-dhis2-org-unit-level-group__item-selection-holder"></span> -->
-            <span class="ngx-dhis2-org-unit-level-group__item-name">Group name</span>
+            <span class="ngx-dhis2-org-unit-level-group__item-name">{{orgUnitGroup.name}}</span>
           </a>
         </li>
         <!-- end of group list -->
