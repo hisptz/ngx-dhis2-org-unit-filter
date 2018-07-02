@@ -13,11 +13,30 @@ export class NgxDhis2OrgUnitLevelGroupComponent implements OnInit {
    * Input for organisation unit levels
    */
   @Input() orgUnitLevels: OrgUnitLevel[];
+
+  /**
+   * Input for organisation unit groups
+   */
   @Input() orgUnitGroups: OrgUnitGroup[];
+
+  /**
+   * base 64 image string for the tick icon
+   */
   tickIcon: string;
+
+  /**
+   * Search query for org unit group and levels
+   */
+  orgUnitGroupLevelSearchQuery: string;
+
   constructor() {
     this.tickIcon = TICK;
   }
 
   ngOnInit() {}
+
+  onOrgUnitGroupLevelFilter(e) {
+    e.stopPropagation();
+    this.orgUnitGroupLevelSearchQuery = e.target.value;
+  }
 }

@@ -1,7 +1,7 @@
 <div class="ngx-dhis2-org-unit-level-group__container">
   <ul class="ngx-dhis2-org-unit-level-group__list">
     <li>
-      <input type="text" name="" class="ngx-dhis2-org-unit-level-group__input" placeholder="Search levels or groups">
+      <input type="text" (keyup)="onOrgUnitGroupLevelFilter($event)" class="ngx-dhis2-org-unit-level-group__input" placeholder="Search levels or groups">
     </li>
     <li>
       <ul class="ngx-dhis2-org-unit-level-group__inner-list">
@@ -12,7 +12,7 @@
         <!-- end of header for level section -->
 
         <!-- level list -->
-        <li *ngFor="let orgUnitLevel of orgUnitLevels">
+        <li *ngFor="let orgUnitLevel of orgUnitLevels | orgUnitGroupLevelFilter:orgUnitGroupLevelSearchQuery:'level'">
           <a class="ngx-dhis2-org-unit-level-group__item">
             <!-- <img [src]="tickIcon"> -->
             <span class="ngx-dhis2-org-unit-level-group__item-selection-holder"></span>
@@ -28,7 +28,7 @@
         <!-- end of header for group selections -->
 
         <!-- group list -->
-        <li *ngFor="let orgUnitGroup of orgUnitGroups">
+        <li *ngFor="let orgUnitGroup of orgUnitGroups | orgUnitGroupLevelFilter:orgUnitGroupLevelSearchQuery:'group'">
           <a class="ngx-dhis2-org-unit-level-group__item">
             <!-- <img [src]="tickIcon"> -->
             <span class="ngx-dhis2-org-unit-level-group__item-selection-holder"></span>
