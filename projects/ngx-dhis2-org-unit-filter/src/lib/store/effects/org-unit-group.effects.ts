@@ -4,8 +4,8 @@ import { Observable, of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import {
   OrgUnitGroupActionsTypes,
-  AddOrgUnitGroupAction,
-  LoadOrgUnitGroupFailAction
+  AddOrgUnitGroupsAction,
+  LoadOrgUnitGroupsFailAction
 } from '../actions';
 import { OrgUnitGroupService } from '../../services';
 import { OrgUnitGroup } from '../../models';
@@ -19,14 +19,14 @@ export class OrgUnitGroupEffects {
 
   @Effect()
   loadOrgUnitGroups$: Observable<any> = this.actions$.pipe(
-    ofType(OrgUnitGroupActionsTypes.LoadOrgUnitGroup),
+    ofType(OrgUnitGroupActionsTypes.LoadOrgUnitGroups),
     switchMap(() =>
       this.orgUnitGroupService.loadAll().pipe(
         map(
           (orgUnitGroups: OrgUnitGroup[]) =>
-            new AddOrgUnitGroupAction(orgUnitGroups)
+            new AddOrgUnitGroupsAction(orgUnitGroups)
         ),
-        catchError((error: any) => of(new LoadOrgUnitGroupFailAction(error)))
+        catchError((error: any) => of(new LoadOrgUnitGroupsFailAction(error)))
       )
     )
   );

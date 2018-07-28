@@ -1,26 +1,26 @@
 import { Action } from '@ngrx/store';
 import { OrgUnitLevel } from '../../models';
 export enum OrgUnitLevelActionsTypes {
-  LoadOrgUnitLevel = '[OrgUnitLevel] load organisation unit level',
-  LoadOrgUnitLevelFail = '[OrgUnitLevel] load organisation unit level fail',
-  AddOrgUnitLevel = '[OrgUnitLevel] add organisation unit level'
+  LoadOrgUnitLevels = '[OrgUnitLevel] load organisation unit levels',
+  LoadOrgUnitLevelsFail = '[OrgUnitLevel] load organisation unit levels fail',
+  AddOrgUnitLevels = '[OrgUnitLevel] add organisation unit levels'
 }
 
-export class LoadOrgUnitLevelAction implements Action {
-  readonly type = OrgUnitLevelActionsTypes.LoadOrgUnitLevel;
+export class LoadOrgUnitLevelsAction implements Action {
+  readonly type = OrgUnitLevelActionsTypes.LoadOrgUnitLevels;
 }
 
-export class AddOrgUnitLevelAction implements Action {
-  readonly type = OrgUnitLevelActionsTypes.AddOrgUnitLevel;
+export class AddOrgUnitLevelsAction implements Action {
+  readonly type = OrgUnitLevelActionsTypes.AddOrgUnitLevels;
   constructor(public orgUnitLevels: OrgUnitLevel[]) {}
 }
 
-export class LoadOrgUnitLevelFailAction implements Action {
-  readonly type = OrgUnitLevelActionsTypes.LoadOrgUnitLevelFail;
+export class LoadOrgUnitLevelsFailAction implements Action {
+  readonly type = OrgUnitLevelActionsTypes.LoadOrgUnitLevelsFail;
   constructor(public error: any) {}
 }
 
 export type OrgUnitLevelActions =
-  | LoadOrgUnitLevelAction
-  | AddOrgUnitLevelAction
-  | LoadOrgUnitLevelFailAction;
+  | LoadOrgUnitLevelsAction
+  | AddOrgUnitLevelsAction
+  | LoadOrgUnitLevelsFailAction;

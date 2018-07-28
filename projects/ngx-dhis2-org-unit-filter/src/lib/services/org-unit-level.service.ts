@@ -9,7 +9,6 @@ export class OrgUnitLevelService {
   constructor(private httpClient: NgxDhis2HttpClientService) {}
 
   loadAll(): Observable<OrgUnitLevel> {
-    console.log('Here');
     return this.httpClient
       .get(
         `organisationUnitLevels.json?fields=id,name,level&paging=false&order=level:asc`

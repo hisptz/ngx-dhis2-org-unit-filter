@@ -35,7 +35,7 @@ export function orgUnitLevelReducer(
   action: OrgUnitLevelActions
 ): OrgUnitLevelState {
   switch (action.type) {
-    case OrgUnitLevelActionsTypes.LoadOrgUnitLevel:
+    case OrgUnitLevelActionsTypes.LoadOrgUnitLevels:
       return {
         ...state,
         loading: true,
@@ -43,7 +43,7 @@ export function orgUnitLevelReducer(
         hasError: false,
         error: null
       };
-    case OrgUnitLevelActionsTypes.AddOrgUnitLevel: {
+    case OrgUnitLevelActionsTypes.AddOrgUnitLevels: {
       return orgUnitLevelAdapter.addMany(action.orgUnitLevels, {
         ...state,
         loaded: true,

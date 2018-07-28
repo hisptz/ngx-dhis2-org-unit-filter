@@ -4,8 +4,8 @@ import { Observable, of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import {
   OrgUnitLevelActionsTypes,
-  AddOrgUnitLevelAction,
-  LoadOrgUnitLevelFailAction
+  AddOrgUnitLevelsAction,
+  LoadOrgUnitLevelsFailAction
 } from '../actions';
 import { OrgUnitLevelService } from '../../services';
 import { OrgUnitLevel } from '../../models';
@@ -19,14 +19,14 @@ export class OrgUnitLevelEffects {
 
   @Effect()
   loadOrgUnitLevels$: Observable<any> = this.actions$.pipe(
-    ofType(OrgUnitLevelActionsTypes.LoadOrgUnitLevel),
+    ofType(OrgUnitLevelActionsTypes.LoadOrgUnitLevels),
     switchMap(() =>
       this.orgUnitLevelService.loadAll().pipe(
         map(
           (orgUnitLevels: OrgUnitLevel[]) =>
-            new AddOrgUnitLevelAction(orgUnitLevels)
+            new AddOrgUnitLevelsAction(orgUnitLevels)
         ),
-        catchError((error: any) => of(new LoadOrgUnitLevelFailAction(error)))
+        catchError((error: any) => of(new LoadOrgUnitLevelsFailAction(error)))
       )
     )
   );

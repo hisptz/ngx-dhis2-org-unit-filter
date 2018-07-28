@@ -1,26 +1,26 @@
 import { Action } from '@ngrx/store';
 import { OrgUnitGroup } from '../../models';
 export enum OrgUnitGroupActionsTypes {
-  LoadOrgUnitGroup = '[OrgUnitGroup] load organisation unit group',
-  LoadOrgUnitGroupFail = '[OrgUnitGroup] load organisation unit group fail',
-  AddOrgUnitGroup = '[OrgUnitGroup] add organisation unit group'
+  LoadOrgUnitGroups = '[OrgUnitGroup] load organisation unit groups',
+  LoadOrgUnitGroupsFail = '[OrgUnitGroup] load organisation unit groups fail',
+  AddOrgUnitGroups = '[OrgUnitGroup] add organisation unit groups'
 }
 
-export class LoadOrgUnitGroupAction implements Action {
-  readonly type = OrgUnitGroupActionsTypes.LoadOrgUnitGroup;
+export class LoadOrgUnitGroupsAction implements Action {
+  readonly type = OrgUnitGroupActionsTypes.LoadOrgUnitGroups;
 }
 
-export class AddOrgUnitGroupAction implements Action {
-  readonly type = OrgUnitGroupActionsTypes.AddOrgUnitGroup;
+export class AddOrgUnitGroupsAction implements Action {
+  readonly type = OrgUnitGroupActionsTypes.AddOrgUnitGroups;
   constructor(public OrgUnitGroups: OrgUnitGroup[]) {}
 }
 
-export class LoadOrgUnitGroupFailAction implements Action {
-  readonly type = OrgUnitGroupActionsTypes.LoadOrgUnitGroupFail;
+export class LoadOrgUnitGroupsFailAction implements Action {
+  readonly type = OrgUnitGroupActionsTypes.LoadOrgUnitGroupsFail;
   constructor(public error: any) {}
 }
 
 export type OrgUnitGroupActions =
-  | LoadOrgUnitGroupAction
-  | AddOrgUnitGroupAction
-  | LoadOrgUnitGroupFailAction;
+  | LoadOrgUnitGroupsAction
+  | AddOrgUnitGroupsAction
+  | LoadOrgUnitGroupsFailAction;

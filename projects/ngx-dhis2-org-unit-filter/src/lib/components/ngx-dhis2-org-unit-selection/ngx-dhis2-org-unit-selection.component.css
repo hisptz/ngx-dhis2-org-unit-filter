@@ -21,6 +21,11 @@
   outline: none;
 }
 
+.ngx-dhis2-org-unit-selection__tree_list {
+  height: 350px;
+  overflow: auto;
+}
+
 /*Org unit tree css*/
 .ngx-dhis2-org-unit-selection__tree {
   border: solid thin #eeeeee;

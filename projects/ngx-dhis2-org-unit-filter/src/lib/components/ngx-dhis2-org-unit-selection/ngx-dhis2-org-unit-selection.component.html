@@ -7,7 +7,11 @@
       <input type="text" class="ngx-dhis2-org-unit-selection__search-input" placeholder="Search organisation unit">
     </div>
     <!--end of org unit selection search-->
-    tree area
+    <div class="ngx-dhis2-org-unit-selection__tree_list">
+      <div class="ngx-dhis2-org-unit-selection__tree_item" *ngFor="let orgUnitId of highestLevelOrgUnitIds$ | async">
+        <ngx-dhis2-org-unit-tree-item [orgUnitId]="orgUnitId" [expanded]="true"></ngx-dhis2-org-unit-tree-item>
+      </div>
+    </div>
   </div>
   <!--end of org unit tree area-->
 </div>

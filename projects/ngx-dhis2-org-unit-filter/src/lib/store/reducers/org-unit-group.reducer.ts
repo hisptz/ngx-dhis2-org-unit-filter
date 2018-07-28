@@ -30,12 +30,12 @@ export const initialState: OrgUnitGroupState = OrgUnitGroupAdapter.getInitialSta
   }
 );
 
-export function OrgUnitGroupReducer(
+export function orgUnitGroupReducer(
   state: OrgUnitGroupState = initialState,
   action: OrgUnitGroupActions
 ): OrgUnitGroupState {
   switch (action.type) {
-    case OrgUnitGroupActionsTypes.LoadOrgUnitGroup:
+    case OrgUnitGroupActionsTypes.LoadOrgUnitGroups:
       return {
         ...state,
         loading: true,
@@ -43,7 +43,7 @@ export function OrgUnitGroupReducer(
         hasError: false,
         error: null
       };
-    case OrgUnitGroupActionsTypes.AddOrgUnitGroup: {
+    case OrgUnitGroupActionsTypes.AddOrgUnitGroups: {
       return OrgUnitGroupAdapter.addMany(action.OrgUnitGroups, {
         ...state,
         loaded: true,

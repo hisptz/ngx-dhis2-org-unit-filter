@@ -9,7 +9,6 @@ export class OrgUnitGroupService {
   constructor(private httpClient: NgxDhis2HttpClientService) {}
 
   loadAll(): Observable<OrgUnitGroup> {
-    console.log('Here');
     return this.httpClient
       .get(`organisationUnitGroups.json?fields=id,name&paging=false`)
       .pipe(map((res: any) => res.organisationUnitGroups || []));

@@ -9,17 +9,20 @@ import {
 } from './org-unit-level.reducer';
 import {
   OrgUnitGroupState,
-  OrgUnitGroupReducer
+  orgUnitGroupReducer
 } from './org-unit-group.reducer';
+import { OrgUnitState, orgUnitReducer } from './org-unit.reducer';
 
 export interface OrgUnitFilterState {
   orgUnitLevel: OrgUnitLevelState;
   orgUnitGroup: OrgUnitGroupState;
+  orgUnit: OrgUnitState;
 }
 
 export const orgUnitFilterReducer: ActionReducerMap<OrgUnitFilterState> = {
   orgUnitLevel: orgUnitLevelReducer,
-  orgUnitGroup: OrgUnitGroupReducer
+  orgUnitGroup: orgUnitGroupReducer,
+  orgUnit: orgUnitReducer
 };
 
 export const getOrgUnitFilterState = createFeatureSelector<OrgUnitFilterState>(
