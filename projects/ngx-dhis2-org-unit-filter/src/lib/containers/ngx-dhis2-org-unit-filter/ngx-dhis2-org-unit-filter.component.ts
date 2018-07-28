@@ -1,6 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnDestroy
+} from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import * as _ from 'lodash';
 
 import {
   OrgUnitFilterState,
@@ -20,11 +28,17 @@ import { DEFAULT_ORG_UNIT_FILTER_CONFIG } from '../../constants';
   templateUrl: './ngx-dhis2-org-unit-filter.component.html',
   styleUrls: ['./ngx-dhis2-org-unit-filter.component.css']
 })
-export class NgxDhis2OrgUnitFilterComponent implements OnInit {
+export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
+  /**
+   * Selected orgUnit list
+   */
+  @Input() selectedOrgUnits: any[];
+
   /**
    * Org unit filter configuration
    */
   @Input() orgUnitFilterConfig: OrgUnitFilterConfig;
+
   /**
    * Organisation unit level observable
    */
@@ -35,9 +49,15 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit {
    */
   orgUnitGroups$: Observable<OrgUnitGroup[]>;
 
+  @Output() orgUnitUpdate: EventEmitter<any> = new EventEmitter<any>();
+  @Output() orgUnitClose: EventEmitter<any> = new EventEmitter<any>();
+
   constructor(private store: Store<OrgUnitFilterState>) {
+    // default org unit selection if not provided
+    this.selectedOrgUnits = [];
     // default org unit filter configuration
     this.orgUnitFilterConfig = DEFAULT_ORG_UNIT_FILTER_CONFIG;
+
     // Dispatching actions to load organisation unit information
     store.dispatch(new LoadOrgUnitLevelsAction());
     store.dispatch(new LoadOrgUnitGroupsAction());
@@ -49,4 +69,55 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  ngOnDestroy() {
+    this.onOrgUnitClose();
+  }
+
+  onSelectOrgUnit(orgUnit: any) {
+    this.selectedOrgUnits = !this.orgUnitFilterConfig.singleSelection
+      ? [...this.selectedOrgUnits, orgUnit]
+      : [
+          ..._.filter(
+            this.selectedOrgUnits,
+            selectedOrgUnit => selectedOrgUnit.type !== orgUnit.type
+          ),
+          orgUnit
+        ];
+
+    if (this.orgUnitFilterConfig.updateOnSelect) {
+      this.onOrgUnitUpdate();
+    }
+  }
+
+  onDeselectOrgUnit(orgUnit: any) {
+    const orgUnitIndex = this.selectedOrgUnits.indexOf(orgUnit);
+
+    this.selectedOrgUnits = !this.orgUnitFilterConfig.singleSelection
+      ? orgUnitIndex !== -1
+        ? [
+            ..._.slice(this.selectedOrgUnits, 0, orgUnitIndex),
+            ..._.slice(this.selectedOrgUnits, orgUnitIndex + 1)
+          ]
+        : this.selectedOrgUnits
+      : [];
+
+    if (this.orgUnitFilterConfig.updateOnSelect) {
+      this.onOrgUnitUpdate();
+    }
+  }
+
+  onOrgUnitClose() {
+    this.orgUnitClose.emit({
+      dimension: 'ou',
+      items: this.selectedOrgUnits
+    });
+  }
+
+  onOrgUnitUpdate() {
+    this.orgUnitUpdate.emit({
+      dimension: 'ou',
+      items: this.selectedOrgUnits
+    });
+  }
 }

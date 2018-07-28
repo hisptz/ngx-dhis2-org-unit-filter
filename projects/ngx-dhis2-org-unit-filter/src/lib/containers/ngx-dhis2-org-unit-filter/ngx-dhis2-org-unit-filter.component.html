@@ -2,6 +2,7 @@
 
   <!--selected organisation unit summary section-->
   <div class="ngx-dhis2-org-unit-filter__selected-org-units">
+    {{ selectedOrgUnits | json}}
     <!--<ngx-dhis2-org-unit-selected-org-unit></ngx-dhis2-org-unit-selected-org-unit>-->
   </div>
   <!--selected organisation unit summary section-->
@@ -10,7 +11,7 @@
   <div class="ngx-dhis2-org-unit-filter__selection-container">
     <!--organisation unit selection area-->
     <div class="ngx-dhis2-org-unit-filter__org-unit-selection">
-      <ngx-dhis2-org-unit-selection></ngx-dhis2-org-unit-selection>
+      <ngx-dhis2-org-unit-selection [selectedOrgUnits]="selectedOrgUnits" (activateOrgUnit)="onSelectOrgUnit($event)" (deactivateOrgUnit)="onDeselectOrgUnit($event)"></ngx-dhis2-org-unit-selection>
     </div>
     <!--end of organisation unit selection area-->
 

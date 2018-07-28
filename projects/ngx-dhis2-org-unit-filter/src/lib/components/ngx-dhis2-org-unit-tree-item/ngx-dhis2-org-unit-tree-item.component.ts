@@ -1,10 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
+import * as _ from 'lodash';
 import { OrgUnit } from '../../models';
 import { PLUS_CIRCLE_ICON, MINUS_CIRCLE_ICON } from '../../icons';
 import { Store } from '@ngrx/store';
 import { OrgUnitFilterState } from '../../store';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { getOrgUnitById } from '../../store/selectors/org-unit.selectors';
+import { first, take, filter } from 'rxjs/operators';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -12,11 +22,17 @@ import { getOrgUnitById } from '../../store/selectors/org-unit.selectors';
   templateUrl: './ngx-dhis2-org-unit-tree-item.component.html',
   styleUrls: ['./ngx-dhis2-org-unit-tree-item.component.css']
 })
-export class NgxDhis2OrgUnitTreeItemComponent implements OnInit {
+export class NgxDhis2OrgUnitTreeItemComponent implements OnInit, OnChanges {
   @Input() orgUnitId: string;
   @Input() expanded: boolean;
+  @Input() selectedOrgUnits: any[];
+
+  // events
+  @Output() activate = new EventEmitter();
+  @Output() deactivate = new EventEmitter();
 
   orgUnit$: Observable<OrgUnit>;
+  selected: boolean;
 
   // icons
   plusCircleIcon: string;
@@ -27,14 +43,65 @@ export class NgxDhis2OrgUnitTreeItemComponent implements OnInit {
     this.minusCircleIcon = MINUS_CIRCLE_ICON;
   }
 
+  ngOnChanges(simpleChanges: SimpleChanges) {
+    if (simpleChanges['selectedOrgUnits']) {
+      this.setOrgUnitProperties();
+    }
+  }
+
   ngOnInit() {
     if (this.orgUnitId) {
+      // fetch current org unit
       this.orgUnit$ = this.store.select(getOrgUnitById(this.orgUnitId));
+
+      this.setOrgUnitProperties();
     }
+  }
+
+  setOrgUnitProperties() {
+    // get org unit selection status
+    this.selected = _.some(
+      this.selectedOrgUnits || [],
+      orgUnit => orgUnit.id === this.orgUnitId
+    );
+
+    // set expanded state considering has children selected
+
+    if (this.orgUnit$) {
+      this.orgUnit$.subscribe((orgUnit: OrgUnit) => {
+        if (orgUnit && orgUnit.children && !this.expanded) {
+          this.expanded = _.some(
+            this.selectedOrgUnits || [],
+            selectedOrgUnit =>
+              orgUnit.children.indexOf(selectedOrgUnit.id) !== -1
+          );
+        }
+      });
+    }
+  }
+
+  onToggleOrgUnitChildren(e) {
+    e.stopPropagation();
+    this.expanded = !this.expanded;
   }
 
   onToggleOrgUnit(e) {
     e.stopPropagation();
-    this.expanded = !this.expanded;
+    this.orgUnit$.pipe(take(1)).subscribe((orgUnit: OrgUnit) => {
+      if (this.selected) {
+        this.onDeactivateOu(orgUnit);
+      } else {
+        this.onActivateOu(orgUnit);
+      }
+      this.selected = !this.selected;
+    });
+  }
+
+  onDeactivateOu(organisationUnit) {
+    this.deactivate.emit(organisationUnit);
+  }
+
+  onActivateOu(organisationUnit) {
+    this.activate.emit(organisationUnit);
   }
 }

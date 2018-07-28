@@ -28,3 +28,7 @@
 .ngx-dhis2-org-unit-tree-item-count {
   font-size: 10px;
 }
+
+.ngx-dhis2-org-unit-tree-item-selected {
+  color: #ffa500;
+}
