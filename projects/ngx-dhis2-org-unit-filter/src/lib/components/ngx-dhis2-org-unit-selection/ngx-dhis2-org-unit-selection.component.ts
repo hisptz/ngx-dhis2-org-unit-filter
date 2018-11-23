@@ -7,12 +7,14 @@ import { OrgUnitFilterState } from '../../store';
 import { getHighestLevelOrgUnitIds } from '../../store/selectors/org-unit.selectors';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'ngx-dhis2-org-unit-selection',
   templateUrl: './ngx-dhis2-org-unit-selection.component.html',
   styleUrls: ['./ngx-dhis2-org-unit-selection.component.css']
 })
 export class NgxDhis2OrgUnitSelectionComponent implements OnInit {
   @Input() selectedOrgUnits: any[];
+  @Input() loadingOrgUnits: boolean;
 
   @Output() activateOrgUnit = new EventEmitter();
   @Output() deactivateOrgUnit = new EventEmitter();
@@ -29,7 +31,7 @@ export class NgxDhis2OrgUnitSelectionComponent implements OnInit {
       id: orgUnit.id,
       name: orgUnit.name,
       level: orgUnit.level,
-      type: 'ORG_UNIT'
+      type: 'ORGANISATION_UNIT'
     });
   }
 
@@ -38,7 +40,7 @@ export class NgxDhis2OrgUnitSelectionComponent implements OnInit {
       id: orgUnit.id,
       name: orgUnit.name,
       level: orgUnit.level,
-      type: 'ORG_UNIT'
+      type: 'ORGANISATION_UNIT'
     });
   }
 }

@@ -2,8 +2,8 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { containers } from './containers';
-import { components } from './components';
+import { containers } from './containers/index';
+import { components } from './components/index';
 import { orgUnitFilterReducer } from './store/reducers';
 import { orgUnitFilterEffects } from './store/effects';
 import { CommonModule } from '@angular/common';

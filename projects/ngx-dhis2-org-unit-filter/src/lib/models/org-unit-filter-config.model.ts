@@ -2,7 +2,7 @@ export interface OrgUnitFilterConfig {
   /**
    * Tells whether org units should be used for reports or data entry
    */
-  reportUse: boolean;
+  reportUse?: boolean;
 
   /**
    * Specify minimum level for org units
@@ -12,7 +12,7 @@ export interface OrgUnitFilterConfig {
   /**
    * Specify whether to update on select or unselect or on button click
    */
-  updateOnSelect: boolean;
+  updateOnSelect?: boolean;
 
   /**
    * Specify whether org unit selection is single or multiple

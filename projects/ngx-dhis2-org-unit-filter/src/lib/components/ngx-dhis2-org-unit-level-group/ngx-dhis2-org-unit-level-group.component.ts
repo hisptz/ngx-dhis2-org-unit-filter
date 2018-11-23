@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import * as _ from 'lodash';
 import { TICK } from '../../icons';
 import { OrgUnitLevel, OrgUnitGroup } from '../../models';
 
@@ -10,9 +11,19 @@ import { OrgUnitLevel, OrgUnitGroup } from '../../models';
 })
 export class NgxDhis2OrgUnitLevelGroupComponent implements OnInit {
   /**
+   * Input for selected levels or groups
+   */
+  @Input() selectedLevelsOrGroups: string[];
+
+  @Input() topOrgUnitLevel: number;
+
+  /**
    * Input for organisation unit levels
    */
   @Input() orgUnitLevels: OrgUnitLevel[];
+
+  @Input() loadingLevels: boolean;
+  @Input() loadingGroups: boolean;
 
   /**
    * Input for organisation unit groups
@@ -29,8 +40,40 @@ export class NgxDhis2OrgUnitLevelGroupComponent implements OnInit {
    */
   orgUnitGroupLevelSearchQuery: string;
 
+  @Output() activateOrgUnitLevelOrGroup = new EventEmitter();
+  @Output() deactivateOrgUnitLevelOrGroup = new EventEmitter();
+
   constructor() {
     this.tickIcon = TICK;
+  }
+
+  get filteredOrgUnitLevels(): any[] {
+    return _.map(
+      _.filter(
+        this.orgUnitLevels,
+        orgUnitLevel => orgUnitLevel.level >= this.topOrgUnitLevel
+      ),
+      orgUnitLevel => {
+        return {
+          ...orgUnitLevel,
+          selected:
+            this.selectedLevelsOrGroups.indexOf(
+              'LEVEL-' + orgUnitLevel.level
+            ) !== -1
+        };
+      }
+    );
+  }
+
+  get filteredOrgUnitGroups(): any[] {
+    return _.map(this.orgUnitGroups, orgUnitGroup => {
+      return {
+        ...orgUnitGroup,
+        selected:
+          this.selectedLevelsOrGroups.indexOf('OU_GROUP-' + orgUnitGroup.id) !==
+          -1
+      };
+    });
   }
 
   ngOnInit() {}
@@ -38,5 +81,34 @@ export class NgxDhis2OrgUnitLevelGroupComponent implements OnInit {
   onOrgUnitGroupLevelFilter(e) {
     e.stopPropagation();
     this.orgUnitGroupLevelSearchQuery = e.target.value;
+  }
+
+  onUpdate(e, selectedOrgUnitLevelOrGroup: any, itemType: string) {
+    e.stopPropagation();
+    if (selectedOrgUnitLevelOrGroup.selected) {
+      this.deactivateOrgUnitLevelOrGroup.emit({
+        id:
+          itemType === 'LEVEL'
+            ? 'LEVEL-' + selectedOrgUnitLevelOrGroup.level
+            : 'OU_GROUP-' + selectedOrgUnitLevelOrGroup.id,
+        name: selectedOrgUnitLevelOrGroup.name,
+        type:
+          itemType === 'LEVEL'
+            ? 'ORGANISATION_UNIT_LEVEL'
+            : 'ORGANISATION_UNIT_GROUP'
+      });
+    } else {
+      this.activateOrgUnitLevelOrGroup.emit({
+        id:
+          itemType === 'LEVEL'
+            ? 'LEVEL-' + selectedOrgUnitLevelOrGroup.level
+            : 'OU_GROUP-' + selectedOrgUnitLevelOrGroup.id,
+        name: selectedOrgUnitLevelOrGroup.name,
+        type:
+          itemType === 'LEVEL'
+            ? 'ORGANISATION_UNIT_LEVEL'
+            : 'ORGANISATION_UNIT_GROUP'
+      });
+    }
   }
 }

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import * as _ from 'lodash';
+import { CLOSE_ICON } from '../../icons';
 
 @Component({
   selector: 'ngx-dhis2-org-unit-selected-org-unit',
@@ -6,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ngx-dhis2-org-unit-selected-org-unit.component.css']
 })
 export class NgxDhis2OrgUnitSelectedOrgUnitComponent implements OnInit {
+  @Input() selectedOrgUnits: any[];
 
-  constructor() { }
-
-  ngOnInit() {
+  closeIcon: string;
+  constructor() {
+    this.closeIcon = CLOSE_ICON;
   }
 
+  get selectedOrgUnitsOnly() {
+    return _.filter(
+      this.selectedOrgUnits || [],
+      orgUnit => orgUnit.type === 'ORGANISATION_UNIT'
+    );
+  }
+
+  ngOnInit() {}
 }

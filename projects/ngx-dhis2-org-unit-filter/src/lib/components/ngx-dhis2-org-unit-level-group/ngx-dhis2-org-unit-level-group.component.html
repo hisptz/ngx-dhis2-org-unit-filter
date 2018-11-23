@@ -11,11 +11,33 @@
         </li>
         <!-- end of header for level section -->
 
+        <li *ngIf="loadingLevels">
+          <!-- loading org units -->
+          <div style="width: 100%;  padding: 7px;">
+            <div style="height: 7px; margin-bottom: 3px; width: 30%">
+              <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
+            </div>
+            <div style="height: 7px; margin-bottom: 3px; width: 50%">
+              <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
+            </div>
+            <div style="height: 7px; margin-bottom: 3px; width: 70%">
+              <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
+            </div>
+            <div style="height: 7px; margin-bottom: 3px; width: 90%">
+              <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
+            </div>
+            <div style="height: 7px; margin-bottom: 3px; width: 98%">
+              <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
+            </div>
+          </div>
+          <!-- end of loading org units -->
+        </li>
+
         <!-- level list -->
-        <li *ngFor="let orgUnitLevel of orgUnitLevels | orgUnitGroupLevelFilter:orgUnitGroupLevelSearchQuery:'level'">
-          <a class="ngx-dhis2-org-unit-level-group__item">
-            <!-- <img [src]="tickIcon"> -->
-            <span class="ngx-dhis2-org-unit-level-group__item-selection-holder"></span>
+        <li *ngFor="let orgUnitLevel of filteredOrgUnitLevels | orgUnitGroupLevelFilter:orgUnitGroupLevelSearchQuery:'level'">
+          <a class="ngx-dhis2-org-unit-level-group__item" (click)="onUpdate($event, orgUnitLevel, 'LEVEL')">
+            <img *ngIf="orgUnitLevel.selected" [src]="tickIcon">
+            <span *ngIf="!orgUnitLevel.selected" class="ngx-dhis2-org-unit-level-group__item-selection-holder"></span>
             <span class="ngx-dhis2-org-unit-level-group__item-name">{{orgUnitLevel.name}}</span>
           </a>
         </li>
@@ -27,11 +49,33 @@
         </li>
         <!-- end of header for group selections -->
 
+        <li *ngIf="loadingGroups">
+          <!-- loading org units -->
+          <div style="width: 100%; padding: 7px;">
+            <div style="height: 7px; margin-bottom: 3px; width: 30%">
+              <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
+            </div>
+            <div style="height: 7px; margin-bottom: 3px; width: 50%">
+              <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
+            </div>
+            <div style="height: 7px; margin-bottom: 3px; width: 70%">
+              <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
+            </div>
+            <div style="height: 7px; margin-bottom: 3px; width: 90%">
+              <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
+            </div>
+            <div style="height: 7px; margin-bottom: 3px; width: 98%">
+              <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
+            </div>
+          </div>
+          <!-- end of loading org units -->
+        </li>
+
         <!-- group list -->
-        <li *ngFor="let orgUnitGroup of orgUnitGroups | orgUnitGroupLevelFilter:orgUnitGroupLevelSearchQuery:'group'">
-          <a class="ngx-dhis2-org-unit-level-group__item">
-            <!-- <img [src]="tickIcon"> -->
-            <span class="ngx-dhis2-org-unit-level-group__item-selection-holder"></span>
+        <li *ngFor="let orgUnitGroup of filteredOrgUnitGroups | orgUnitGroupLevelFilter:orgUnitGroupLevelSearchQuery:'group'">
+          <a class="ngx-dhis2-org-unit-level-group__item" (click)="onUpdate($event, orgUnitGroup, 'GROUP')">
+            <img *ngIf="orgUnitGroup.selected" [src]="tickIcon">
+            <span *ngIf="!orgUnitGroup.selected" class="ngx-dhis2-org-unit-level-group__item-selection-holder"></span>
             <span class="ngx-dhis2-org-unit-level-group__item-name">{{orgUnitGroup.name}}</span>
           </a>
         </li>

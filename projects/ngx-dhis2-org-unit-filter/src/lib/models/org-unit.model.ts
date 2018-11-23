@@ -3,5 +3,5 @@ export interface OrgUnit {
   name: string;
   level: number;
   path: string;
-  children: Array<string>;
+  children: string[];
 }

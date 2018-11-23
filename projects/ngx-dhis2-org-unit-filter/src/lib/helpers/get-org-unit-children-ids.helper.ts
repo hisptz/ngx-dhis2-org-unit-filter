@@ -3,7 +3,7 @@ import { OrgUnit } from '../models';
 export function getOrgUnitChildrenIds(
   orgUnits: OrgUnit[],
   currentOrgUnit: OrgUnit
-): OrgUnit[] {
+): string[] {
   return _.map(
     _.filter(orgUnits, (orgUnit: OrgUnit) => {
       const splitedPath = orgUnit.path.split('/');

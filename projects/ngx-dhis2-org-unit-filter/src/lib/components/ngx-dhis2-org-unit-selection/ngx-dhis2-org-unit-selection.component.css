@@ -22,7 +22,7 @@
 }
 
 .ngx-dhis2-org-unit-selection__tree_list {
-  height: 350px;
+  height: 250px;
   overflow: auto;
 }
 
@@ -30,6 +30,10 @@
 .ngx-dhis2-org-unit-selection__tree {
   border: solid thin #eeeeee;
   width: 100%;
-  height: 400px;
+  height: 270px;
   padding: 3px;
+}
+
+.ngx-dhis2-org-unit-selection__loading {
+  padding: 7px;
 }
