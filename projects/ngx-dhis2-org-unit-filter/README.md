@@ -72,29 +72,3 @@ Sample output
   ]
 }
 ```
-
-## Demo
-
-Run `npm start` for a demo app. Navigate to `http://localhost:4200/`.
-
-This command will require proxy-config.json file available in the root of your source code, usually this file has this format
-
-```
-{
-  "/api": {
-    "target": "https://play.dhis2.org/2.29/",
-    "secure": "false",
-    "auth": "admin:district",
-    "changeOrigin": "true"
-  },
-  "/": {
-    "target": "https://play.dhis2.org/2.29/",
-    "secure": "false",
-    "auth": "admin:district",
-    "changeOrigin": "true"
-  }
-}
-
-```
-
-We have provided `proxy-config.example.json` file as an example, make a copy and rename to `proxy-config.json`

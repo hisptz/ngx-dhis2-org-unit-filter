@@ -4,10 +4,10 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { containers } from './containers/index';
 import { components } from './components/index';
-import { orgUnitFilterReducer } from './store/reducers';
-import { orgUnitFilterEffects } from './store/effects';
+import { orgUnitFilterReducer } from './store/reducers/index';
+import { orgUnitFilterEffects } from './store/effects/index';
 import { CommonModule } from '@angular/common';
-import { pipes } from './pipes';
+import { pipes } from './pipes/index';
 
 @NgModule({
   imports: [
