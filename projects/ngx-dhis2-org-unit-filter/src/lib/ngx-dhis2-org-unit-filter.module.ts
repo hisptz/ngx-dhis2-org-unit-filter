@@ -18,11 +18,4 @@ import { pipes } from './pipes/index';
   declarations: [...containers, ...components, ...pipes],
   exports: [...containers]
 })
-export class NgxDhis2OrgUnitFilterModule {
-  public static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: NgxDhis2OrgUnitFilterModule,
-      providers: []
-    };
-  }
-}
+export class NgxDhis2OrgUnitFilterModule {}
