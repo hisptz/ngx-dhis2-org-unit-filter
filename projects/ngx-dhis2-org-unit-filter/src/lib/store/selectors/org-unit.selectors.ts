@@ -1,13 +1,14 @@
 import { createSelector, MemoizedSelector } from '@ngrx/store';
 import * as _ from 'lodash';
 import { OrgUnitFilterState, getOrgUnitFilterState } from '../reducers';
-import * as fromOrgUnitReducer from '../reducers/org-unit.reducer';
+import {
+  selectAllOrgUnits,
+  getOrgUnitLoadingState,
+  getOrgUnitLoadedState,
+  getOrgUnitLoadingInitiatedState
+} from '../reducers/org-unit.reducer';
 import { OrgUnit } from '../../models';
 import { getOrgUnitChildrenIds } from '../../helpers';
-
-const {
-  selectAll: selectAllOrgUnits
-} = fromOrgUnitReducer.OrgUnitAdapter.getSelectors();
 
 export const getOrgUnitState = createSelector(
   getOrgUnitFilterState,
@@ -16,23 +17,20 @@ export const getOrgUnitState = createSelector(
 
 export const getOrgUnitLoading = createSelector(
   getOrgUnitState,
-  (orgUnitState: fromOrgUnitReducer.OrgUnitState) => orgUnitState.loading
+  getOrgUnitLoadingState
 );
 
 export const getOrgUnitLoadingInitiated = createSelector(
   getOrgUnitState,
-  (orgUnitState: fromOrgUnitReducer.OrgUnitState) => orgUnitState.loadInitiated
+  getOrgUnitLoadingInitiatedState
 );
 
 export const getOrgUnitLoaded = createSelector(
   getOrgUnitState,
-  (orgUnitState: fromOrgUnitReducer.OrgUnitState) => orgUnitState.loaded
+  getOrgUnitLoadedState
 );
 
-export const getOrgUnits = createSelector(
-  getOrgUnitState,
-  selectAllOrgUnits
-);
+export const getOrgUnits = createSelector(getOrgUnitState, selectAllOrgUnits);
 
 export const getHighestLevelOrgUnitIds = createSelector(
   getOrgUnits,
@@ -47,29 +45,23 @@ export const getHighestLevelOrgUnitIds = createSelector(
 );
 
 export const getOrgUnitById = orgUnitId =>
-  createSelector(
-    getOrgUnits,
-    (orgUnits: OrgUnit[]) => {
-      const orgUnit = _.find(orgUnits, ['id', orgUnitId]);
-      return orgUnit
-        ? { ...orgUnit, children: getOrgUnitChildrenIds(orgUnits, orgUnit) }
-        : null;
-    }
-  );
+  createSelector(getOrgUnits, (orgUnits: OrgUnit[]) => {
+    const orgUnit = _.find(orgUnits, ['id', orgUnitId]);
+    return orgUnit
+      ? { ...orgUnit, children: getOrgUnitChildrenIds(orgUnits, orgUnit) }
+      : null;
+  });
 
 export const getTopOrgUnitLevel = selectedOrgUnits =>
-  createSelector(
-    getOrgUnits,
-    (orgUnits: OrgUnit[]) => {
-      const selectedOrgUnitsWithLevels: OrgUnit[] = _.sortBy(
-        _.map(selectedOrgUnits || [], orgUnit =>
-          _.find(orgUnits, ['id', orgUnit.id])
-        ),
-        'level'
-      );
+  createSelector(getOrgUnits, (orgUnits: OrgUnit[]) => {
+    const selectedOrgUnitsWithLevels: OrgUnit[] = _.sortBy(
+      _.map(selectedOrgUnits || [], orgUnit =>
+        _.find(orgUnits, ['id', orgUnit.id])
+      ),
+      'level'
+    );
 
-      return selectedOrgUnitsWithLevels[0]
-        ? selectedOrgUnitsWithLevels[0].level
-        : 0;
-    }
-  );
+    return selectedOrgUnitsWithLevels[0]
+      ? selectedOrgUnitsWithLevels[0].level
+      : 0;
+  });

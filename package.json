@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build-lib": "ng build ngx-dhis2-org-unit-filter",
-    "publish": "npm run build-lib && cd dist/ngx-dhis2-org-unit-filter && npm publish --access public --tag beta && cd ../../",
+    "publish": "npm run build-lib && cd dist/ngx-dhis2-org-unit-filter && npm publish --access public && cd ../../",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

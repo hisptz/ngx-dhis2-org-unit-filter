@@ -56,3 +56,15 @@ export function orgUnitReducer(
   }
   return state;
 }
+
+export const getOrgUnitLoadingState = (state: OrgUnitState) => state.loading;
+export const getOrgUnitLoadingInitiatedState = (state: OrgUnitState) =>
+  state.loadInitiated;
+export const getOrgUnitLoadedState = (state: OrgUnitState) => state.loaded;
+export const getOrgUnitHasErrorState = (state: OrgUnitState) => state.hasError;
+export const getOrgUnitErrorState = (state: OrgUnitState) => state.error;
+
+export const {
+  selectAll: selectAllOrgUnits,
+  selectEntities: selectOrgUnitEntities
+} = OrgUnitAdapter.getSelectors();
