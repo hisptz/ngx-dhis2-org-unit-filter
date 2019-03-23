@@ -20,7 +20,7 @@
       <div>{{ (orgUnit$ | async)?.name }}</div>
       <div
         class="ngx-dhis2-org-unit-tree-item-count"
-        *ngIf="selectedChildrenCount !== 0"
+        *ngIf="selectedChildrenCount > 0"
       >
         &nbsp;({{ selectedChildrenCount }})
       </div>
@@ -36,7 +36,10 @@
   >
     <div
       class="ngx-dhis2-org-unit-tree-item-child-item"
-      *ngFor="let orgUnitChildId of (orgUnit$ | async).children"
+      *ngFor="
+        let orgUnitChildId of (orgUnit$ | async).children;
+        trackBy: trackByFn
+      "
     >
       <ngx-dhis2-org-unit-tree-item
         [orgUnitId]="orgUnitChildId"
