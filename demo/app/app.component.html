@@ -11,6 +11,7 @@
       <code class="card" style="height: 390px">
         <div class="card-body">
           <div>CONFIG: {{ orgUnitFilterConfig | json }}</div>
+          <div>SELECTED ITEMS: {{ selectedOrgUnitItems | json }}</div>
         </div>
       </code>
     </div>
@@ -20,6 +21,7 @@
         <div class="card-body" style="padding: 5px;">
           <ngx-dhis2-org-unit-filter
             [orgUnitFilterConfig]="orgUnitFilterConfig"
+            [selectedOrgUnitItems]="selectedOrgUnitItems"
             (orgUnitUpdate)="onOrgUnitUpdate($event, 'UPDATE')"
             (orgUnitClose)="onOrgUnitUpdate($event, 'CLOSE')"
           ></ngx-dhis2-org-unit-filter>

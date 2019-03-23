@@ -1,20 +1,23 @@
 import {
   Component,
-  OnInit,
-  Input,
-  Output,
   EventEmitter,
+  Input,
   OnChanges,
+  OnInit,
+  Output,
   SimpleChanges
 } from '@angular/core';
-import * as _ from 'lodash';
-import { OrgUnit } from '../../models';
-import { PLUS_CIRCLE_ICON, MINUS_CIRCLE_ICON } from '../../icons';
 import { Store } from '@ngrx/store';
+import * as _ from 'lodash';
+import { Observable } from 'rxjs';
+import { first, take } from 'rxjs/operators';
+
+import { MINUS_CIRCLE_ICON, PLUS_CIRCLE_ICON } from '../../icons';
+import { OrgUnit } from '../../models';
 import { OrgUnitFilterState } from '../../store';
-import { Observable, Subject } from 'rxjs';
 import { getOrgUnitById } from '../../store/selectors/org-unit.selectors';
-import { first, take, filter } from 'rxjs/operators';
+import { isOrgUnitSelected } from '../../helpers/is-org-unit-selected.helper';
+import { getSelectedOrgUnitChildrenCount } from '../../helpers/get-selected-org-unit-children-count.helper';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -22,7 +25,7 @@ import { first, take, filter } from 'rxjs/operators';
   templateUrl: './ngx-dhis2-org-unit-tree-item.component.html',
   styleUrls: ['./ngx-dhis2-org-unit-tree-item.component.css']
 })
-export class NgxDhis2OrgUnitTreeItemComponent implements OnInit, OnChanges {
+export class NgxDhis2OrgUnitTreeItemComponent implements OnInit {
   @Input() orgUnitId: string;
   @Input() expanded: boolean;
   @Input() selectedOrgUnits: any[];
@@ -34,7 +37,7 @@ export class NgxDhis2OrgUnitTreeItemComponent implements OnInit, OnChanges {
 
   orgUnit$: Observable<OrgUnit>;
   selected: boolean;
-  selectedChildren: number;
+  selectedChildrenCount: number;
 
   // icons
   plusCircleIcon: string;
@@ -43,12 +46,7 @@ export class NgxDhis2OrgUnitTreeItemComponent implements OnInit, OnChanges {
     // icons initialization
     this.plusCircleIcon = PLUS_CIRCLE_ICON;
     this.minusCircleIcon = MINUS_CIRCLE_ICON;
-  }
-
-  ngOnChanges(simpleChanges: SimpleChanges) {
-    if (simpleChanges['selectedOrgUnits']) {
-      this.setOrgUnitProperties(simpleChanges['selectedOrgUnits'].firstChange);
-    }
+    this.selectedChildrenCount = 0;
   }
 
   ngOnInit() {
@@ -56,44 +54,21 @@ export class NgxDhis2OrgUnitTreeItemComponent implements OnInit, OnChanges {
       // fetch current org unit
       this.orgUnit$ = this.store.select(getOrgUnitById(this.orgUnitId));
 
-      this.setOrgUnitProperties(true);
-    }
-  }
+      // get org unit selection status
+      this.selected = isOrgUnitSelected(this.orgUnitId, this.selectedOrgUnits);
 
-  setOrgUnitProperties(firstChange?: boolean) {
-    // get org unit selection status
-    this.selected = _.some(
-      this.selectedOrgUnits || [],
-      orgUnit => orgUnit.id === this.orgUnitId
-    );
+      this.orgUnit$.pipe(take(1)).subscribe((orgUnit: OrgUnit) => {
+        if (orgUnit) {
+          // Get count of selected children for this organisation unit
+          this.selectedChildrenCount = getSelectedOrgUnitChildrenCount(
+            orgUnit.children,
+            this.selectedOrgUnits
+          );
 
-    // set expanded state considering has children selected
-
-    if (this.orgUnit$) {
-      this.orgUnit$
-        .pipe(first((orgUnit: any) => orgUnit))
-        .subscribe((orgUnit: OrgUnit) => {
-          if (orgUnit && orgUnit.children) {
-            const selectedOrgUnitIds = _.map(
-              this.selectedOrgUnits,
-              selectedOrgUnit => selectedOrgUnit.id
-            );
-
-            this.selectedChildren = _.filter(
-              orgUnit.children,
-              orgUnitChildId =>
-                selectedOrgUnitIds.indexOf(orgUnitChildId) !== -1
-            ).length;
-
-            if (!this.expanded && firstChange) {
-              this.expanded = _.some(
-                this.selectedOrgUnits || [],
-                selectedOrgUnit =>
-                  orgUnit.children.indexOf(selectedOrgUnit.id) !== -1
-              );
-            }
-          }
-        });
+          // Set expanded property for the current orgunits
+          this.expanded = !this.parentOrgUnit || this.selectedChildrenCount > 0;
+        }
+      });
     }
   }
 

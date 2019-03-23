@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  margin-top: 4px;
 }
 
 .ngx-dhis2-org-unit-level-group__inner-list {
@@ -26,12 +27,16 @@
 }
 
 .ngx-dhis2-org-unit-level-group__input {
-  margin: 3px;
   width: 100%;
-  border: solid thin #eeeeee;
-  padding: 3px 7px 3px 7px;
-  height: 30px;
-  font-size: 14px;
+  outline: none;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding-left: 12px;
+  padding-right: 12px;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  font-size: 12px;
 }
 
 .ngx-dhis2-org-unit-level-group__item-header {
