@@ -16,15 +16,12 @@
   position: relative;
 }
 
-.ngx-dhis2-org-unit-filter__org-unit-selection {
-  width: 220px;
-  position: relative;
-}
-
+.ngx-dhis2-org-unit-filter__org-unit-selection,
 .ngx-dhis2-org-unit-filter__org-unit-options {
-  width: 220px;
+  flex: 1;
 }
 
+.ngx-dhis2-org-unit-filter__org-unit-selection,
 .ngx-dhis2-org-unit-filter__org-unit-level-group {
   position: relative;
 }

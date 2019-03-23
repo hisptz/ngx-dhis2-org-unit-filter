@@ -77,18 +77,6 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
     };
 
     this.selectedOrgUnitItems = [];
-
-    // Dispatching actions to load organisation unit information
-    store.dispatch(new LoadOrgUnitLevelsAction());
-    store.dispatch(new LoadOrgUnitGroupsAction());
-    store.dispatch(new LoadOrgUnitsAction(this.orgUnitFilterConfig));
-
-    // Selecting organisation unit information
-    this.orgUnitLevels$ = store.select(getOrgUnitLevels);
-    this.orgUnitGroups$ = store.select(getOrgUnitGroups);
-    this.loadingOrgUnitGroups$ = store.select(getOrgUnitGroupLoading);
-    this.loadingOrgUnitLevels$ = store.select(getOrgUnitLevelLoading);
-    this.loadingOrgUnits$ = store.select(getOrgUnitLoading);
   }
 
   get selectedLevelsOrOrgUnits(): string[] {
@@ -122,7 +110,19 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
     return this.store.select(getTopOrgUnitLevel(this.selectedOrgUnits));
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // Dispatching actions to load organisation unit information
+    this.store.dispatch(new LoadOrgUnitLevelsAction());
+    this.store.dispatch(new LoadOrgUnitGroupsAction());
+    this.store.dispatch(new LoadOrgUnitsAction(this.orgUnitFilterConfig));
+
+    // Selecting organisation unit information
+    this.orgUnitLevels$ = this.store.select(getOrgUnitLevels);
+    this.orgUnitGroups$ = this.store.select(getOrgUnitGroups);
+    this.loadingOrgUnitGroups$ = this.store.select(getOrgUnitGroupLoading);
+    this.loadingOrgUnitLevels$ = this.store.select(getOrgUnitLevelLoading);
+    this.loadingOrgUnits$ = this.store.select(getOrgUnitLoading);
+  }
 
   ngOnDestroy() {
     if (this.orgUnitFilterConfig.closeOnDestroy) {
@@ -138,7 +138,7 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
       if (orgUnit.type === 'ORGANISATION_UNIT_LEVEL') {
         this.selectedOrgUnitItems = [
           ..._.filter(
-            this.selectedOrgUnitItems,
+            this.selectedOrgUnitItems || [],
             selectedOrgUnitItem =>
               selectedOrgUnitItem.type !== 'ORGANISATION_UNIT_GROUP'
           ),
@@ -147,7 +147,7 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
       } else {
         this.selectedOrgUnitItems = [
           ..._.filter(
-            this.selectedOrgUnitItems,
+            this.selectedOrgUnitItems || [],
             selectedOrgUnitItem =>
               selectedOrgUnitItem.type !== 'ORGANISATION_UNIT_LEVEL'
           ),
@@ -159,7 +159,7 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
         ? [
             ...(orgUnit.type === 'USER_ORGANISATION_UNIT'
               ? _.filter(
-                  this.selectedOrgUnitItems,
+                  this.selectedOrgUnitItems || [],
                   selectedOrgUnitItem =>
                     selectedOrgUnitItem.type === 'USER_ORGANISATION_UNIT'
                 )
@@ -170,7 +170,7 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
             ...(orgUnit.type === 'USER_ORGANISATION_UNIT'
               ? []
               : _.filter(
-                  this.selectedOrgUnitItems,
+                  this.selectedOrgUnitItems || [],
                   selectedOrgUnit => selectedOrgUnit.type !== orgUnit.type
                 )),
             orgUnit
@@ -191,14 +191,14 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
       orgUnitIndex !== -1
         ? !this.orgUnitFilterConfig.singleSelection
           ? [
-              ..._.slice(this.selectedOrgUnitItems, 0, orgUnitIndex),
-              ..._.slice(this.selectedOrgUnitItems, orgUnitIndex + 1)
+              ..._.slice(this.selectedOrgUnitItems || [], 0, orgUnitIndex),
+              ..._.slice(this.selectedOrgUnitItems || [], orgUnitIndex + 1)
             ]
           : orgUnit.type === 'ORGANISATION_UNIT_LEVEL' ||
             orgUnit.type === 'ORGANISATION_UNIT_GROUP'
           ? [
-              ..._.slice(this.selectedOrgUnitItems, 0, orgUnitIndex),
-              ..._.slice(this.selectedOrgUnitItems, orgUnitIndex + 1)
+              ..._.slice(this.selectedOrgUnitItems || [], 0, orgUnitIndex),
+              ..._.slice(this.selectedOrgUnitItems || [], orgUnitIndex + 1)
             ]
           : []
         : this.selectedOrgUnitItems;
