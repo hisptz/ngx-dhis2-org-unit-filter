@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/hisptz/ngx-dhis2-org-unit-filter.svg?branch=develop)](https://travis-ci.org/hisptz/ngx-dhis2-org-unit-filter)
+
 # DHIS2 Organisation unit selection filter
 
 Organisation unit selection filter module for DHIS2 applications based on angular 6+
