@@ -55,7 +55,7 @@ export class NgxDhis2OrgUnitTreeItemComponent implements OnInit, OnChanges {
       simpleChanges.selectedOrgUnits &&
       !simpleChanges.selectedOrgUnits.firstChange
     ) {
-      console.log(simpleChanges, this.orgUnitId);
+      // console.log(simpleChanges, this.orgUnitId);
     }
   }
 
@@ -104,12 +104,10 @@ export class NgxDhis2OrgUnitTreeItemComponent implements OnInit, OnChanges {
   }
 
   onDeactivateOu(organisationUnit) {
-    console.log('here');
     this.deactivate.emit(organisationUnit);
   }
 
   onActivateOu(organisationUnit) {
-    console.log('activate');
     this.activate.emit(organisationUnit);
   }
 
