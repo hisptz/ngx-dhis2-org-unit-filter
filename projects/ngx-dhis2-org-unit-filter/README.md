@@ -1,6 +1,6 @@
-# DHIS2 Organisation unit filter
+# DHIS2 Organisation unit selection filter
 
-Orgasisation unit filter module for dhis2 applications based on angular 6+
+Organisation unit selection filter module for DHIS2 applications based on angular 6+
 
 ## installation
 
@@ -25,7 +25,12 @@ imports: [
 Once imported, orgunitfilter can be called in as
 
 ```
-<ngx-dhis2-org-unit-filter></ngx-dhis2-org-unit-filter>
+<ngx-dhis2-org-unit-filter
+    [orgUnitFilterConfig]="orgUnitFilterConfig"
+    [selectedOrgUnitItems]="selectedOrgUnitItems"
+    (orgUnitUpdate)="onOrgUnitUpdate($event, 'UPDATE')"
+    (orgUnitClose)="onOrgUnitUpdate($event, 'CLOSE')">
+</ngx-dhis2-org-unit-filter>
 ```
 
 Inputs
@@ -34,6 +39,13 @@ Inputs
 | -------------------- | --------------------------------------------------------------------------------- |
 | selectedOrgUnitItems | This is a list of selected organisation units, groups, or levels                  |
 | orgUnitFilterConfig  | This when passed overrides default configuration for the organisation unit filter |
+
+Outputs
+
+| Output        | Description                                   |
+| ------------- | --------------------------------------------- |
+| orgUnitUpdate | This is emitted when UPDATE button is clicked |
+| orgUnitClose  | This is emitted when CLOSE button is clicked  |
 
 Sample output
 
