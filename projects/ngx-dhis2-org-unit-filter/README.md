@@ -8,21 +8,11 @@ Orgasisation unit filter module for dhis2 applications based on angular 6+
 
 ## Usage
 
-If the module is to be imported in the app.module, then import as
+If the module is to be imported in the app.module or any other feature module, then import as
 
 `import { NgxDhis2OrgUnitFilterModule } from '@hisptz/ngx-dhis2-org-unit-filter';`
 
 then add this in the imports
-
-```
-imports: [
-    ...
-    NgxDhis2OrgUnitFilterModule.forRoot(),
-    ...
-    ]
-```
-
-Note: If this is already imported in the root module, then if you need to import it again in any other module then you can simply do this;
 
 ```
 imports: [
