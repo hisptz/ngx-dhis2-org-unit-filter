@@ -6,7 +6,8 @@ export function getOrgUnitChildrenIds(
 ): string[] {
   return _.map(
     _.filter(orgUnits, (orgUnit: OrgUnit) => {
-      const splitedPath = orgUnit.path.split('/');
+      const splitedPath =
+        orgUnit && orgUnit.path ? orgUnit.path.split('/') : [];
       return splitedPath[splitedPath.length - 2] === currentOrgUnit.id;
     }),
     orgUnitChild => orgUnitChild.id

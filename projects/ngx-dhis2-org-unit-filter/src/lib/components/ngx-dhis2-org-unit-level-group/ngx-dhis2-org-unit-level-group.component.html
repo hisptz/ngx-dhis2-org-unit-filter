@@ -43,7 +43,7 @@
         <!-- level list -->
         <li
           *ngFor="
-            let orgUnitLevel of (filteredOrgUnitLevels
+            let orgUnitLevel of (orgUnitLevels
               | orgUnitGroupLevelFilter: orgUnitGroupLevelSearchQuery:'level')
           "
         >
@@ -96,7 +96,7 @@
         <!-- group list -->
         <li
           *ngFor="
-            let orgUnitGroup of (filteredOrgUnitGroups
+            let orgUnitGroup of (orgUnitGroups
               | orgUnitGroupLevelFilter: orgUnitGroupLevelSearchQuery:'group')
           "
         >

@@ -5,6 +5,7 @@ import {
   OrgUnitActions,
   OrgUnitActionsTypes
 } from '../actions/org-unit.actions';
+import { USER_ORG_UNITS } from '../../constants/user-org-units.constants';
 
 /**
  * Org unit level state model
@@ -22,13 +23,16 @@ export const OrgUnitAdapter: EntityAdapter<OrgUnit> = createEntityAdapter<
   OrgUnit
 >();
 
-export const initialState: OrgUnitState = OrgUnitAdapter.getInitialState({
-  loading: false,
-  loadInitiated: false,
-  loaded: false,
-  hasError: false,
-  error: null
-});
+const initialState = OrgUnitAdapter.addMany(
+  USER_ORG_UNITS,
+  OrgUnitAdapter.getInitialState({
+    loading: false,
+    loadInitiated: false,
+    loaded: false,
+    hasError: false,
+    error: null
+  })
+);
 
 export function orgUnitReducer(
   state: OrgUnitState = initialState,

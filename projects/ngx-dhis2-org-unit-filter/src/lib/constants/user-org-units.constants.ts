@@ -1,4 +1,6 @@
-export const USER_ORG_UNITS = [
+import { OrgUnit } from '../models';
+
+export const USER_ORG_UNITS: OrgUnit[] = [
   {
     id: 'USER_ORGUNIT',
     name: 'User Org-unit',

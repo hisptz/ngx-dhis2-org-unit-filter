@@ -1,11 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { USER_ORG_UNITS } from '../../constants/user-org-units.constants';
-import {
-  updateOrgUnitListWithSelectionStatus,
-  updateOrgUnitListWithTouchedOrgUnit
-} from '../../helpers';
-import { OrgUnit, OrgUnitFilterConfig } from '../../models';
+import { OrgUnit } from '../../models';
 
 @Component({
   selector: 'ngx-dhis2-user-org-unit-selection',
@@ -13,22 +8,15 @@ import { OrgUnit, OrgUnitFilterConfig } from '../../models';
   styleUrls: ['./ngx-dhis2-user-org-unit-selection.component.css']
 })
 export class NgxDhis2UserOrgUnitSelectionComponent implements OnInit {
-  @Input() selectedUserOrgUnits: any[];
+  @Input()
+  userOrgUnits: OrgUnit[];
 
-  @Input() orgUnitFilterConfig: OrgUnitFilterConfig;
   @Output() activateUserOrgUnit: EventEmitter<any> = new EventEmitter<any>();
   @Output() deactivateUserOrgUnit: EventEmitter<any> = new EventEmitter<any>();
 
-  userOrgUnits: OrgUnit[];
-
   constructor() {}
 
-  ngOnInit() {
-    this.userOrgUnits = updateOrgUnitListWithSelectionStatus(
-      USER_ORG_UNITS,
-      this.selectedUserOrgUnits
-    );
-  }
+  ngOnInit() {}
 
   onUpdate(e, selectedUserOrgUnit: any) {
     e.stopPropagation();
@@ -46,12 +34,5 @@ export class NgxDhis2UserOrgUnitSelectionComponent implements OnInit {
         type: selectedUserOrgUnit.type
       });
     }
-
-    // Also update selected status in the list
-    this.userOrgUnits = updateOrgUnitListWithTouchedOrgUnit(
-      this.userOrgUnits,
-      selectedUserOrgUnit,
-      this.orgUnitFilterConfig
-    );
   }
 }

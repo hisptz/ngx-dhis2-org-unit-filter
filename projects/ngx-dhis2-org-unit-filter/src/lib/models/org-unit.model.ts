@@ -5,4 +5,5 @@ export interface OrgUnit {
   path?: string;
   selected?: boolean;
   children?: string[];
+  type?: string;
 }

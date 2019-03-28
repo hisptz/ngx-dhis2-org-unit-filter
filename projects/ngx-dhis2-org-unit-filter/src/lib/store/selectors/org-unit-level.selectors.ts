@@ -5,6 +5,8 @@ import {
   getOrgUnitLevelLoadingState,
   getOrgUnitLevelLoadInitiatedState
 } from '../reducers/org-unit-level.reducer';
+import { getTopSelectedOrgUnitLevel } from './org-unit.selectors';
+import { OrgUnitLevel } from '../../models';
 
 export const getOrgUnitLevelState = createSelector(
   getOrgUnitFilterState,
@@ -25,3 +27,26 @@ export const getOrgUnitLevels = createSelector(
   getOrgUnitLevelState,
   selectAllOrgUnitLevels
 );
+
+export const getOrgUnitLevelBasedOnOrgUnitsSelected = (
+  selectedOrgUnits: any[]
+) =>
+  createSelector(
+    getOrgUnitLevels,
+    getTopSelectedOrgUnitLevel(selectedOrgUnits),
+    (orgUnitLevels: OrgUnitLevel[], topOrgUnitLevel: any) => {
+      return (orgUnitLevels || [])
+        .filter(
+          (orgUnitLevel: OrgUnitLevel) => orgUnitLevel.level >= topOrgUnitLevel
+        )
+        .map((orgUnitLevel: OrgUnitLevel) => {
+          return {
+            ...orgUnitLevel,
+            selected: (selectedOrgUnits || []).some(
+              (selectedOrgUnit: any) =>
+                selectedOrgUnit.id === 'LEVEL-' + orgUnitLevel.level
+            )
+          };
+        });
+    }
+  );

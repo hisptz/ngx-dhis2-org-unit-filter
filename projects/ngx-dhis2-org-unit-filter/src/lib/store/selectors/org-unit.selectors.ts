@@ -1,14 +1,18 @@
-import { createSelector, MemoizedSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
 import * as _ from 'lodash';
-import { OrgUnitFilterState, getOrgUnitFilterState } from '../reducers';
+
 import {
-  selectAllOrgUnits,
-  getOrgUnitLoadingState,
-  getOrgUnitLoadedState,
-  getOrgUnitLoadingInitiatedState
-} from '../reducers/org-unit.reducer';
+  getOrgUnitChildrenIds,
+  updateOrgUnitListWithSelectionStatus
+} from '../../helpers';
 import { OrgUnit } from '../../models';
-import { getOrgUnitChildrenIds } from '../../helpers';
+import { getOrgUnitFilterState, OrgUnitFilterState } from '../reducers';
+import {
+  getOrgUnitLoadedState,
+  getOrgUnitLoadingInitiatedState,
+  getOrgUnitLoadingState,
+  selectAllOrgUnits
+} from '../reducers/org-unit.reducer';
 
 export const getOrgUnitState = createSelector(
   getOrgUnitFilterState,
@@ -58,7 +62,7 @@ export const getOrgUnitById = orgUnitId =>
     }
   );
 
-export const getTopOrgUnitLevel = selectedOrgUnits =>
+export const getTopSelectedOrgUnitLevel = selectedOrgUnits =>
   createSelector(
     getOrgUnits,
     (orgUnits: OrgUnit[]) => {
@@ -73,4 +77,19 @@ export const getTopOrgUnitLevel = selectedOrgUnits =>
         ? selectedOrgUnitsWithLevels[0].level
         : 0;
     }
+  );
+
+export const getUserOrgUnits = createSelector(
+  getOrgUnits,
+  (orgUnits: OrgUnit[]) =>
+    (orgUnits || []).filter(
+      (orgUnit: OrgUnit) => orgUnit && orgUnit.id.indexOf('USER_ORGUNIT') !== -1
+    )
+);
+
+export const getUserOrgUnitsBasedOnOrgUnitsSelected = selectedOrgUnits =>
+  createSelector(
+    getUserOrgUnits,
+    userOrgUnits =>
+      updateOrgUnitListWithSelectionStatus(userOrgUnits, selectedOrgUnits)
   );

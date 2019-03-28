@@ -11,13 +11,6 @@ import { OrgUnitLevel, OrgUnitGroup } from '../../models';
 })
 export class NgxDhis2OrgUnitLevelGroupComponent implements OnInit {
   /**
-   * Input for selected levels or groups
-   */
-  @Input() selectedLevelsOrGroups: string[];
-
-  @Input() topOrgUnitLevel: number;
-
-  /**
    * Input for organisation unit levels
    */
   @Input() orgUnitLevels: OrgUnitLevel[];
@@ -45,35 +38,6 @@ export class NgxDhis2OrgUnitLevelGroupComponent implements OnInit {
 
   constructor() {
     this.tickIcon = TICK;
-  }
-
-  get filteredOrgUnitLevels(): any[] {
-    return _.map(
-      _.filter(
-        this.orgUnitLevels,
-        orgUnitLevel => orgUnitLevel.level >= this.topOrgUnitLevel
-      ),
-      orgUnitLevel => {
-        return {
-          ...orgUnitLevel,
-          selected:
-            this.selectedLevelsOrGroups.indexOf(
-              'LEVEL-' + orgUnitLevel.level
-            ) !== -1
-        };
-      }
-    );
-  }
-
-  get filteredOrgUnitGroups(): any[] {
-    return _.map(this.orgUnitGroups, orgUnitGroup => {
-      return {
-        ...orgUnitGroup,
-        selected:
-          this.selectedLevelsOrGroups.indexOf('OU_GROUP-' + orgUnitGroup.id) !==
-          -1
-      };
-    });
   }
 
   ngOnInit() {}
