@@ -12,12 +12,14 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { getSelectedOrgUnitChildrenCount } from '../../helpers/get-selected-org-unit-children-count.helper';
 import { isOrgUnitSelected } from '../../helpers/is-org-unit-selected.helper';
 import { MINUS_CIRCLE_ICON, PLUS_CIRCLE_ICON } from '../../icons';
 import { OrgUnit } from '../../models';
 import { OrgUnitFilterState } from '../../store';
-import { getOrgUnitById } from '../../store/selectors/org-unit.selectors';
+import {
+  getOrgUnitById,
+  getSelectedOrgUnitChildrenCount
+} from '../../store/selectors/org-unit.selectors';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -38,7 +40,7 @@ export class NgxDhis2OrgUnitTreeItemComponent implements OnInit, OnChanges {
 
   orgUnit$: Observable<OrgUnit>;
   selected: boolean;
-  selectedChildrenCount: number;
+  selectedChildrenCount$: Observable<number>;
 
   // icons
   plusCircleIcon: string;
@@ -47,7 +49,6 @@ export class NgxDhis2OrgUnitTreeItemComponent implements OnInit, OnChanges {
     // icons initialization
     this.plusCircleIcon = PLUS_CIRCLE_ICON;
     this.minusCircleIcon = MINUS_CIRCLE_ICON;
-    this.selectedChildrenCount = 0;
   }
 
   ngOnChanges(simpleChanges: SimpleChanges) {
@@ -55,7 +56,7 @@ export class NgxDhis2OrgUnitTreeItemComponent implements OnInit, OnChanges {
       simpleChanges.selectedOrgUnits &&
       !simpleChanges.selectedOrgUnits.firstChange
     ) {
-      // console.log(simpleChanges, this.orgUnitId);
+      this.setOrgUnitProperties();
     }
   }
 
@@ -63,24 +64,29 @@ export class NgxDhis2OrgUnitTreeItemComponent implements OnInit, OnChanges {
     if (this.orgUnitId) {
       // fetch current org unit
       this.orgUnit$ = this.store.select(getOrgUnitById(this.orgUnitId));
-      this.setOrgUnitProperties();
+      this.setOrgUnitProperties(true);
     }
   }
 
-  setOrgUnitProperties() {
+  setOrgUnitProperties(firstChange?: boolean) {
     // get org unit selection status
     this.selected = isOrgUnitSelected(this.orgUnitId, this.selectedOrgUnits);
 
     this.orgUnit$.pipe(take(1)).subscribe((orgUnit: OrgUnit) => {
       if (orgUnit) {
         // Get count of selected children for this organisation unit
-        this.selectedChildrenCount = getSelectedOrgUnitChildrenCount(
-          orgUnit.children,
-          this.selectedOrgUnits
+        this.selectedChildrenCount$ = this.store.select(
+          getSelectedOrgUnitChildrenCount(this.orgUnitId, this.selectedOrgUnits)
         );
 
-        // Set expanded property for the current orgunits
-        this.expanded = !this.parentOrgUnit || this.selectedChildrenCount > 0;
+        this.selectedChildrenCount$
+          .pipe(take(1))
+          .subscribe((selectedChildrenCount: number) => {
+            // Set expanded property for the current orgunits
+            if (!this.expanded && firstChange) {
+              this.expanded = !this.parentOrgUnit || selectedChildrenCount > 0;
+            }
+          });
       }
     });
   }

@@ -45,7 +45,13 @@ export const getHighestLevelOrgUnitIds = createSelector(
     const sortedOrgUnits = _.sortBy(orgUnits, 'level');
     const highestLevel = sortedOrgUnits[0] ? sortedOrgUnits[0].level : 0;
     return _.map(
-      _.filter(sortedOrgUnits, orgUnit => orgUnit.level === highestLevel),
+      _.filter(
+        sortedOrgUnits,
+        orgUnit =>
+          orgUnit &&
+          orgUnit.level === highestLevel &&
+          orgUnit.id.indexOf('USER_ORGUNIT') === -1
+      ),
       (orgUnit: OrgUnit) => orgUnit.id
     );
   }
@@ -92,4 +98,21 @@ export const getUserOrgUnitsBasedOnOrgUnitsSelected = selectedOrgUnits =>
     getUserOrgUnits,
     userOrgUnits =>
       updateOrgUnitListWithSelectionStatus(userOrgUnits, selectedOrgUnits)
+  );
+
+export const getSelectedOrgUnitChildrenCount = (orgUnitId, selectedOrgUnits) =>
+  createSelector(
+    getOrgUnits,
+    (orgUnits: OrgUnit[]) =>
+      (orgUnits || []).filter((orgUnitChild: OrgUnit) => {
+        return (
+          orgUnitChild &&
+          orgUnitChild.id !== orgUnitId &&
+          orgUnitChild.path &&
+          orgUnitChild.path.indexOf(orgUnitId) !== -1 &&
+          selectedOrgUnits.find(
+            (selectedOrgUnit: any) => selectedOrgUnit.id === orgUnitChild.id
+          )
+        );
+      }).length
   );

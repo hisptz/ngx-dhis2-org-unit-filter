@@ -20,9 +20,9 @@
       <div>{{ (orgUnit$ | async)?.name }}</div>
       <div
         class="ngx-dhis2-org-unit-tree-item-count"
-        *ngIf="selectedChildrenCount > 0"
+        *ngIf="(selectedChildrenCount$ | async) > 0"
       >
-        &nbsp;({{ selectedChildrenCount }})
+        &nbsp;({{ selectedChildrenCount$ | async }})
       </div>
     </div>
   </div>
