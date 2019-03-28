@@ -55,7 +55,7 @@
   bottom: 2px;
   right: 2px;
   left: 2px;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.1);
   z-index: 400;
 }
 

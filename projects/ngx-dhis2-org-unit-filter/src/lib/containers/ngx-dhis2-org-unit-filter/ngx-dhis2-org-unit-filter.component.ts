@@ -9,27 +9,24 @@ import {
 import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { DEFAULT_ORG_UNIT_FILTER_CONFIG } from '../../constants';
 import { getSanitizedSelectedOrgUnits } from '../../helpers/get-sanitized-selected-org-units.helper';
-import { OrgUnitGroup, OrgUnitLevel, OrgUnit } from '../../models';
+import { OrgUnit, OrgUnitGroup, OrgUnitLevel } from '../../models';
 import { OrgUnitFilterConfig } from '../../models/org-unit-filter-config.model';
 import {
+  getOrgUnitGroupBasedOnOrgUnitsSelected,
   getOrgUnitGroupLoading,
-  getOrgUnitGroups,
+  getOrgUnitLevelBasedOnOrgUnitsSelected,
   getOrgUnitLevelLoading,
-  getOrgUnitLevels,
   LoadOrgUnitGroupsAction,
   LoadOrgUnitLevelsAction,
   LoadOrgUnitsAction,
-  OrgUnitFilterState,
-  getOrgUnitLevelBasedOnOrgUnitsSelected,
-  getOrgUnitGroupBasedOnOrgUnitsSelected
+  OrgUnitFilterState
 } from '../../store';
 import {
   getOrgUnitLoading,
-  getTopSelectedOrgUnitLevel,
-  getUserOrgUnits,
   getUserOrgUnitsBasedOnOrgUnitsSelected
 } from '../../store/selectors/org-unit.selectors';
 
@@ -66,6 +63,11 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
    * User organisation unit observable
    */
   userOrgUnits$: Observable<OrgUnit[]>;
+
+  /**
+   * User org unit selection  status
+   */
+  isAnyUserOrgUnitSelected$: Observable<boolean>;
 
   loadingOrgUnitLevels$: Observable<boolean>;
   loadingOrgUnitGroups$: Observable<boolean>;
@@ -128,6 +130,15 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
     // set or update user org units
     this.userOrgUnits$ = this.store.select(
       getUserOrgUnitsBasedOnOrgUnitsSelected(this.selectedOrgUnitItems)
+    );
+
+    // set or update user org unit selection status
+    this.isAnyUserOrgUnitSelected$ = this.userOrgUnits$.pipe(
+      map((userOrgUnits: OrgUnit[]) =>
+        (userOrgUnits || []).some(
+          (userOrgUnit: OrgUnit) => userOrgUnit.selected
+        )
+      )
     );
   }
 

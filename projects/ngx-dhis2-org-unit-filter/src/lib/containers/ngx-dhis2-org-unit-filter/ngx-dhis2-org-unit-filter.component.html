@@ -13,7 +13,7 @@
     <div class="ngx-dhis2-org-unit-filter__org-unit-selection">
       <div
         class="ngx-dhis2-org-unit-filter__disabled-selection-overlay"
-        *ngIf="selectedUserOrgUnits.length > 0"
+        *ngIf="(isAnyUserOrgUnitSelected$ | async)"
       ></div>
       <ngx-dhis2-org-unit-selection
         [selectedOrgUnits]="selectedOrgUnits"
