@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, from } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
-import * as _ from 'lodash';
 import { NgxDhis2HttpClientService } from '@hisptz/ngx-dhis2-http-client';
+import * as _ from 'lodash';
+import { from, Observable } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
+
 import { OrgUnit } from '../models';
 import { OrgUnitFilterConfig } from '../models/org-unit-filter-config.model';
 
@@ -27,8 +28,7 @@ export class OrgUnitService {
           return this.httpClient
             .get(
               'organisationUnits.json?fields=!:all&paging=false&filter=path:ilike:' +
-                userOrgUnits.join('&filter=path:ilike:') +
-                '&rootJunction=OR' +
+                userOrgUnits.join(';') +
                 (orgUnitFilterConfig.minLevel
                   ? '&filter=level:le:' + orgUnitFilterConfig.minLevel
                   : '')
@@ -47,9 +47,8 @@ export class OrgUnitService {
                       pageNumber +
                       '&pageSize=' +
                       pageSize +
-                      '&order=level:asc&filter=path:ilike:' +
-                      userOrgUnits.join('&filter=path:ilike:') +
-                      '&rootJunction=OR'
+                      '&order=level:asc&order=name:asc&filter=path:ilike:' +
+                      userOrgUnits.join(';')
                   )
                 ).pipe(
                   mergeMap(
@@ -63,7 +62,7 @@ export class OrgUnitService {
                           )
                         ),
                     null,
-                    5
+                    1
                   )
                 );
               })

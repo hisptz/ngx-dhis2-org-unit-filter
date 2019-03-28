@@ -13,6 +13,21 @@ export class AppComponent {
   orgUnitFilterConfig: OrgUnitFilterConfig = {
     singleSelection: false
   };
+  selectedOrgUnitItems: any[] = [
+    { id: 'kbPmt60yi0L', name: 'Bramaia', level: 3, type: 'ORGANISATION_UNIT' },
+    {
+      id: 'AQQCxQqDxLe',
+      name: 'Konta CHP',
+      level: 4,
+      type: 'ORGANISATION_UNIT'
+    },
+    {
+      id: 'M9JyYBZTqR7',
+      name: 'Kukuna CHP',
+      level: 4,
+      type: 'ORGANISATION_UNIT'
+    }
+  ];
 
   onOrgUnitUpdate(orgUnitObject, action) {
     this.orgUnitObject = orgUnitObject;

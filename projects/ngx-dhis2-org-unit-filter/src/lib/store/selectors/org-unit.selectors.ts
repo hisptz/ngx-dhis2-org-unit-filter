@@ -1,13 +1,18 @@
-import { createSelector, MemoizedSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
 import * as _ from 'lodash';
-import { OrgUnitFilterState, getOrgUnitFilterState } from '../reducers';
-import * as fromOrgUnitReducer from '../reducers/org-unit.reducer';
-import { OrgUnit } from '../../models';
-import { getOrgUnitChildrenIds } from '../../helpers';
 
-const {
-  selectAll: selectAllOrgUnits
-} = fromOrgUnitReducer.OrgUnitAdapter.getSelectors();
+import {
+  getOrgUnitChildrenIds,
+  updateOrgUnitListWithSelectionStatus
+} from '../../helpers';
+import { OrgUnit } from '../../models';
+import { getOrgUnitFilterState, OrgUnitFilterState } from '../reducers';
+import {
+  getOrgUnitLoadedState,
+  getOrgUnitLoadingInitiatedState,
+  getOrgUnitLoadingState,
+  selectAllOrgUnits
+} from '../reducers/org-unit.reducer';
 
 export const getOrgUnitState = createSelector(
   getOrgUnitFilterState,
@@ -16,17 +21,17 @@ export const getOrgUnitState = createSelector(
 
 export const getOrgUnitLoading = createSelector(
   getOrgUnitState,
-  (orgUnitState: fromOrgUnitReducer.OrgUnitState) => orgUnitState.loading
+  getOrgUnitLoadingState
 );
 
 export const getOrgUnitLoadingInitiated = createSelector(
   getOrgUnitState,
-  (orgUnitState: fromOrgUnitReducer.OrgUnitState) => orgUnitState.loadInitiated
+  getOrgUnitLoadingInitiatedState
 );
 
 export const getOrgUnitLoaded = createSelector(
   getOrgUnitState,
-  (orgUnitState: fromOrgUnitReducer.OrgUnitState) => orgUnitState.loaded
+  getOrgUnitLoadedState
 );
 
 export const getOrgUnits = createSelector(
@@ -40,7 +45,13 @@ export const getHighestLevelOrgUnitIds = createSelector(
     const sortedOrgUnits = _.sortBy(orgUnits, 'level');
     const highestLevel = sortedOrgUnits[0] ? sortedOrgUnits[0].level : 0;
     return _.map(
-      _.filter(sortedOrgUnits, orgUnit => orgUnit.level === highestLevel),
+      _.filter(
+        sortedOrgUnits,
+        orgUnit =>
+          orgUnit &&
+          orgUnit.level === highestLevel &&
+          orgUnit.id.indexOf('USER_ORGUNIT') === -1
+      ),
       (orgUnit: OrgUnit) => orgUnit.id
     );
   }
@@ -57,7 +68,7 @@ export const getOrgUnitById = orgUnitId =>
     }
   );
 
-export const getTopOrgUnitLevel = selectedOrgUnits =>
+export const getTopSelectedOrgUnitLevel = selectedOrgUnits =>
   createSelector(
     getOrgUnits,
     (orgUnits: OrgUnit[]) => {
@@ -72,4 +83,36 @@ export const getTopOrgUnitLevel = selectedOrgUnits =>
         ? selectedOrgUnitsWithLevels[0].level
         : 0;
     }
+  );
+
+export const getUserOrgUnits = createSelector(
+  getOrgUnits,
+  (orgUnits: OrgUnit[]) =>
+    (orgUnits || []).filter(
+      (orgUnit: OrgUnit) => orgUnit && orgUnit.id.indexOf('USER_ORGUNIT') !== -1
+    )
+);
+
+export const getUserOrgUnitsBasedOnOrgUnitsSelected = selectedOrgUnits =>
+  createSelector(
+    getUserOrgUnits,
+    userOrgUnits =>
+      updateOrgUnitListWithSelectionStatus(userOrgUnits, selectedOrgUnits)
+  );
+
+export const getSelectedOrgUnitChildrenCount = (orgUnitId, selectedOrgUnits) =>
+  createSelector(
+    getOrgUnits,
+    (orgUnits: OrgUnit[]) =>
+      (orgUnits || []).filter((orgUnitChild: OrgUnit) => {
+        return (
+          orgUnitChild &&
+          orgUnitChild.id !== orgUnitId &&
+          orgUnitChild.path &&
+          orgUnitChild.path.indexOf(orgUnitId) !== -1 &&
+          selectedOrgUnits.find(
+            (selectedOrgUnit: any) => selectedOrgUnit.id === orgUnitChild.id
+          )
+        );
+      }).length
   );

@@ -13,7 +13,7 @@
 }
 
 .ngx-dhis2-org-unit-tree-item-toggle-btn img {
-  height: 15px;
+  height: 10px;
 }
 
 .ngx-dhis2-org-unit-tree-item-name {
@@ -24,13 +24,20 @@
 }
 
 .ngx-dhis2-org-unit-tree-item-children {
-  margin-left: 20px;
+  border-left: solid thin #eeeeee;
 }
 
 .ngx-dhis2-org-unit-tree-item-count {
+  color: #777777;
   font-size: 10px;
 }
 
 .ngx-dhis2-org-unit-tree-item-selected {
   color: #ffa500;
+}
+
+.ngx-dhis2-org-unit-line {
+  border-top: solid thin #dddddd;
+  width: 10px;
+  margin-right: 2px;
 }

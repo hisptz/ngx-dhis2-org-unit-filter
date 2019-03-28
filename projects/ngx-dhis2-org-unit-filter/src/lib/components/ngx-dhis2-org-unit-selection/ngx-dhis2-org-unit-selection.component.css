@@ -11,10 +11,15 @@
 
 .ngx-dhis2-org-unit-selection__search-input {
   width: 100%;
-  border: solid thin #eeeeee;
-  padding: 3px 7px 3px 7px;
-  height: 30px;
-  font-size: 15px;
+  outline: none;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding-left: 12px;
+  padding-right: 12px;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  font-size: 12px;
 }
 
 .ngx-dhis2-org-unit-selection__search-input:hover {
@@ -22,18 +27,34 @@
 }
 
 .ngx-dhis2-org-unit-selection__tree_list {
-  height: 250px;
-  overflow: auto;
+  height: 100%;
 }
 
 /*Org unit tree css*/
 .ngx-dhis2-org-unit-selection__tree {
-  border: solid thin #eeeeee;
   width: 100%;
-  height: 270px;
-  padding: 3px;
+  padding: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  height: 300px;
+  overflow: auto;
 }
 
-.ngx-dhis2-org-unit-selection__loading {
-  padding: 7px;
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
 }

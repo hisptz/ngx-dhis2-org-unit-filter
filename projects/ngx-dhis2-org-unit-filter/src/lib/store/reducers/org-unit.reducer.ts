@@ -5,6 +5,7 @@ import {
   OrgUnitActions,
   OrgUnitActionsTypes
 } from '../actions/org-unit.actions';
+import { USER_ORG_UNITS } from '../../constants/user-org-units.constants';
 
 /**
  * Org unit level state model
@@ -22,13 +23,16 @@ export const OrgUnitAdapter: EntityAdapter<OrgUnit> = createEntityAdapter<
   OrgUnit
 >();
 
-export const initialState: OrgUnitState = OrgUnitAdapter.getInitialState({
-  loading: false,
-  loadInitiated: false,
-  loaded: false,
-  hasError: false,
-  error: null
-});
+const initialState = OrgUnitAdapter.addMany(
+  USER_ORG_UNITS,
+  OrgUnitAdapter.getInitialState({
+    loading: false,
+    loadInitiated: false,
+    loaded: false,
+    hasError: false,
+    error: null
+  })
+);
 
 export function orgUnitReducer(
   state: OrgUnitState = initialState,
@@ -56,3 +60,15 @@ export function orgUnitReducer(
   }
   return state;
 }
+
+export const getOrgUnitLoadingState = (state: OrgUnitState) => state.loading;
+export const getOrgUnitLoadingInitiatedState = (state: OrgUnitState) =>
+  state.loadInitiated;
+export const getOrgUnitLoadedState = (state: OrgUnitState) => state.loaded;
+export const getOrgUnitHasErrorState = (state: OrgUnitState) => state.hasError;
+export const getOrgUnitErrorState = (state: OrgUnitState) => state.error;
+
+export const {
+  selectAll: selectAllOrgUnits,
+  selectEntities: selectOrgUnitEntities
+} = OrgUnitAdapter.getSelectors();

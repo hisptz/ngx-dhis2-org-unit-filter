@@ -16,7 +16,7 @@ import { NgxDhis2OrgUnitFilterModule } from 'ngx-dhis2-org-unit-filter';
   imports: [
     BrowserModule,
     HttpClientModule,
-    NgxDhis2OrgUnitFilterModule.forRoot(),
+    NgxDhis2OrgUnitFilterModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([AppEffects])

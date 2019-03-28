@@ -26,3 +26,21 @@ export const getOrgUnitGroups = createSelector(
   getOrgUnitGroupState,
   selectAllOrgUnitGroups
 );
+
+export const getOrgUnitGroupBasedOnOrgUnitsSelected = (
+  selectedOrgUnits: any[]
+) =>
+  createSelector(
+    getOrgUnitGroups,
+    (orgUnitGroups: OrgUnitGroup[]) => {
+      return (orgUnitGroups || []).map((orgUnitGroup: OrgUnitGroup) => {
+        return {
+          ...orgUnitGroup,
+          selected: (selectedOrgUnits || []).some(
+            (selectedOrgUnit: any) =>
+              selectedOrgUnit.id === 'OU_GROUP-' + orgUnitGroup.id
+          )
+        };
+      });
+    }
+  );

@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -18,11 +18,4 @@ import { pipes } from './pipes/index';
   declarations: [...containers, ...components, ...pipes],
   exports: [...containers]
 })
-export class NgxDhis2OrgUnitFilterModule {
-  public static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: NgxDhis2OrgUnitFilterModule,
-      providers: []
-    };
-  }
-}
+export class NgxDhis2OrgUnitFilterModule {}

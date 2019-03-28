@@ -20,11 +20,11 @@ export class NgxDhis2OrgUnitSelectionComponent implements OnInit {
   @Output() deactivateOrgUnit = new EventEmitter();
 
   highestLevelOrgUnitIds$: Observable<Array<string>>;
-  constructor(private store: Store<OrgUnitFilterState>) {
+  constructor(private store: Store<OrgUnitFilterState>) {}
+
+  ngOnInit() {
     this.highestLevelOrgUnitIds$ = this.store.select(getHighestLevelOrgUnitIds);
   }
-
-  ngOnInit() {}
 
   onActivateOrgUnit(orgUnit: OrgUnit) {
     this.activateOrgUnit.emit({
