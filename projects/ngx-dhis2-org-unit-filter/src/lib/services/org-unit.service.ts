@@ -47,7 +47,7 @@ export class OrgUnitService {
                       pageNumber +
                       '&pageSize=' +
                       pageSize +
-                      '&order=level:asc&filter=path:ilike:' +
+                      '&order=level:asc&order=name:asc&filter=path:ilike:' +
                       userOrgUnits.join(';')
                   )
                 ).pipe(

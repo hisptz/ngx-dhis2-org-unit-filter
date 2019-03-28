@@ -3,6 +3,7 @@
   <div class="ngx-dhis2-org-unit-filter__selected-org-units">
     <ngx-dhis2-org-unit-selected-org-unit
       [selectedOrgUnits]="selectedOrgUnits"
+      (deactivateOrgUnit)="onDeselectOrgUnit($event)"
     ></ngx-dhis2-org-unit-selected-org-unit>
   </div>
   <!--selected organisation unit summary section-->

@@ -1,8 +1,20 @@
-<ul class="ngx-dhis2-org-unit-selected-org-unit-list">
-  <li *ngFor="let orgUnitOnly of selectedOrgUnitsOnly">
-    <div class="selected-org-unit-name">{{orgUnitOnly.name}}</div>
-    <!-- <a>
-      <img [src]="closeIcon" alt="">
-    </a> -->
-  </li>
-</ul>
+<div class="ngx-dhis2-org-unit-selected-org-unit-container">
+  <ul class="ngx-dhis2-org-unit-selected-org-unit-list">
+    <li *ngFor="let orgUnit of selectedOrgUnitsOnly">
+      <div class="selected-org-unit-name">{{ orgUnit.name }}</div>
+      <button
+        class="selected-org-unit-close-btn"
+        [title]="'Remove from selected'"
+        (click)="onDeactivateOrgUnit(orgUnit, $event)"
+      >
+        <img [src]="closeIcon" alt="" />
+      </button>
+    </li>
+  </ul>
+  <button
+    class="selected-org-unit-close-btn clear-all-org-unit-btn"
+    [disabled]="selectedOrgUnitsOnly.length === 0"
+  >
+    <img [src]="closeIcon" alt="" /> Clear All
+  </button>
+</div>
