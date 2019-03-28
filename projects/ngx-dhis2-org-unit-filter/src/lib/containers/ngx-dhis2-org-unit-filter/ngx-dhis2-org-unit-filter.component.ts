@@ -227,6 +227,17 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
     }
   }
 
+  onDeselectAllOrgUnits() {
+    this.selectedOrgUnitItems = [];
+
+    // Also update organisation units
+    this._setOrUpdateOrgUnitProperties();
+
+    if (this.orgUnitFilterConfig.updateOnSelect) {
+      this.onOrgUnitUpdate();
+    }
+  }
+
   onOrgUnitClose() {
     this.orgUnitClose.emit({
       dimension: 'ou',

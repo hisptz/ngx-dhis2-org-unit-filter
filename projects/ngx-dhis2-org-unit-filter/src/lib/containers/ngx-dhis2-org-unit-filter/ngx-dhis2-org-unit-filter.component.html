@@ -21,6 +21,7 @@
         [loadingOrgUnits]="loadingOrgUnits$ | async"
         (activateOrgUnit)="onSelectOrgUnit($event)"
         (deactivateOrgUnit)="onDeselectOrgUnit($event)"
+        (deactivateAllOrgUnit)="onDeselectAllOrgUnits()"
       ></ngx-dhis2-org-unit-selection>
     </div>
     <!--end of organisation unit selection area-->
