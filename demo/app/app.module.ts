@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxDhis2OrgUnitFilterModule } from 'ngx-dhis2-org-unit-filter';
+import { NgxDhis2OrgUnitFilterModule } from '@hisptz/ngx-dhis2-org-unit-filter';
 
 @NgModule({
   declarations: [AppComponent],

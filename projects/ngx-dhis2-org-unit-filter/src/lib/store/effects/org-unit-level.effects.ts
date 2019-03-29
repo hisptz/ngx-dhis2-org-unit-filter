@@ -1,33 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable, of } from 'rxjs';
-import {
-  switchMap,
-  map,
-  catchError,
-  withLatestFrom,
-  tap
-} from 'rxjs/operators';
-import {
-  OrgUnitLevelActionsTypes,
-  AddOrgUnitLevelsAction,
-  LoadOrgUnitLevelsFailAction,
-  InitiateOrgUnitLevelsAction
-} from '../actions';
-import { OrgUnitLevelService } from '../../services';
-import { OrgUnitLevel } from '../../models';
 import { Store } from '@ngrx/store';
-import { OrgUnitFilterState } from '../reducers';
-import { getOrgUnitLevelLoadInitiated } from '../selectors';
+import { Observable } from 'rxjs';
+import { tap, withLatestFrom } from 'rxjs/operators';
+
+import { OrgUnitLevel } from '../../models/index';
+import { OrgUnitLevelService } from '../../services/org-unit-level.service';
+import {
+  AddOrgUnitLevelsAction,
+  InitiateOrgUnitLevelsAction,
+  LoadOrgUnitLevelsFailAction,
+  OrgUnitLevelActionsTypes
+} from '../actions/index';
+import { OrgUnitFilterState } from '../reducers/index';
+import { getOrgUnitLevelLoadInitiated } from '../selectors/index';
 
 @Injectable()
 export class OrgUnitLevelEffects {
-  constructor(
-    private actions$: Actions,
-    private store: Store<OrgUnitFilterState>,
-    private orgUnitLevelService: OrgUnitLevelService
-  ) {}
-
   @Effect({ dispatch: false })
   loadOrgUnitLevels$: Observable<any> = this.actions$.pipe(
     ofType(OrgUnitLevelActionsTypes.LoadOrgUnitLevels),
@@ -46,4 +35,10 @@ export class OrgUnitLevelEffects {
       }
     })
   );
+
+  constructor(
+    private actions$: Actions,
+    private store: Store<OrgUnitFilterState>,
+    private orgUnitLevelService: OrgUnitLevelService
+  ) {}
 }

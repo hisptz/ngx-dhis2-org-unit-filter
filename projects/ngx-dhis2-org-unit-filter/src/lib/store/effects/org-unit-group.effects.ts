@@ -1,25 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable, of } from 'rxjs';
-import {
-  switchMap,
-  map,
-  catchError,
-  tap,
-  withLatestFrom
-} from 'rxjs/operators';
-import {
-  OrgUnitGroupActionsTypes,
-  AddOrgUnitGroupsAction,
-  LoadOrgUnitGroupsFailAction,
-  InitiateOrgUnitGroupsAction
-} from '../actions';
-import { OrgUnitGroupService } from '../../services';
-import { OrgUnitGroup } from '../../models';
 import { Store } from '@ngrx/store';
-import { OrgUnitFilterState } from '../reducers';
-import { getOrgUnitLoadingInitiated } from '../selectors/org-unit.selectors';
-import { getOrgUnitGroupLoadInitiated } from '../selectors';
+import { Observable } from 'rxjs';
+import { tap, withLatestFrom } from 'rxjs/operators';
+
+import { OrgUnitGroup } from '../../models/org-unit-group.model';
+import { OrgUnitGroupService } from '../../services/org-unit-group.service';
+import {
+  AddOrgUnitGroupsAction,
+  InitiateOrgUnitGroupsAction,
+  LoadOrgUnitGroupsFailAction,
+  OrgUnitGroupActionsTypes
+} from '../actions/index';
+import { OrgUnitFilterState } from '../reducers/index';
+import { getOrgUnitGroupLoadInitiated } from '../selectors/index';
 
 @Injectable()
 export class OrgUnitGroupEffects {

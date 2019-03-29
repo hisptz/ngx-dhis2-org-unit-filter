@@ -4,8 +4,7 @@ import * as _ from 'lodash';
 import { from, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
-import { OrgUnit } from '../models';
-import { OrgUnitFilterConfig } from '../models/org-unit-filter-config.model';
+import { OrgUnit, OrgUnitFilterConfig } from '../models/index';
 
 @Injectable({ providedIn: 'root' })
 export class OrgUnitService {
