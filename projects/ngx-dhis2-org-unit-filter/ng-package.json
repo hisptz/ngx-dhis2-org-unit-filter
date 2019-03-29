@@ -5,7 +5,18 @@
   "lib": {
     "entryFile": "src/public_api.ts",
     "umdModuleIds": {
-      "lodash": "_"
+      "lodash": "_",
+      "@ngrx/entity": "@ngrx/entity",
+      "@ngrx/effects": "@ngrx/effects",
+      "@ngrx/store": "@ngrx/store",
+      "@hisptz/ngx-dhis2-http-client": "@hisptz/ngx-dhis2-http-client"
+    },
+    "globals": {
+      "lodash": "_",
+      "@ngrx/entity": "@ngrx/entity",
+      "@ngrx/effects": "@ngrx/effects",
+      "@ngrx/store": "@ngrx/store",
+      "@hisptz/ngx-dhis2-http-client": "@hisptz/ngx-dhis2-http-client"
     }
   }
 }
