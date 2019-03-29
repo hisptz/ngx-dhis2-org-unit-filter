@@ -11,9 +11,9 @@ import {
   InitiateOrgUnitGroupsAction,
   LoadOrgUnitGroupsFailAction,
   OrgUnitGroupActionsTypes
-} from '../actions/index';
-import { OrgUnitFilterState } from '../reducers/index';
-import { getOrgUnitGroupLoadInitiated } from '../selectors/index';
+} from '../actions/org-unit-group.actions';
+import { OrgUnitFilterState } from '../reducers';
+import { getOrgUnitGroupLoadInitiated } from '../selectors/org-unit-group.selectors';
 
 @Injectable()
 export class OrgUnitGroupEffects {

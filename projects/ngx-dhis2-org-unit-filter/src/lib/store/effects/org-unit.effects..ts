@@ -12,8 +12,8 @@ import {
   LoadOrgUnitsFailAction,
   LoadOrgUnitsInitiatedAction,
   OrgUnitActionsTypes
-} from '../actions/index';
-import { OrgUnitFilterState } from '../reducers/index';
+} from '../actions/org-unit.actions';
+import { OrgUnitFilterState } from '../reducers';
 import { getOrgUnitLoadingInitiated } from '../selectors/org-unit.selectors';
 
 @Injectable()

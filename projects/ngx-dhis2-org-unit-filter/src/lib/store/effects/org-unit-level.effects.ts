@@ -4,16 +4,16 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { tap, withLatestFrom } from 'rxjs/operators';
 
-import { OrgUnitLevel } from '../../models/index';
+import { OrgUnitLevel } from '../../models/org-unit-level.model';
 import { OrgUnitLevelService } from '../../services/org-unit-level.service';
 import {
   AddOrgUnitLevelsAction,
   InitiateOrgUnitLevelsAction,
   LoadOrgUnitLevelsFailAction,
   OrgUnitLevelActionsTypes
-} from '../actions/index';
-import { OrgUnitFilterState } from '../reducers/index';
-import { getOrgUnitLevelLoadInitiated } from '../selectors/index';
+} from '../actions/org-unit-level.actions';
+import { OrgUnitFilterState } from '../reducers';
+import { getOrgUnitLevelLoadInitiated } from '../selectors/org-unit-level.selectors';
 
 @Injectable()
 export class OrgUnitLevelEffects {
