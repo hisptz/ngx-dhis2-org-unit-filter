@@ -33,7 +33,7 @@
 }
 
 .ngx-dhis2-org-unit-tree-item-selected {
-  color: #ffa500;
+  color: #ffa500 !important;
 }
 
 .ngx-dhis2-org-unit-line {

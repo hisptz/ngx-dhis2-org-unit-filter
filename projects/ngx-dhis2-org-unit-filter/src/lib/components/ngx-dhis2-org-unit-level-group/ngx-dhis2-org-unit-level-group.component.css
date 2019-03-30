@@ -2,7 +2,8 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 3px;
+  border: solid thin #dddddd;
   margin-top: 4px;
 }
 
@@ -29,14 +30,18 @@
 .ngx-dhis2-org-unit-level-group__input {
   width: 100%;
   outline: none;
-  border: none;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border: solid thin #dddddd;
+  border-radius: 3px;
   padding-left: 12px;
   padding-right: 12px;
   display: flex;
   align-items: center;
   height: 32px;
   font-size: 12px;
+}
+
+.ngx-dhis2-org-unit-level-group__input:focus {
+  border: solid thin #999999;
 }
 
 .ngx-dhis2-org-unit-level-group__item-header {

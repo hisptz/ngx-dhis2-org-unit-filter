@@ -12,7 +12,7 @@ export class NgxDhis2OrgUnitSelectedOrgUnitComponent implements OnInit {
   @Input() selectedOrgUnits: any[];
 
   @Output() deactivateOrgUnit = new EventEmitter();
-  @Output() deactivateAllOrgUnit = new EventEmitter();
+  @Output() deactivateAllOrgUnits = new EventEmitter();
 
   closeIcon: string;
   constructor() {
@@ -35,6 +35,6 @@ export class NgxDhis2OrgUnitSelectedOrgUnitComponent implements OnInit {
 
   onDeactivateAllOrgUnits(e) {
     e.stopPropagation();
-    this.deactivateAllOrgUnit.emit(null);
+    this.deactivateAllOrgUnits.emit(null);
   }
 }
