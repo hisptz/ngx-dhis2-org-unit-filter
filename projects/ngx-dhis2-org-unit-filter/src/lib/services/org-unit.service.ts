@@ -6,7 +6,7 @@ import { map, mergeMap } from 'rxjs/operators';
 
 import { OrgUnit, OrgUnitFilterConfig } from '../models/index';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class OrgUnitService {
   constructor(private httpClient: NgxDhis2HttpClientService) {}
 

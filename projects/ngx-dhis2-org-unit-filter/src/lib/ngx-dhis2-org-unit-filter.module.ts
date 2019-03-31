@@ -8,6 +8,7 @@ import { orgUnitFilterReducer } from './store/reducers/index';
 import { orgUnitFilterEffects } from './store/effects/index';
 import { CommonModule } from '@angular/common';
 import { pipes } from './pipes/index';
+import { services } from './services/index';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { pipes } from './pipes/index';
     EffectsModule.forFeature(orgUnitFilterEffects)
   ],
   declarations: [...containers, ...components, ...pipes],
+  providers: [...services],
   exports: [...containers]
 })
 export class NgxDhis2OrgUnitFilterModule {}
