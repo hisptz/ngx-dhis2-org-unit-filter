@@ -14,18 +14,16 @@ export class AppComponent {
     singleSelection: false
   };
   selectedOrgUnitItems: any[] = [
-    { id: 'kbPmt60yi0L', name: 'Bramaia', level: 3, type: 'ORGANISATION_UNIT' },
+    { id: 'kbPmt60yi0L', name: 'Bramaia', level: 3 },
     {
-      id: 'AQQCxQqDxLe',
+      id: 'OU_GROUP.AQQCxQqDxLe',
       name: 'Konta CHP',
-      level: 4,
-      type: 'ORGANISATION_UNIT'
+      level: 4
     },
     {
-      id: 'M9JyYBZTqR7',
+      id: 'LEVEL-1',
       name: 'Kukuna CHP',
-      level: 4,
-      type: 'ORGANISATION_UNIT'
+      level: 4
     }
   ];
 

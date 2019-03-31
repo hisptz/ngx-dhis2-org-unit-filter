@@ -97,8 +97,8 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
       selectedOrgUnit =>
         (!selectedOrgUnit.type &&
           selectedOrgUnit.id &&
-          selectedOrgUnit.id.indexOf('LEVEL') === -1 &&
-          selectedOrgUnit.id.indexOf('OU_GROUP') === -1) ||
+          (selectedOrgUnit.id.indexOf('LEVEL') === -1 &&
+            selectedOrgUnit.id.indexOf('OU_GROUP') === -1)) ||
         selectedOrgUnit.type === 'ORGANISATION_UNIT'
     );
   }

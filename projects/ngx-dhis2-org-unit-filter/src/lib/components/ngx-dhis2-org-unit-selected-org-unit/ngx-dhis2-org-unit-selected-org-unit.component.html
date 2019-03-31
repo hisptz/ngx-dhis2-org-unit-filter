@@ -1,6 +1,6 @@
 <div class="ngx-dhis2-org-unit-selected-org-unit-container">
   <ul class="ngx-dhis2-org-unit-selected-org-unit-list">
-    <li *ngFor="let orgUnit of selectedOrgUnitsOnly">
+    <li *ngFor="let orgUnit of selectedOrgUnits">
       <div class="selected-org-unit-name">{{ orgUnit.name }}</div>
       <button
         class="selected-org-unit-close-btn"
@@ -13,7 +13,7 @@
   </ul>
   <button
     class="selected-org-unit-close-btn clear-all-org-unit-btn"
-    [disabled]="selectedOrgUnitsOnly.length === 0"
+    [disabled]="selectedOrgUnits.length === 0"
     (click)="onDeactivateAllOrgUnits($event)"
   >
     <img [src]="closeIcon" alt="" /> Clear All

@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import * as _ from 'lodash';
 import { TICK } from '../../icons';
 import { OrgUnitLevel, OrgUnitGroup } from '../../models';
@@ -7,7 +14,8 @@ import { OrgUnitLevel, OrgUnitGroup } from '../../models';
   // tslint:disable-next-line:component-selector
   selector: 'ngx-dhis2-org-unit-level-group',
   templateUrl: './ngx-dhis2-org-unit-level-group.component.html',
-  styleUrls: ['./ngx-dhis2-org-unit-level-group.component.css']
+  styleUrls: ['./ngx-dhis2-org-unit-level-group.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxDhis2OrgUnitLevelGroupComponent implements OnInit {
   /**

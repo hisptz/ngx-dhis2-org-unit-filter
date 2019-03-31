@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import * as _ from 'lodash';
 import { CLOSE_ICON } from '../../icons';
 import { OrgUnit } from '../../models';
@@ -6,7 +13,8 @@ import { OrgUnit } from '../../models';
 @Component({
   selector: 'ngx-dhis2-org-unit-selected-org-unit',
   templateUrl: './ngx-dhis2-org-unit-selected-org-unit.component.html',
-  styleUrls: ['./ngx-dhis2-org-unit-selected-org-unit.component.css']
+  styleUrls: ['./ngx-dhis2-org-unit-selected-org-unit.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxDhis2OrgUnitSelectedOrgUnitComponent implements OnInit {
   @Input() selectedOrgUnits: any[];
@@ -17,13 +25,6 @@ export class NgxDhis2OrgUnitSelectedOrgUnitComponent implements OnInit {
   closeIcon: string;
   constructor() {
     this.closeIcon = CLOSE_ICON;
-  }
-
-  get selectedOrgUnitsOnly() {
-    return _.filter(
-      this.selectedOrgUnits || [],
-      orgUnit => orgUnit.type === 'ORGANISATION_UNIT'
-    );
   }
 
   ngOnInit() {}
