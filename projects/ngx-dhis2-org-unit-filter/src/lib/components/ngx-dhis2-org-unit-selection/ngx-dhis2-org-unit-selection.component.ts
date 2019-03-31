@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
@@ -10,7 +17,8 @@ import { getHighestLevelOrgUnitIds } from '../../store/selectors/org-unit.select
   // tslint:disable-next-line:component-selector
   selector: 'ngx-dhis2-org-unit-selection',
   templateUrl: './ngx-dhis2-org-unit-selection.component.html',
-  styleUrls: ['./ngx-dhis2-org-unit-selection.component.css']
+  styleUrls: ['./ngx-dhis2-org-unit-selection.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxDhis2OrgUnitSelectionComponent implements OnInit {
   @Input() selectedOrgUnits: any[];

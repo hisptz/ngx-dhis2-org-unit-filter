@@ -4,7 +4,8 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
+  Output,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
@@ -34,7 +35,8 @@ import {
   // tslint:disable-next-line:component-selector
   selector: 'ngx-dhis2-org-unit-filter',
   templateUrl: './ngx-dhis2-org-unit-filter.component.html',
-  styleUrls: ['./ngx-dhis2-org-unit-filter.component.css']
+  styleUrls: ['./ngx-dhis2-org-unit-filter.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
   /**
