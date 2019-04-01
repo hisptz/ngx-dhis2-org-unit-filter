@@ -70,13 +70,19 @@ export class NgxDhis2OrgUnitTreeItemComponent implements OnInit, OnChanges {
 
   setOrgUnitProperties(firstChange?: boolean) {
     // get org unit selection status
-    this.selected = isOrgUnitSelected(this.orgUnitId, this.selectedOrgUnits);
+    this.selected = isOrgUnitSelected(
+      this.orgUnitId,
+      this.selectedOrgUnits || []
+    );
 
     this.orgUnit$.pipe(take(1)).subscribe((orgUnit: OrgUnit) => {
       if (orgUnit) {
         // Get count of selected children for this organisation unit
         this.selectedChildrenCount$ = this.store.select(
-          getSelectedOrgUnitChildrenCount(this.orgUnitId, this.selectedOrgUnits)
+          getSelectedOrgUnitChildrenCount(
+            this.orgUnitId,
+            this.selectedOrgUnits || []
+          )
         );
 
         this.selectedChildrenCount$

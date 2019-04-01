@@ -106,6 +106,9 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if (!this.selectedOrgUnitItems) {
+      this.selectedOrgUnitItems = [];
+    }
     // Dispatching actions to load organisation unit information
     this.store.dispatch(new LoadOrgUnitLevelsAction());
     this.store.dispatch(new LoadOrgUnitGroupsAction());
@@ -224,7 +227,7 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
               ..._.slice(this.selectedOrgUnitItems || [], orgUnitIndex + 1)
             ]
           : []
-        : this.selectedOrgUnitItems;
+        : this.selectedOrgUnitItems || [];
 
     // Also update organisation units
     this._setOrUpdateOrgUnitProperties();
