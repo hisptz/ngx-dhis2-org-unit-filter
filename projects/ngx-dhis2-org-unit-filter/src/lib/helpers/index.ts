@@ -3,3 +3,7 @@ export * from './get-org-units-without-children.helper';
 export * from './get-org-units-with-children.helper';
 export * from './update-org-unit-list-with-touched-org-unit.helper';
 export * from './update-org-unit-list-with-selection-status.helper';
+export * from './is-org-unit-selected.helper';
+export * from './is-parent-org-unit-selected.helper';
+export * from './get-org-units-by-type.helper';
+export * from './get-sanitized-selected-org-units.helper';

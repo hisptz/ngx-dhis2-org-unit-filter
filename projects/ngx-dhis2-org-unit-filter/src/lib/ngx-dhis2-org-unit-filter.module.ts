@@ -5,7 +5,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { containers } from './containers/index';
 import { components } from './components/index';
 import { orgUnitFilterReducer } from './store/reducers/index';
-import { orgUnitFilterEffects } from './store/effects/index';
+import { effects } from './store/effects/index';
 import { CommonModule } from '@angular/common';
 import { pipes } from './pipes/index';
 import { services } from './services/index';
@@ -14,7 +14,7 @@ import { services } from './services/index';
   imports: [
     CommonModule,
     StoreModule.forFeature('orgUnitFilter', orgUnitFilterReducer),
-    EffectsModule.forFeature(orgUnitFilterEffects)
+    EffectsModule.forFeature(effects)
   ],
   declarations: [...containers, ...components, ...pipes],
   providers: [...services],

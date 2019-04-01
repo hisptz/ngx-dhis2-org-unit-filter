@@ -15,7 +15,7 @@ import { take } from 'rxjs/operators';
 import { isOrgUnitSelected } from '../../helpers/is-org-unit-selected.helper';
 import { MINUS_CIRCLE_ICON, PLUS_CIRCLE_ICON } from '../../icons';
 import { OrgUnit } from '../../models';
-import { OrgUnitFilterState } from '../../store';
+import { OrgUnitFilterState } from '../../store/reducers/index';
 import {
   getOrgUnitById,
   getSelectedOrgUnitChildrenCount

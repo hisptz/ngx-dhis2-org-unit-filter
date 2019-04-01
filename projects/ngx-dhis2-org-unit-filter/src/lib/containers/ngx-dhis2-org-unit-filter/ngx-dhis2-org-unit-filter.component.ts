@@ -17,19 +17,19 @@ import { getSanitizedSelectedOrgUnits } from '../../helpers/get-sanitized-select
 import { OrgUnit, OrgUnitGroup, OrgUnitLevel } from '../../models';
 import { OrgUnitFilterConfig } from '../../models/org-unit-filter-config.model';
 import {
-  getOrgUnitGroupBasedOnOrgUnitsSelected,
-  getOrgUnitGroupLoading,
-  getOrgUnitLevelBasedOnOrgUnitsSelected,
-  getOrgUnitLevelLoading,
   LoadOrgUnitGroupsAction,
   LoadOrgUnitLevelsAction,
-  LoadOrgUnitsAction,
-  OrgUnitFilterState
-} from '../../store';
+  LoadOrgUnitsAction
+} from '../../store/actions/index';
 import {
+  getOrgUnitGroupBasedOnOrgUnitsSelected,
+  getOrgUnitGroupLoading,
   getOrgUnitLoading,
-  getUserOrgUnitsBasedOnOrgUnitsSelected
-} from '../../store/selectors/org-unit.selectors';
+  getOrgUnitLevelLoading,
+  getUserOrgUnitsBasedOnOrgUnitsSelected,
+  getOrgUnitLevelBasedOnOrgUnitsSelected
+} from '../../store/selectors/index';
+import { OrgUnitFilterState } from '../../store/reducers/index';
 
 @Component({
   // tslint:disable-next-line:component-selector
