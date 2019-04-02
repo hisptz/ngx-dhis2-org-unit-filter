@@ -40,6 +40,27 @@ Inputs
 | selectedOrgUnitItems | This is a list of selected organisation units, groups, or levels                  |
 | orgUnitFilterConfig  | This when passed overrides default configuration for the organisation unit filter |
 
+Input models
+
+selectedOrgUnitItems
+
+| Item             | Description                                                                                                       |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------- |
+| id               | Organisation unit identifier                                                                                      |
+| name (optional)  | Organisation unit name                                                                                            |
+| level (optional) | Level of organisation unit in the hierarchy eg. 1, 2                                                              |
+| type (optional)  | Type of organisation unit eg. USER_ORGANISATIONUNIT, ORGANISATION_LEVEL, ORGANISATIONUNIT_GROUP, ORGANISATIONUNIT |
+
+orgUnitFilterConfig
+
+| Item                      | Description                                                           | Default value |
+| ------------------------- | --------------------------------------------------------------------- | ------------- |
+| singleSelection           | Specify whether org unit selection is single or multiple              | true          |
+| reportUse (optional)      | Tells whether org units should be used for reports or data entry      | true          |
+| minLevel (optional)       | Specify minimum level for org units                                   | none          |
+| updateOnSelect (optional) | Specify whether to update on select or unselect or on button click    | false         |
+| closeOnDestroy (optional) | Call on closeOrgUnit Method when component get destroyed, if set true | true          |
+
 Outputs
 
 | Output        | Description                                   |
