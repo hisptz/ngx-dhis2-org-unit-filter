@@ -1,13 +1,14 @@
 <div class="ngx-dhis2-user-org-unit-selection__container">
-  <div class="btn-group" role="group">
+  <div class="btn-group btn-block" role="group">
     <button
       *ngFor="let userOrgUnit of userOrgUnits"
       class="btn btn-sm {{
         userOrgUnit?.selected ? 'btn-secondary' : 'btn-outline-secondary'
       }}"
+      [title]="userOrgUnit.description"
       (click)="onUpdate($event, userOrgUnit)"
     >
-      {{ userOrgUnit?.name }}
+      <img [src]="userOrgUnit.icon" alt="" />
     </button>
   </div>
 </div>

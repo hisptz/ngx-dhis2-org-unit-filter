@@ -23,6 +23,7 @@ import { getHighestLevelOrgUnitIds } from '../../store/selectors/org-unit.select
 export class NgxDhis2OrgUnitSelectionComponent implements OnInit {
   @Input() selectedOrgUnits: any[];
   @Input() loadingOrgUnits: boolean;
+  @Input() userOrgUnitSelected: boolean;
 
   @Output() activateOrgUnit = new EventEmitter();
   @Output() deactivateOrgUnit = new EventEmitter();

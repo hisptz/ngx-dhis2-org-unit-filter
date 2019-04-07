@@ -6,4 +6,6 @@ export interface OrgUnit {
   selected?: boolean;
   children?: string[];
   type?: string;
+  icon?: string;
+  description?: string;
 }
