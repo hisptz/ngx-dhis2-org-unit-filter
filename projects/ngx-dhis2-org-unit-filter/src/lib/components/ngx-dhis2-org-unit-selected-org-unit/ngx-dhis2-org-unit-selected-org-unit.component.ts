@@ -23,8 +23,18 @@ export class NgxDhis2OrgUnitSelectedOrgUnitComponent implements OnInit {
   @Output() deactivateAllOrgUnits = new EventEmitter();
 
   closeIcon: string;
+  maxOrgUnitToShow: number;
   constructor() {
     this.closeIcon = CLOSE_ICON;
+    this.maxOrgUnitToShow = 4;
+  }
+
+  get selectedOrgUnitsForDisplay(): any[] {
+    return (this.selectedOrgUnits || []).slice(0, this.maxOrgUnitToShow);
+  }
+
+  get countOfMoreSelectedOrgUnit(): number {
+    return (this.selectedOrgUnits || []).length - this.maxOrgUnitToShow;
   }
 
   ngOnInit() {}

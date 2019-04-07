@@ -29,23 +29,7 @@
 .ngx-dhis2-org-unit-filter__org-unit-buttons {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
-  border-top: solid thin #fafafa;
-}
-
-.ngx-dhis2-org-unit-filter__btn {
-  margin: 5px;
-  height: 35px;
-  font-size: 14px;
-  background-color: #ffffff;
-  outline: none;
-  color: #777777;
-  border: none;
-  cursor: pointer;
-}
-
-.ngx-dhis2-org-unit-filter__btn:hover {
-  color: #222222;
+  font-size: 12px;
 }
 
 .ngx-dhis2-org-unit-filter__disabled-overlay,

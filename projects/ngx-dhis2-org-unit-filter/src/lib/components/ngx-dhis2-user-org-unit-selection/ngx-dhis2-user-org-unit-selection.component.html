@@ -1,12 +1,10 @@
 <div class="ngx-dhis2-user-org-unit-selection__container">
-  <div class="ngx-dhis2-user-org-unit-selection__list">
+  <div class="btn-group" role="group">
     <button
       *ngFor="let userOrgUnit of userOrgUnits"
-      [ngClass]="{
-        'ngx-dhis2-user-org-unit-selection__item': true,
-        'ngx-dhis2-user-org-unit-selection__selected-item':
-          userOrgUnit?.selected
-      }"
+      class="btn btn-sm {{
+        userOrgUnit?.selected ? 'btn-secondary' : 'btn-outline-secondary'
+      }}"
       (click)="onUpdate($event, userOrgUnit)"
     >
       {{ userOrgUnit?.name }}

@@ -1,4 +1,4 @@
-<div class="ngx-dhis2-org-unit-selected-org-unit-container">
+<!-- <div class="ngx-dhis2-org-unit-selected-org-unit-container">
   <ul class="ngx-dhis2-org-unit-selected-org-unit-list">
     <li *ngFor="let orgUnit of selectedOrgUnits">
       <div class="selected-org-unit-name">{{ orgUnit.name }}</div>
@@ -12,10 +12,49 @@
     </li>
   </ul>
   <button
-    class="selected-org-unit-close-btn clear-all-org-unit-btn"
+    class="btn btn-sm btn-outline-secondary org-unit-close-btn"
     [disabled]="selectedOrgUnits.length === 0"
     (click)="onDeactivateAllOrgUnits($event)"
   >
-    <img [src]="closeIcon" alt="" /> Clear All
+    <img [src]="closeIcon" alt="" />
+    Close All
   </button>
+</div> -->
+
+<div class="row">
+  <div class="col-10">
+    <ul class="ngx-dhis2-org-unit-selected-org-unit-list">
+      <li
+        *ngFor="let orgUnit of selectedOrgUnitsForDisplay"
+        class="btn btn-sm btn-outline-secondary selected-org-unit-item"
+      >
+        <span class="selected-org-unit-name">{{ orgUnit.name }}</span>
+        <button
+          class="btn btn-sm selected-org-unit-close-btn"
+          [title]="'Remove from selected'"
+          (click)="onDeactivateOrgUnit(orgUnit, $event)"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </li>
+      <li
+        class="btn btn-sm btn-outline-secondary selected-org-unit-item"
+        *ngIf="countOfMoreSelectedOrgUnit > 0"
+      >
+        <span class="selected-org-unit-name"
+          >and {{ countOfMoreSelectedOrgUnit }} more</span
+        >
+      </li>
+    </ul>
+  </div>
+  <div class="col-2">
+    <button
+      class="btn btn-sm btn-outline-secondary org-unit-close-btn float-right"
+      [disabled]="selectedOrgUnits.length === 0"
+      (click)="onDeactivateAllOrgUnits($event)"
+    >
+      <span aria-hidden="true" class="org-unit-close-icon">&times;</span>
+      <span class="org-unit-close-all-label"> Clear All</span>
+    </button>
+  </div>
 </div>
