@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/hisptz/ngx-dhis2-org-unit-filter.svg?branch=develop)](https://travis-ci.org/hisptz/ngx-dhis2-org-unit-filter)
+[![Build Status](https://travis-ci.org/hisptz/ngx-dhis2-org-unit-filter.svg?branch=develop)](https://travis-ci.org/hisptz/ngx-dhis2-org-unit-filter) [![Greenkeeper badge](https://badges.greenkeeper.io/interactive-apps/ngx-dhis2-org-unit-filter.svg)](https://greenkeeper.io/)
 
 # DHIS2 Organisation unit selection filter
 
