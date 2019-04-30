@@ -1,35 +1,37 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
   OnDestroy,
   OnInit,
-  Output,
-  ChangeDetectionStrategy
+  Output
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
-import { Observable, of } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { DEFAULT_ORG_UNIT_FILTER_CONFIG } from '../../constants';
+import { DEFAULT_ORG_UNIT_FILTER_CONFIG } from '../../constants/default-org-unit-filter-config.constant';
 import { getSanitizedSelectedOrgUnits } from '../../helpers/get-sanitized-selected-org-units.helper';
-import { OrgUnit, OrgUnitGroup, OrgUnitLevel } from '../../models';
 import { OrgUnitFilterConfig } from '../../models/org-unit-filter-config.model';
 import {
   LoadOrgUnitGroupsAction,
   LoadOrgUnitLevelsAction,
   LoadOrgUnitsAction
-} from '../../store/actions/index';
+} from '../../store/actions';
+import { OrgUnitFilterState } from '../../store/reducers/org-unit-filter.reducer';
 import {
   getOrgUnitGroupBasedOnOrgUnitsSelected,
   getOrgUnitGroupLoading,
-  getOrgUnitLoading,
+  getOrgUnitLevelBasedOnOrgUnitsSelected,
   getOrgUnitLevelLoading,
-  getUserOrgUnitsBasedOnOrgUnitsSelected,
-  getOrgUnitLevelBasedOnOrgUnitsSelected
-} from '../../store/selectors/index';
-import { OrgUnitFilterState } from '../../store/reducers/index';
+  getOrgUnitLoading,
+  getUserOrgUnitsBasedOnOrgUnitsSelected
+} from '../../store/selectors';
+import { OrgUnitLevel } from '../../models/org-unit-level.model';
+import { OrgUnitGroup } from '../../models/org-unit-group.model';
+import { OrgUnit } from '../../models/org-unit.model';
 
 @Component({
   // tslint:disable-next-line:component-selector

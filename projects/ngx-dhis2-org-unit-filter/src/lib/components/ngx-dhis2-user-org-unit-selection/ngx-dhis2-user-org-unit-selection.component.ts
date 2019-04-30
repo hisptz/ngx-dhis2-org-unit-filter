@@ -7,7 +7,7 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 
-import { OrgUnit } from '../../models';
+import { OrgUnit } from '../../models/org-unit.model';
 
 @Component({
   selector: 'ngx-dhis2-user-org-unit-selection',

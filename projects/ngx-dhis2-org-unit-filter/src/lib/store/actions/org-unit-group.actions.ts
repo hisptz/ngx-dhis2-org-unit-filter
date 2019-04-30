@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { OrgUnitGroup } from '../../models';
+import { OrgUnitGroup } from '../../models/org-unit-group.model';
 export enum OrgUnitGroupActionsTypes {
   LoadOrgUnitGroups = '[OrgUnitGroup] load organisation unit groups',
   InitiateOrgUnitGroups = '[OrgUnitGroup] initiate organisation unit groups',

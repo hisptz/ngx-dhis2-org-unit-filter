@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 import { OrgUnit } from '../../models/org-unit.model';
-import { OrgUnitFilterState } from '../../store/reducers/index';
+import { OrgUnitFilterState } from '../../store/reducers/org-unit-filter.reducer';
 import { getHighestLevelOrgUnitIds } from '../../store/selectors/org-unit.selectors';
 
 @Component({

@@ -1,23 +1,45 @@
-import { NgModule } from '@angular/core';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-
-import { containers } from './containers/index';
-import { components } from './components/index';
-import { orgUnitFilterReducer } from './store/reducers/index';
-import { effects } from './store/effects/index';
 import { CommonModule } from '@angular/common';
-import { pipes } from './pipes/index';
-import { services } from './services/index';
+import { NgModule } from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+
+import { NgxDhis2OrgUnitLevelGroupComponent } from './components/ngx-dhis2-org-unit-level-group/ngx-dhis2-org-unit-level-group.component';
+import { NgxDhis2OrgUnitProgressComponent } from './components/ngx-dhis2-org-unit-progress/ngx-dhis2-org-unit-progress.component';
+import { NgxDhis2OrgUnitSelectedOrgUnitComponent } from './components/ngx-dhis2-org-unit-selected-org-unit/ngx-dhis2-org-unit-selected-org-unit.component';
+import { NgxDhis2OrgUnitSelectionComponent } from './components/ngx-dhis2-org-unit-selection/ngx-dhis2-org-unit-selection.component';
+import { NgxDhis2OrgUnitTreeItemComponent } from './components/ngx-dhis2-org-unit-tree-item/ngx-dhis2-org-unit-tree-item.component';
+import { NgxDhis2UserOrgUnitSelectionComponent } from './components/ngx-dhis2-user-org-unit-selection/ngx-dhis2-user-org-unit-selection.component';
+import { NgxDhis2OrgUnitFilterComponent } from './containers/ngx-dhis2-org-unit-filter/ngx-dhis2-org-unit-filter.component';
+import { FilterByOrgUnitGroupLevelPipe } from './pipes/org-unit-group-level-filter.pipe';
+import { OrgUnitGroupService } from './services/org-unit-group.service';
+import { OrgUnitLevelService } from './services/org-unit-level.service';
+import { OrgUnitService } from './services/org-unit.service';
+import { OrgUnitGroupEffects } from './store/effects/org-unit-group.effects';
+import { OrgUnitLevelEffects } from './store/effects/org-unit-level.effects';
+import { OrgUnitEffects } from './store/effects/org-unit.effects.';
+import { orgUnitFilterReducer } from './store/reducers/org-unit-filter.reducer';
 
 @NgModule({
   imports: [
     CommonModule,
     StoreModule.forFeature('orgUnitFilter', orgUnitFilterReducer),
-    EffectsModule.forFeature(effects)
+    EffectsModule.forFeature([
+      OrgUnitLevelEffects,
+      OrgUnitGroupEffects,
+      OrgUnitEffects
+    ])
   ],
-  declarations: [...containers, ...components, ...pipes],
-  providers: [...services],
-  exports: [...containers]
+  declarations: [
+    NgxDhis2OrgUnitFilterComponent,
+    NgxDhis2OrgUnitSelectionComponent,
+    NgxDhis2UserOrgUnitSelectionComponent,
+    NgxDhis2OrgUnitLevelGroupComponent,
+    NgxDhis2OrgUnitSelectedOrgUnitComponent,
+    NgxDhis2OrgUnitTreeItemComponent,
+    NgxDhis2OrgUnitProgressComponent,
+    FilterByOrgUnitGroupLevelPipe
+  ],
+  providers: [OrgUnitService, OrgUnitGroupService, OrgUnitLevelService],
+  exports: [NgxDhis2OrgUnitFilterComponent]
 })
 export class NgxDhis2OrgUnitFilterModule {}

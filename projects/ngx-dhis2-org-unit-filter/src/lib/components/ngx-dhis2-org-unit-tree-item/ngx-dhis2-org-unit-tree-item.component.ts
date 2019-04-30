@@ -13,13 +13,14 @@ import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { isOrgUnitSelected } from '../../helpers/is-org-unit-selected.helper';
-import { MINUS_CIRCLE_ICON, PLUS_CIRCLE_ICON } from '../../icons';
-import { OrgUnit } from '../../models';
-import { OrgUnitFilterState } from '../../store/reducers/index';
+import { OrgUnit } from '../../models/org-unit.model';
+import { OrgUnitFilterState } from '../../store/reducers/org-unit-filter.reducer';
 import {
   getOrgUnitById,
   getSelectedOrgUnitChildrenCount
 } from '../../store/selectors/org-unit.selectors';
+import { PLUS_CIRCLE_ICON } from '../../icons/plus-circle.icon';
+import { MINUS_CIRCLE_ICON } from '../../icons/minus-circle.icon';
 
 @Component({
   // tslint:disable-next-line:component-selector

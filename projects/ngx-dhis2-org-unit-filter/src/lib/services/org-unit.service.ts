@@ -3,8 +3,8 @@ import { NgxDhis2HttpClientService } from '@hisptz/ngx-dhis2-http-client';
 import * as _ from 'lodash';
 import { from, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
-
-import { OrgUnit, OrgUnitFilterConfig } from '../models/index';
+import { OrgUnitFilterConfig } from '../models/org-unit-filter-config.model';
+import { OrgUnit } from '../models/org-unit.model';
 
 @Injectable()
 export class OrgUnitService {

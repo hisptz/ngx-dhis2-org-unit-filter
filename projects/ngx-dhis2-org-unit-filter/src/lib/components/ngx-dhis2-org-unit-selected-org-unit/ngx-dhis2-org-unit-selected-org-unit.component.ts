@@ -7,8 +7,8 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import * as _ from 'lodash';
-import { CLOSE_ICON } from '../../icons';
-import { OrgUnit } from '../../models';
+import { CLOSE_ICON } from '../../icons/close.icon';
+import { OrgUnit } from '../../models/org-unit.model';
 
 @Component({
   selector: 'ngx-dhis2-org-unit-selected-org-unit',

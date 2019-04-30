@@ -1,4 +1,4 @@
-import { OrgUnit } from '../models';
+import { OrgUnit } from '../models/org-unit.model';
 
 export const USER_ORG_UNITS: OrgUnit[] = [
   {

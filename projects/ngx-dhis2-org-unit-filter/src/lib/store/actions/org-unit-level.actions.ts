@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { OrgUnitLevel } from '../../models';
+import { OrgUnitLevel } from '../../models/org-unit-level.model';
 export enum OrgUnitLevelActionsTypes {
   LoadOrgUnitLevels = '[OrgUnitLevel] load organisation unit levels',
   InitiateOrgUnitLevels = '[OrgUnitLevel] initiate organisation unit levels',

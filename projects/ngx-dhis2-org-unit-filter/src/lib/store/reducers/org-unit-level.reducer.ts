@@ -1,6 +1,6 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { Dictionary } from '@ngrx/entity/src/models';
-import { OrgUnitLevel } from '../../models';
+import { OrgUnitLevel } from '../../models/org-unit-level.model';
 import {
   OrgUnitLevelActions,
   OrgUnitLevelActionsTypes

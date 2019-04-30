@@ -7,8 +7,9 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import * as _ from 'lodash';
-import { TICK } from '../../icons';
-import { OrgUnitLevel, OrgUnitGroup } from '../../models';
+import { TICK } from '../../icons/tick';
+import { OrgUnitLevel } from '../../models/org-unit-level.model';
+import { OrgUnitGroup } from '../../models/org-unit-group.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
