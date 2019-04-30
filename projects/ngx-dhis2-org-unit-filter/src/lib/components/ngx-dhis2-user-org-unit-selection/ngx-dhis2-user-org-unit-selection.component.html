@@ -4,7 +4,7 @@
       *ngFor="let userOrgUnit of userOrgUnits"
       class="btn btn-sm {{
         userOrgUnit?.selected ? 'btn-secondary' : 'btn-outline-secondary'
-      }}"
+      }} ngx-dhis2-user-org-unit-buttons"
       [title]="userOrgUnit.description"
       (click)="onUpdate($event, userOrgUnit)"
     >
