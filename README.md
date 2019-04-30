@@ -1,6 +1,6 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3a8da71e235a0e397823/maintainability)](https://codeclimate.com/github/interactive-apps/ngx-dhis2-org-unit-filter/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/3a8da71e235a0e397823/test_coverage)](https://codeclimate.com/github/interactive-apps/ngx-dhis2-org-unit-filter/test_coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/3a8da71e235a0e397823/test_coverage)](https://codeclimate.com/github/interactive-apps/ngx-dhis2-org-unit-filter/test_coverage) [![Greenkeeper badge](https://badges.greenkeeper.io/interactive-apps/ngx-dhis2-org-unit-filter.svg)](https://greenkeeper.io/)
 
 # DHIS2 Organisation unit selection filter
 
