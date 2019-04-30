@@ -35,11 +35,6 @@
   padding: 3px;
 }
 
-.selected-org-unit-close-btn:hover,
-.ngx-dhis2-org-unit-selected-org-unit-list > li:hover {
-  border-color: #999999;
-}
-
 .org-unit-close-btn {
   display: flex;
   justify-content: space-around;
@@ -59,11 +54,6 @@
 .selected-org-unit-close-btn > img,
 .org-unit-close-btn > img {
   height: 10px;
-}
-
-.selected-org-unit-close-btn:hover {
-  background-color: #eeeeee;
-  border-color: #999999;
 }
 
 @media screen and (max-width: 900px) {

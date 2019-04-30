@@ -24,12 +24,16 @@ export class NgxDhis2OrgUnitSelectedOrgUnitComponent implements OnInit {
 
   closeIcon: string;
   maxOrgUnitToShow: number;
+  showAll: boolean;
   constructor() {
     this.closeIcon = CLOSE_ICON;
     this.maxOrgUnitToShow = 4;
   }
 
   get selectedOrgUnitsForDisplay(): any[] {
+    if (this.showAll) {
+      return this.selectedOrgUnits || [];
+    }
     return (this.selectedOrgUnits || []).slice(0, this.maxOrgUnitToShow);
   }
 
@@ -47,5 +51,10 @@ export class NgxDhis2OrgUnitSelectedOrgUnitComponent implements OnInit {
   onDeactivateAllOrgUnits(e) {
     e.stopPropagation();
     this.deactivateAllOrgUnits.emit(null);
+  }
+
+  onToggleShowMore(e) {
+    e.stopPropagation();
+    this.showAll = !this.showAll;
   }
 }

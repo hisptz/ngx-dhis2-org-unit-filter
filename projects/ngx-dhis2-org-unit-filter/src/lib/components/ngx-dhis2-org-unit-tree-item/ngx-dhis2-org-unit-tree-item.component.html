@@ -19,7 +19,7 @@
       <div>{{ (orgUnit$ | async)?.name }}</div>
       &nbsp;
       <div
-        class="badge badge-light"
+        class="badge {{ selected ? 'badge-light' : 'badge-secondary' }}"
         *ngIf="(selectedChildrenCount$ | async) > 0"
       >
         {{ selectedChildrenCount$ | async }}

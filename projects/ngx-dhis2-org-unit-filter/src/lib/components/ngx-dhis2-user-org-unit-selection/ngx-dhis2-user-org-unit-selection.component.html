@@ -3,12 +3,15 @@
     <button
       *ngFor="let userOrgUnit of userOrgUnits"
       class="btn btn-sm {{
-        userOrgUnit?.selected ? 'btn-secondary' : 'btn-outline-secondary'
+        userOrgUnit?.selected
+          ? 'user-org-unit-button-selected'
+          : 'user-org-unit-button'
       }} ngx-dhis2-user-org-unit-buttons"
       [title]="userOrgUnit.description"
       (click)="onUpdate($event, userOrgUnit)"
     >
       <img [src]="userOrgUnit.icon" alt="" />
+      <div class="user-org-unit-name">{{ userOrgUnit.name }}</div>
     </button>
   </div>
 </div>

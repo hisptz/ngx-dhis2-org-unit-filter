@@ -3,7 +3,7 @@
   <div class="col-12">
     <input
       type="text"
-      class="form-control form-control-sm"
+      class="form-control form-control-sm ngx-dhis2-org-unit-selection__search"
       placeholder="Search organisation unit"
       [disabled]="userOrgUnitSelected"
     />
@@ -49,7 +49,7 @@
           <div class="ngx-dhis2-org-unit-selection__tree_list">
             <div
               class="ngx-dhis2-org-unit-selection__tree_item"
-              *ngFor="let orgUnitId of (highestLevelOrgUnitIds$ | async)"
+              *ngFor="let orgUnitId of highestLevelOrgUnitIds$ | async"
             >
               <ngx-dhis2-org-unit-tree-item
                 [orgUnitId]="orgUnitId"

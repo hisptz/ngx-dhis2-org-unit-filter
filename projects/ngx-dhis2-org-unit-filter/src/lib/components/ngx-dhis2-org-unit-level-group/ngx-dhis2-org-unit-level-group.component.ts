@@ -44,6 +44,18 @@ export class NgxDhis2OrgUnitLevelGroupComponent implements OnInit {
   @Output() activateOrgUnitLevelOrGroup = new EventEmitter();
   @Output() deactivateOrgUnitLevelOrGroup = new EventEmitter();
 
+  get selectedLevelsCount(): number {
+    return (this.orgUnitLevels || []).filter(
+      (orgUnitLevel: OrgUnitLevel) => orgUnitLevel.selected
+    ).length;
+  }
+
+  get selectedGroupsCount(): number {
+    return (this.orgUnitGroups || []).filter(
+      (orgUnitGroup: OrgUnitGroup) => orgUnitGroup.selected
+    ).length;
+  }
+
   constructor() {
     this.tickIcon = TICK;
   }

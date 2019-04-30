@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 import { DEFAULT_ORG_UNIT_FILTER_CONFIG } from '../../constants';
 import { getSanitizedSelectedOrgUnits } from '../../helpers/get-sanitized-selected-org-units.helper';
@@ -154,29 +154,24 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
   }
 
   onSelectOrgUnit(orgUnit: any) {
-    if (
-      orgUnit.type === 'ORGANISATION_UNIT_LEVEL' ||
-      orgUnit.type === 'ORGANISATION_UNIT_GROUP'
-    ) {
-      if (orgUnit.type === 'ORGANISATION_UNIT_LEVEL') {
-        this.selectedOrgUnitItems = [
-          ..._.filter(
-            this.selectedOrgUnitItems || [],
-            selectedOrgUnitItem =>
-              selectedOrgUnitItem.type !== 'ORGANISATION_UNIT_GROUP'
-          ),
-          orgUnit
-        ];
-      } else {
-        this.selectedOrgUnitItems = [
-          ..._.filter(
-            this.selectedOrgUnitItems || [],
-            selectedOrgUnitItem =>
-              selectedOrgUnitItem.type !== 'ORGANISATION_UNIT_LEVEL'
-          ),
-          orgUnit
-        ];
-      }
+    if (orgUnit.type === 'ORGANISATION_UNIT_LEVEL') {
+      this.selectedOrgUnitItems = [
+        ..._.filter(
+          this.selectedOrgUnitItems || [],
+          selectedOrgUnitItem =>
+            selectedOrgUnitItem.type !== 'ORGANISATION_UNIT_GROUP'
+        ),
+        orgUnit
+      ];
+    } else if (orgUnit.type === 'ORGANISATION_UNIT_GROUP') {
+      this.selectedOrgUnitItems = [
+        ..._.filter(
+          this.selectedOrgUnitItems || [],
+          selectedOrgUnitItem =>
+            selectedOrgUnitItem.type !== 'ORGANISATION_UNIT_LEVEL'
+        ),
+        orgUnit
+      ];
     } else {
       this.selectedOrgUnitItems = !this.orgUnitFilterConfig.singleSelection
         ? [
@@ -228,6 +223,31 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
             ]
           : []
         : this.selectedOrgUnitItems || [];
+
+    // Also remove org unit levels if not applicable
+    const highestLevel = _.min(
+      this.selectedOrgUnitItems
+        .map((selectedOrgUnit: any) => selectedOrgUnit.level)
+        .filter(selectedOrgUnitLevel => selectedOrgUnitLevel)
+    );
+
+    if (highestLevel) {
+      this.selectedOrgUnitItems = this.selectedOrgUnitItems.filter(
+        (selectedOrgUnit: any) => {
+          if (selectedOrgUnit.type !== 'ORGANISATION_UNIT_LEVEL') {
+            return selectedOrgUnit;
+          }
+
+          const splitedOrgUnitIds = (selectedOrgUnit.id || '').split('-');
+          return parseInt(splitedOrgUnitIds[1], 10) >= highestLevel;
+        }
+      );
+    } else {
+      this.selectedOrgUnitItems = this.selectedOrgUnitItems.filter(
+        (selectedOrgUnit: any) =>
+          selectedOrgUnit.type !== 'ORGANISATION_UNIT_LEVEL'
+      );
+    }
 
     // Also update organisation units
     this._setOrUpdateOrgUnitProperties();

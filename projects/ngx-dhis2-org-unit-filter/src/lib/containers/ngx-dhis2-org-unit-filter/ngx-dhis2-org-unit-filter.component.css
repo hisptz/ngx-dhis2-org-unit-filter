@@ -31,3 +31,7 @@
   justify-content: flex-end;
   font-size: 12px;
 }
+
+.ngx-dhis2-org-unit-filter__org-unit-buttons button {
+  background-color: transparent;
+}

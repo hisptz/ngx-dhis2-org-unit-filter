@@ -5,6 +5,10 @@
   height: 268px;
 }
 
+.ngx-dhis2-org-unit-level-group__card {
+  border-radius: 0;
+}
+
 .ngx-dhis2-org-unit-level-group__card-body {
   padding: 5px;
 }
@@ -49,7 +53,7 @@
 }
 
 .ngx-dhis2-org-unit-level-group__item:hover {
-  background-color: #eeeeee;
+  background-color: #e9ecef;
 }
 
 .ngx-dhis2-org-unit-level-group__item-selection-holder {
@@ -58,6 +62,10 @@
 
 .ngx-dhis2-org-unit-level-group__item-name {
   margin-left: 5px;
+}
+
+.ngx-dhis2-org-unit-level-group__search {
+  border-radius: 0;
 }
 
 /* width */

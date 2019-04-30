@@ -3,11 +3,14 @@
     <input
       type="text"
       (keyup)="onOrgUnitGroupLevelFilter($event)"
-      class="form-control form-control-sm"
+      class="form-control form-control-sm ngx-dhis2-org-unit-level-group__search"
       placeholder="Search levels or groups"
     />
   </div>
-  <div class="card" style="margin-top: 5px;">
+  <div
+    class="card ngx-dhis2-org-unit-level-group__card"
+    style="margin-top: 5px;"
+  >
     <div class="card-body ngx-dhis2-org-unit-level-group__card-body">
       <ul class="ngx-dhis2-org-unit-level-group__list">
         <li>
@@ -15,8 +18,13 @@
             <!-- header for levels section -->
             <li>
               <span class="ngx-dhis2-org-unit-level-group__item-header"
-                >Levels</span
-              >
+                >Levels&nbsp;
+                <span
+                  class="badge badge-primary"
+                  *ngIf="selectedLevelsCount > 0"
+                  >{{ selectedLevelsCount }} selected</span
+                >
+              </span>
             </li>
             <!-- end of header for level section -->
 
@@ -45,10 +53,10 @@
             <!-- level list -->
             <li
               *ngFor="
-                let orgUnitLevel of (orgUnitLevels
+                let orgUnitLevel of orgUnitLevels
                   | orgUnitGroupLevelFilter
                     : orgUnitGroupLevelSearchQuery
-                    : 'level')
+                    : 'level'
               "
             >
               <a
@@ -70,8 +78,13 @@
             <!-- header for group selections -->
             <li>
               <span class="ngx-dhis2-org-unit-level-group__item-header"
-                >Groups</span
-              >
+                >Groups&nbsp;
+                <span
+                  class="badge badge-primary"
+                  *ngIf="selectedGroupsCount > 0"
+                  >{{ selectedGroupsCount }} selected</span
+                >
+              </span>
             </li>
             <!-- end of header for group selections -->
 
@@ -100,10 +113,10 @@
             <!-- group list -->
             <li
               *ngFor="
-                let orgUnitGroup of (orgUnitGroups
+                let orgUnitGroup of orgUnitGroups
                   | orgUnitGroupLevelFilter
                     : orgUnitGroupLevelSearchQuery
-                    : 'group')
+                    : 'group'
               "
             >
               <a

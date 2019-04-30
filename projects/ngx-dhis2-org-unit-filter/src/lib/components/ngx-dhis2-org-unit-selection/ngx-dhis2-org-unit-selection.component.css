@@ -4,9 +4,7 @@
 
 /*Org unit search css*/
 .ngx-dhis2-org-unit-selection__search {
-  margin-bottom: 7px;
-  width: 100%;
-  display: flex;
+  border-radius: 0;
 }
 
 .ngx-dhis2-org-unit-selection__tree_list {
@@ -18,6 +16,7 @@
 .ngx-dhis2-org-unit-selection-card {
   margin-top: 5px;
   position: relative;
+  border-radius: 0;
 }
 .ngx-dhis2-org-unit-selection-card-body {
   padding: 5px;
@@ -36,7 +35,7 @@
   width: 100%;
   padding: 5px;
   border-radius: 3px;
-  height: 315px;
+  height: 318px;
   overflow: auto;
 }
 
