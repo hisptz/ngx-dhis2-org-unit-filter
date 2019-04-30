@@ -10,5 +10,6 @@
       "@ngrx/store": "@ngrx/store",
       "@hisptz/ngx-dhis2-http-client": "@hisptz/ngx-dhis2-http-client"
     }
-  }
+  },
+  "whitelistedNonPeerDependencies": ["."]
 }
