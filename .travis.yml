@@ -31,7 +31,6 @@ install:
   - npm install
 
 script:
-  - npm run build-lib-dev
   - npm run build
 
 notifications:
