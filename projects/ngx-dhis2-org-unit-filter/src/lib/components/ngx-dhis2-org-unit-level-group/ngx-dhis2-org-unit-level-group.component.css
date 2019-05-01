@@ -2,8 +2,15 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  margin-top: 4px;
+  height: 268px;
+}
+
+.ngx-dhis2-org-unit-level-group__card {
+  border-radius: 0;
+}
+
+.ngx-dhis2-org-unit-level-group__card-body {
+  padding: 5px;
 }
 
 .ngx-dhis2-org-unit-level-group__inner-list {
@@ -11,7 +18,7 @@
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 249px;
+  height: 260px;
   overflow: auto;
 }
 
@@ -24,19 +31,6 @@
 
 .ngx-dhis2-org-unit-level-group__inner-list > li:last-child {
   border-bottom: none;
-}
-
-.ngx-dhis2-org-unit-level-group__input {
-  width: 100%;
-  outline: none;
-  border: none;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  padding-left: 12px;
-  padding-right: 12px;
-  display: flex;
-  align-items: center;
-  height: 32px;
-  font-size: 12px;
 }
 
 .ngx-dhis2-org-unit-level-group__item-header {
@@ -59,7 +53,7 @@
 }
 
 .ngx-dhis2-org-unit-level-group__item:hover {
-  background-color: #eeeeee;
+  background-color: #e9ecef;
 }
 
 .ngx-dhis2-org-unit-level-group__item-selection-holder {
@@ -68,6 +62,10 @@
 
 .ngx-dhis2-org-unit-level-group__item-name {
   margin-left: 5px;
+}
+
+.ngx-dhis2-org-unit-level-group__search {
+  border-radius: 0;
 }
 
 /* width */

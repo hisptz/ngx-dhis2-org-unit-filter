@@ -1,4 +1,9 @@
-[![Build Status](https://travis-ci.org/hisptz/ngx-dhis2-org-unit-filter.svg?branch=develop)](https://travis-ci.org/hisptz/ngx-dhis2-org-unit-filter)
+[![Build Status](https://travis-ci.org/interactive-apps/ngx-dhis2-org-unit-filter.svg?branch=develop)](https://travis-ci.org/interactive-apps/ngx-dhis2-org-unit-filter)
+[![dependencies Status](https://david-dm.org/interactive-apps/ngx-dhis2-org-unit-filter/status.svg)](https://david-dm.org/interactive-apps/ngx-dhis2-org-unit-filter)
+[![devDependencies Status](https://david-dm.org/interactive-apps/ngx-dhis2-org-unit-filter/dev-status.svg)](https://david-dm.org/interactive-apps/ngx-dhis2-org-unit-filter?type=dev)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Maintainability](https://api.codeclimate.com/v1/badges/3a8da71e235a0e397823/maintainability)](https://codeclimate.com/github/interactive-apps/ngx-dhis2-org-unit-filter/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/3a8da71e235a0e397823/test_coverage)](https://codeclimate.com/github/interactive-apps/ngx-dhis2-org-unit-filter/test_coverage) [![Greenkeeper badge](https://badges.greenkeeper.io/interactive-apps/ngx-dhis2-org-unit-filter.svg)](https://greenkeeper.io/)
 
 # DHIS2 Organisation unit selection filter
 
@@ -41,6 +46,27 @@ Inputs
 | -------------------- | --------------------------------------------------------------------------------- |
 | selectedOrgUnitItems | This is a list of selected organisation units, groups, or levels                  |
 | orgUnitFilterConfig  | This when passed overrides default configuration for the organisation unit filter |
+
+Input models
+
+selectedOrgUnitItems
+
+| Item             | Description                                                                                                       |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------- |
+| id               | Organisation unit identifier                                                                                      |
+| name (optional)  | Organisation unit name                                                                                            |
+| level (optional) | Level of organisation unit in the hierarchy eg. 1, 2                                                              |
+| type (optional)  | Type of organisation unit eg. USER_ORGANISATIONUNIT, ORGANISATION_LEVEL, ORGANISATIONUNIT_GROUP, ORGANISATIONUNIT |
+
+orgUnitFilterConfig
+
+| Item                      | Description                                                           | Default value |
+| ------------------------- | --------------------------------------------------------------------- | ------------- |
+| singleSelection           | Specify whether org unit selection is single or multiple              | true          |
+| reportUse (optional)      | Tells whether org units should be used for reports or data entry      | true          |
+| minLevel (optional)       | Specify minimum level for org units                                   | none          |
+| updateOnSelect (optional) | Specify whether to update on select or unselect or on button click    | false         |
+| closeOnDestroy (optional) | Call on closeOrgUnit Method when component get destroyed, if set true | true          |
 
 Outputs
 

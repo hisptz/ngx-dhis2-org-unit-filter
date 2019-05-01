@@ -1,72 +1,62 @@
 import { Injectable } from '@angular/core';
-import { NgxDhis2HttpClientService } from '@hisptz/ngx-dhis2-http-client';
+import { NgxDhis2HttpClientService } from '@iapps/ngx-dhis2-http-client';
 import * as _ from 'lodash';
 import { from, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
+import { OrgUnitFilterConfig } from '../models/org-unit-filter-config.model';
+import { OrgUnit } from '../models/org-unit.model';
+import { getUserOrgUnitIds } from '../helpers/get-user-org-unit-ids.helper';
+import { getOrgUnitUrls } from '../helpers/get-org-unit-urls.helper';
 
-import { OrgUnit, OrgUnitFilterConfig } from '../models/index';
-
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class OrgUnitService {
   constructor(private httpClient: NgxDhis2HttpClientService) {}
 
   loadAll(orgUnitFilterConfig: OrgUnitFilterConfig): Observable<OrgUnit[]> {
-    return this.httpClient
-      .get('me.json?fields=organisationUnits,dataViewOrganisationUnits')
-      .pipe(
-        mergeMap((userInfo: any) => {
-          const userOrgUnits = _.uniq(
-            _.map(
-              [
-                ...userInfo.organisationUnits,
-                ...userInfo.dataViewOrganisationUnits
-              ],
-              orgUnit => orgUnit.id
-            )
-          );
-          return this.httpClient
-            .get(
-              'organisationUnits.json?fields=!:all&paging=false&filter=path:ilike:' +
-                userOrgUnits.join(';') +
-                (orgUnitFilterConfig.minLevel
-                  ? '&filter=level:le:' + orgUnitFilterConfig.minLevel
-                  : '')
-            )
-            .pipe(
-              map((res: any) => res && res.organisationUnits.length),
-              mergeMap((orgUnitLength: number) => {
-                const pageSize = 5000;
-                const pageCount = Math.ceil(orgUnitLength / pageSize);
-                return from(
-                  _.map(
-                    _.range(1, pageCount + 1),
-                    pageNumber =>
-                      'organisationUnits.json?fields=id,name,level,created,lastUpdated,' +
-                      'path&page=' +
-                      pageNumber +
-                      '&pageSize=' +
-                      pageSize +
-                      '&order=level:asc&order=name:asc&filter=path:ilike:' +
-                      userOrgUnits.join(';')
-                  )
-                ).pipe(
-                  mergeMap(
-                    (orgUnitUrl: string) =>
-                      this.httpClient
-                        .get(orgUnitUrl)
-                        .pipe(
-                          map(
-                            (orgUnitResult: any) =>
-                              orgUnitResult.organisationUnits
-                          )
-                        ),
-                    null,
-                    1
-                  )
-                );
-              })
+    return this._loadUserOrgUnits().pipe(
+      mergeMap((userInfo: any) => {
+        const userOrgUnits = getUserOrgUnitIds(userInfo);
+        return this._getOrgUnitLength(userOrgUnits, orgUnitFilterConfig).pipe(
+          mergeMap((orgUnitLength: number) => {
+            const pageSize = 5000;
+            const pageCount = Math.ceil(orgUnitLength / pageSize);
+            return from(getOrgUnitUrls(pageCount, pageSize, userOrgUnits)).pipe(
+              mergeMap(
+                (orgUnitUrl: string) => this._loadOrgUnitsByUrl(orgUnitUrl),
+                null,
+                1
+              )
             );
-        })
-      );
+          })
+        );
+      })
+    );
+  }
+
+  private _getOrgUnitLength(
+    userOrgUnits,
+    orgUnitFilterConfig: OrgUnitFilterConfig
+  ) {
+    return this.httpClient
+      .get(
+        'organisationUnits.json?fields=!:all&paging=false&filter=path:ilike:' +
+          userOrgUnits.join(';') +
+          (orgUnitFilterConfig.minLevel
+            ? '&filter=level:le:' + orgUnitFilterConfig.minLevel
+            : '')
+      )
+      .pipe(map((res: any) => res && res.organisationUnits.length));
+  }
+
+  private _loadUserOrgUnits() {
+    return this.httpClient.get(
+      'me.json?fields=organisationUnits,dataViewOrganisationUnits'
+    );
+  }
+
+  private _loadOrgUnitsByUrl(orgUnitUrl: string) {
+    return this.httpClient
+      .get(orgUnitUrl)
+      .pipe(map((orgUnitResult: any) => orgUnitResult.organisationUnits));
   }
 }

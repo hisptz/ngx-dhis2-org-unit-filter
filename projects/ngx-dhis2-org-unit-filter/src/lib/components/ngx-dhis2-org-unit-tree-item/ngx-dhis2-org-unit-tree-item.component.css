@@ -13,14 +13,21 @@
 }
 
 .ngx-dhis2-org-unit-tree-item-toggle-btn img {
-  height: 10px;
+  height: 15px;
 }
 
 .ngx-dhis2-org-unit-tree-item-name {
   font-size: 14px;
+  padding: 3px;
+  margin: 3px 3px 3px 1px;
+  border-radius: 3px;
   display: flex;
   align-items: center;
   cursor: pointer;
+}
+
+.ngx-dhis2-org-unit-tree-item-name:hover {
+  background-color: #e9ecef;
 }
 
 .ngx-dhis2-org-unit-tree-item-children {
@@ -33,7 +40,7 @@
 }
 
 .ngx-dhis2-org-unit-tree-item-selected {
-  color: #ffa500;
+  color: #ffa500 !important;
 }
 
 .ngx-dhis2-org-unit-line {

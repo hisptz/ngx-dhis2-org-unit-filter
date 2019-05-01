@@ -1,14 +1,16 @@
 {
-  "name": "@hisptz/ngx-dhis2-org-unit-filter",
-  "version": "1.0.7",
+  "name": "@iapps/ngx-dhis2-org-unit-filter",
+  "version": "1.0.14",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hisptz/ngx-dhis2-org-unit-filter.git"
+    "url": "https://github.com/interactive-apps/ngx-dhis2-org-unit-filter.git"
   },
   "peerDependencies": {
     "@angular/common": "^6.0.0 || ^7.0.0",
-    "@angular/core": "^6.0.0 || ^7.0.0",
-    "@hisptz/ngx-dhis2-http-client": "^1.0.2",
+    "@angular/core": "^6.0.0 || ^7.0.0"
+  },
+  "dependencies": {
+    "@iapps/ngx-dhis2-http-client": "^2.0.2",
     "@ngrx/effects": "^6.0.1 || ^7.0.0",
     "@ngrx/entity": "^6.0.1 || ^7.0.0",
     "@ngrx/store": "^6.0.1 || ^7.0.0",

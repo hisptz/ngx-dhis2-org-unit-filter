@@ -1,12 +1,14 @@
 import { createSelector, MemoizedSelector } from '@ngrx/store';
-import { OrgUnitFilterState, getOrgUnitFilterState } from '../reducers';
+import {
+  OrgUnitFilterState,
+  getOrgUnitFilterState
+} from '../reducers/org-unit-filter.reducer';
 import {
   selectAllOrgUnitGroups,
-  OrgUnitGroupState,
   getOrgUnitGroupLoadingState,
   getOrgUnitGroupLoadInitiatedState
 } from '../reducers/org-unit-group.reducer';
-import { OrgUnitGroup } from '../../models';
+import { OrgUnitGroup } from '../../models/org-unit-group.model';
 
 export const getOrgUnitGroupState = createSelector(
   getOrgUnitFilterState,

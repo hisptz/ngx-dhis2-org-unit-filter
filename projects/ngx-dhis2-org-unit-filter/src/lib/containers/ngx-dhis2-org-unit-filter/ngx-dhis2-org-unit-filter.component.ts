@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -11,30 +12,33 @@ import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DEFAULT_ORG_UNIT_FILTER_CONFIG } from '../../constants';
-import { getSanitizedSelectedOrgUnits } from '../../helpers/get-sanitized-selected-org-units.helper';
-import { OrgUnit, OrgUnitGroup, OrgUnitLevel } from '../../models';
+import { DEFAULT_ORG_UNIT_FILTER_CONFIG } from '../../constants/default-org-unit-filter-config.constant';
+import { getOrgUnitSelection } from '../../helpers/get-org-unit-selection.helper';
 import { OrgUnitFilterConfig } from '../../models/org-unit-filter-config.model';
+import { OrgUnitGroup } from '../../models/org-unit-group.model';
+import { OrgUnitLevel } from '../../models/org-unit-level.model';
+import { OrgUnit } from '../../models/org-unit.model';
+import {
+  LoadOrgUnitGroupsAction,
+  LoadOrgUnitLevelsAction,
+  LoadOrgUnitsAction
+} from '../../store/actions';
+import { OrgUnitFilterState } from '../../store/reducers/org-unit-filter.reducer';
 import {
   getOrgUnitGroupBasedOnOrgUnitsSelected,
   getOrgUnitGroupLoading,
   getOrgUnitLevelBasedOnOrgUnitsSelected,
   getOrgUnitLevelLoading,
-  LoadOrgUnitGroupsAction,
-  LoadOrgUnitLevelsAction,
-  LoadOrgUnitsAction,
-  OrgUnitFilterState
-} from '../../store';
-import {
   getOrgUnitLoading,
   getUserOrgUnitsBasedOnOrgUnitsSelected
-} from '../../store/selectors/org-unit.selectors';
+} from '../../store/selectors';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'ngx-dhis2-org-unit-filter',
   templateUrl: './ngx-dhis2-org-unit-filter.component.html',
-  styleUrls: ['./ngx-dhis2-org-unit-filter.component.css']
+  styleUrls: ['./ngx-dhis2-org-unit-filter.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
   /**
@@ -94,11 +98,19 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
   get selectedOrgUnits(): any[] {
     return _.filter(
       this.selectedOrgUnitItems,
-      selectedOrgUnit => selectedOrgUnit.type === 'ORGANISATION_UNIT'
+      selectedOrgUnit =>
+        (!selectedOrgUnit.type &&
+          selectedOrgUnit.id &&
+          (selectedOrgUnit.id.indexOf('LEVEL') === -1 &&
+            selectedOrgUnit.id.indexOf('OU_GROUP') === -1)) ||
+        selectedOrgUnit.type === 'ORGANISATION_UNIT'
     );
   }
 
   ngOnInit() {
+    if (!this.selectedOrgUnitItems) {
+      this.selectedOrgUnitItems = [];
+    }
     // Dispatching actions to load organisation unit information
     this.store.dispatch(new LoadOrgUnitLevelsAction());
     this.store.dispatch(new LoadOrgUnitGroupsAction());
@@ -144,29 +156,24 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
   }
 
   onSelectOrgUnit(orgUnit: any) {
-    if (
-      orgUnit.type === 'ORGANISATION_UNIT_LEVEL' ||
-      orgUnit.type === 'ORGANISATION_UNIT_GROUP'
-    ) {
-      if (orgUnit.type === 'ORGANISATION_UNIT_LEVEL') {
-        this.selectedOrgUnitItems = [
-          ..._.filter(
-            this.selectedOrgUnitItems || [],
-            selectedOrgUnitItem =>
-              selectedOrgUnitItem.type !== 'ORGANISATION_UNIT_GROUP'
-          ),
-          orgUnit
-        ];
-      } else {
-        this.selectedOrgUnitItems = [
-          ..._.filter(
-            this.selectedOrgUnitItems || [],
-            selectedOrgUnitItem =>
-              selectedOrgUnitItem.type !== 'ORGANISATION_UNIT_LEVEL'
-          ),
-          orgUnit
-        ];
-      }
+    if (orgUnit.type === 'ORGANISATION_UNIT_LEVEL') {
+      this.selectedOrgUnitItems = [
+        ..._.filter(
+          this.selectedOrgUnitItems || [],
+          selectedOrgUnitItem =>
+            selectedOrgUnitItem.type !== 'ORGANISATION_UNIT_GROUP'
+        ),
+        orgUnit
+      ];
+    } else if (orgUnit.type === 'ORGANISATION_UNIT_GROUP') {
+      this.selectedOrgUnitItems = [
+        ..._.filter(
+          this.selectedOrgUnitItems || [],
+          selectedOrgUnitItem =>
+            selectedOrgUnitItem.type !== 'ORGANISATION_UNIT_LEVEL'
+        ),
+        orgUnit
+      ];
     } else {
       this.selectedOrgUnitItems = !this.orgUnitFilterConfig.singleSelection
         ? [
@@ -217,7 +224,32 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
               ..._.slice(this.selectedOrgUnitItems || [], orgUnitIndex + 1)
             ]
           : []
-        : this.selectedOrgUnitItems;
+        : this.selectedOrgUnitItems || [];
+
+    // Also remove org unit levels if not applicable
+    const highestLevel = _.min(
+      this.selectedOrgUnitItems
+        .map((selectedOrgUnit: any) => selectedOrgUnit.level)
+        .filter(selectedOrgUnitLevel => selectedOrgUnitLevel)
+    );
+
+    if (highestLevel) {
+      this.selectedOrgUnitItems = this.selectedOrgUnitItems.filter(
+        (selectedOrgUnit: any) => {
+          if (selectedOrgUnit.type !== 'ORGANISATION_UNIT_LEVEL') {
+            return selectedOrgUnit;
+          }
+
+          const splitedOrgUnitIds = (selectedOrgUnit.id || '').split('-');
+          return parseInt(splitedOrgUnitIds[1], 10) >= highestLevel;
+        }
+      );
+    } else {
+      this.selectedOrgUnitItems = this.selectedOrgUnitItems.filter(
+        (selectedOrgUnit: any) =>
+          selectedOrgUnit.type !== 'ORGANISATION_UNIT_LEVEL'
+      );
+    }
 
     // Also update organisation units
     this._setOrUpdateOrgUnitProperties();
@@ -239,17 +271,11 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
   }
 
   onOrgUnitClose() {
-    this.orgUnitClose.emit({
-      dimension: 'ou',
-      items: getSanitizedSelectedOrgUnits(this.selectedOrgUnitItems)
-    });
+    this.orgUnitClose.emit(getOrgUnitSelection(this.selectedOrgUnitItems));
   }
 
   onOrgUnitUpdate() {
-    this.orgUnitUpdate.emit({
-      dimension: 'ou',
-      items: getSanitizedSelectedOrgUnits(this.selectedOrgUnitItems)
-    });
+    this.orgUnitUpdate.emit(getOrgUnitSelection(this.selectedOrgUnitItems));
   }
 
   onClose(e) {

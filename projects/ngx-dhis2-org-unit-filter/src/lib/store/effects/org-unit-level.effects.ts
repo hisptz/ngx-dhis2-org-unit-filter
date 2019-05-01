@@ -12,7 +12,7 @@ import {
   LoadOrgUnitLevelsFailAction,
   OrgUnitLevelActionsTypes
 } from '../actions/org-unit-level.actions';
-import { OrgUnitFilterState } from '../reducers';
+import { OrgUnitFilterState } from '../reducers/org-unit-filter.reducer';
 import { getOrgUnitLevelLoadInitiated } from '../selectors/org-unit-level.selectors';
 
 @Injectable()

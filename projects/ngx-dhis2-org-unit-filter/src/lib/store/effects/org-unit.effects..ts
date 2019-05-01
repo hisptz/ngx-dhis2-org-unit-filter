@@ -13,7 +13,7 @@ import {
   LoadOrgUnitsInitiatedAction,
   OrgUnitActionsTypes
 } from '../actions/org-unit.actions';
-import { OrgUnitFilterState } from '../reducers';
+import { OrgUnitFilterState } from '../reducers/org-unit-filter.reducer';
 import { getOrgUnitLoadingInitiated } from '../selectors/org-unit.selectors';
 
 @Injectable()

@@ -1,13 +1,22 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import * as _ from 'lodash';
-import { TICK } from '../../icons';
-import { OrgUnitLevel, OrgUnitGroup } from '../../models';
+import { TICK } from '../../icons/tick';
+import { OrgUnitLevel } from '../../models/org-unit-level.model';
+import { OrgUnitGroup } from '../../models/org-unit-group.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'ngx-dhis2-org-unit-level-group',
   templateUrl: './ngx-dhis2-org-unit-level-group.component.html',
-  styleUrls: ['./ngx-dhis2-org-unit-level-group.component.css']
+  styleUrls: ['./ngx-dhis2-org-unit-level-group.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxDhis2OrgUnitLevelGroupComponent implements OnInit {
   /**
@@ -35,6 +44,18 @@ export class NgxDhis2OrgUnitLevelGroupComponent implements OnInit {
 
   @Output() activateOrgUnitLevelOrGroup = new EventEmitter();
   @Output() deactivateOrgUnitLevelOrGroup = new EventEmitter();
+
+  get selectedLevelsCount(): number {
+    return (this.orgUnitLevels || []).filter(
+      (orgUnitLevel: OrgUnitLevel) => orgUnitLevel.selected
+    ).length;
+  }
+
+  get selectedGroupsCount(): number {
+    return (this.orgUnitGroups || []).filter(
+      (orgUnitGroup: OrgUnitGroup) => orgUnitGroup.selected
+    ).length;
+  }
 
   constructor() {
     this.tickIcon = TICK;

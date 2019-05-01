@@ -1,7 +1,6 @@
 <div class="ngx-dhis2-org-unit-tree-item">
   <!-- org unit title area -->
   <div class="ngx-dhis2-org-unit-tree-item-title">
-    <div class="ngx-dhis2-org-unit-line" *ngIf="parentOrgUnit"></div>
     <button
       class="ngx-dhis2-org-unit-tree-item-toggle-btn"
       (click)="onToggleOrgUnitChildren($event)"
@@ -13,16 +12,17 @@
     <div
       [ngClass]="{
         'ngx-dhis2-org-unit-tree-item-name': true,
-        'ngx-dhis2-org-unit-tree-item-selected': selected
+        'bg-primary text-white': selected
       }"
       (click)="onToggleOrgUnit($event)"
     >
       <div>{{ (orgUnit$ | async)?.name }}</div>
+      &nbsp;
       <div
-        class="ngx-dhis2-org-unit-tree-item-count"
+        class="badge {{ selected ? 'badge-light' : 'badge-secondary' }}"
         *ngIf="(selectedChildrenCount$ | async) > 0"
       >
-        &nbsp;({{ selectedChildrenCount$ | async }})
+        {{ selectedChildrenCount$ | async }}
       </div>
     </div>
   </div>
@@ -30,7 +30,6 @@
 
   <!-- org unit children area -->
   <div
-    class="ngx-dhis2-org-unit-tree-item-children"
     [style.margin-left]="parentOrgUnit ? '23px' : '11px'"
     *ngIf="(orgUnit$ | async)?.children.length > 0 && expanded"
   >

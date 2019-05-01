@@ -1,11 +1,19 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
-import { OrgUnit } from '../../models';
+import { OrgUnit } from '../../models/org-unit.model';
 
 @Component({
   selector: 'ngx-dhis2-user-org-unit-selection',
   templateUrl: './ngx-dhis2-user-org-unit-selection.component.html',
-  styleUrls: ['./ngx-dhis2-user-org-unit-selection.component.css']
+  styleUrls: ['./ngx-dhis2-user-org-unit-selection.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxDhis2UserOrgUnitSelectionComponent implements OnInit {
   @Input()

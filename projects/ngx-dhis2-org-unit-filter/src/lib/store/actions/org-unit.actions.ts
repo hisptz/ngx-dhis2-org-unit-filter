@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { OrgUnit } from '../../models';
+import { OrgUnit } from '../../models/org-unit.model';
 import { OrgUnitFilterConfig } from '../../models/org-unit-filter-config.model';
 export enum OrgUnitActionsTypes {
   LoadOrgUnits = '[OrgUnit] load organisation units',

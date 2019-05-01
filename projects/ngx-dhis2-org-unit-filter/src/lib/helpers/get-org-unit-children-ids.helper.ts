@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { OrgUnit } from '../models';
+import { OrgUnit } from '../models/org-unit.model';
 export function getOrgUnitChildrenIds(
   orgUnits: OrgUnit[],
   currentOrgUnit: OrgUnit

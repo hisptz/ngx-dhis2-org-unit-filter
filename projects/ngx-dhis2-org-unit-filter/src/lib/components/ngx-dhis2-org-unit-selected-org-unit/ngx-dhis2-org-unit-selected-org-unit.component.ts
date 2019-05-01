@@ -1,29 +1,44 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import * as _ from 'lodash';
-import { CLOSE_ICON } from '../../icons';
-import { OrgUnit } from '../../models';
+import { CLOSE_ICON } from '../../icons/close.icon';
+import { OrgUnit } from '../../models/org-unit.model';
 
 @Component({
   selector: 'ngx-dhis2-org-unit-selected-org-unit',
   templateUrl: './ngx-dhis2-org-unit-selected-org-unit.component.html',
-  styleUrls: ['./ngx-dhis2-org-unit-selected-org-unit.component.css']
+  styleUrls: ['./ngx-dhis2-org-unit-selected-org-unit.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxDhis2OrgUnitSelectedOrgUnitComponent implements OnInit {
   @Input() selectedOrgUnits: any[];
 
   @Output() deactivateOrgUnit = new EventEmitter();
-  @Output() deactivateAllOrgUnit = new EventEmitter();
+  @Output() deactivateAllOrgUnits = new EventEmitter();
 
   closeIcon: string;
+  maxOrgUnitToShow: number;
+  showAll: boolean;
   constructor() {
     this.closeIcon = CLOSE_ICON;
+    this.maxOrgUnitToShow = 4;
   }
 
-  get selectedOrgUnitsOnly() {
-    return _.filter(
-      this.selectedOrgUnits || [],
-      orgUnit => orgUnit.type === 'ORGANISATION_UNIT'
-    );
+  get selectedOrgUnitsForDisplay(): any[] {
+    if (this.showAll) {
+      return this.selectedOrgUnits || [];
+    }
+    return (this.selectedOrgUnits || []).slice(0, this.maxOrgUnitToShow);
+  }
+
+  get countOfMoreSelectedOrgUnit(): number {
+    return (this.selectedOrgUnits || []).length - this.maxOrgUnitToShow;
   }
 
   ngOnInit() {}
@@ -35,6 +50,11 @@ export class NgxDhis2OrgUnitSelectedOrgUnitComponent implements OnInit {
 
   onDeactivateAllOrgUnits(e) {
     e.stopPropagation();
-    this.deactivateAllOrgUnit.emit(null);
+    this.deactivateAllOrgUnits.emit(null);
+  }
+
+  onToggleShowMore(e) {
+    e.stopPropagation();
+    this.showAll = !this.showAll;
   }
 }
