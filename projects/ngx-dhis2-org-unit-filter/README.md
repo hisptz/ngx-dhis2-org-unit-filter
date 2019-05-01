@@ -4,13 +4,13 @@ Organisation unit selection filter module for DHIS2 applications based on angula
 
 ## installation
 
-`npm install @hisptz/ngx-dhis2-org-unit-filter`
+`npm install @iapps/ngx-dhis2-org-unit-filter`
 
 ## Usage
 
 If the module is to be imported in the app.module or any other feature module, then import as
 
-`import { NgxDhis2OrgUnitFilterModule } from '@hisptz/ngx-dhis2-org-unit-filter';`
+`import { NgxDhis2OrgUnitFilterModule } from '@iapps/ngx-dhis2-org-unit-filter';`
 
 then add this in the imports
 
