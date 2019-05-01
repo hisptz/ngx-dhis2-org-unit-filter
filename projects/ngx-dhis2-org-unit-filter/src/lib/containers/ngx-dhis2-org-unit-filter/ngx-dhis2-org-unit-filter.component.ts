@@ -13,8 +13,11 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { DEFAULT_ORG_UNIT_FILTER_CONFIG } from '../../constants/default-org-unit-filter-config.constant';
-import { getSanitizedSelectedOrgUnits } from '../../helpers/get-sanitized-selected-org-units.helper';
+import { getOrgUnitSelection } from '../../helpers/get-org-unit-selection.helper';
 import { OrgUnitFilterConfig } from '../../models/org-unit-filter-config.model';
+import { OrgUnitGroup } from '../../models/org-unit-group.model';
+import { OrgUnitLevel } from '../../models/org-unit-level.model';
+import { OrgUnit } from '../../models/org-unit.model';
 import {
   LoadOrgUnitGroupsAction,
   LoadOrgUnitLevelsAction,
@@ -29,9 +32,6 @@ import {
   getOrgUnitLoading,
   getUserOrgUnitsBasedOnOrgUnitsSelected
 } from '../../store/selectors';
-import { OrgUnitLevel } from '../../models/org-unit-level.model';
-import { OrgUnitGroup } from '../../models/org-unit-group.model';
-import { OrgUnit } from '../../models/org-unit.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -271,19 +271,11 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
   }
 
   onOrgUnitClose() {
-    this.orgUnitClose.emit({
-      dimension: 'ou',
-      items: getSanitizedSelectedOrgUnits(this.selectedOrgUnitItems),
-      changed: true
-    });
+    this.orgUnitClose.emit(getOrgUnitSelection(this.selectedOrgUnitItems));
   }
 
   onOrgUnitUpdate() {
-    this.orgUnitUpdate.emit({
-      dimension: 'ou',
-      items: getSanitizedSelectedOrgUnits(this.selectedOrgUnitItems),
-      changed: true
-    });
+    this.orgUnitUpdate.emit(getOrgUnitSelection(this.selectedOrgUnitItems));
   }
 
   onClose(e) {
