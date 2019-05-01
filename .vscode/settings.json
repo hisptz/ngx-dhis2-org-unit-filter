@@ -1,0 +1,9 @@
+{
+    "licenser.license": "LGPLv3",
+    "licenser.projectName": "DHIS2 Organisation Unit Selection",
+    "markdown.preview.breaks": true,
+    "typescript.implementationsCodeLens.enabled": true,
+    "licenser.author": "Rajab Mkomwa",
+    "licenser.customHeader": "\"licenser.customHeader\": \"@FILENAME@ - @PROJECT@\\n\\nCopyright @YEAR@ @AUTHOR@\\n\\nThis is my license...\"",
+    "licenser.customTermsAndConditions": "\"licenser.customTermsAndConditions\": \"Copyright @YEAR@ @AUTHOR@\\n\\nThese are my terms and conditions...\""
+}
