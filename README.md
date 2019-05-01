@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/interactive-apps/ngx-dhis2-org-unit-filter.svg?branch=develop)](https://travis-ci.org/interactive-apps/ngx-dhis2-org-unit-filter)
 [![dependencies Status](https://david-dm.org/interactive-apps/ngx-dhis2-org-unit-filter/status.svg)](https://david-dm.org/interactive-apps/ngx-dhis2-org-unit-filter)
 [![devDependencies Status](https://david-dm.org/interactive-apps/ngx-dhis2-org-unit-filter/dev-status.svg)](https://david-dm.org/interactive-apps/ngx-dhis2-org-unit-filter?type=dev)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
