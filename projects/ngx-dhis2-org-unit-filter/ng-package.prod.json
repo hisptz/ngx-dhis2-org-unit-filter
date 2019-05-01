@@ -8,7 +8,7 @@
       "@ngrx/entity": "@ngrx/entity",
       "@ngrx/effects": "@ngrx/effects",
       "@ngrx/store": "@ngrx/store",
-      "@hisptz/ngx-dhis2-http-client": "@hisptz/ngx-dhis2-http-client"
+      "@iapps/ngx-dhis2-http-client": "@iapps/ngx-dhis2-http-client"
     }
   },
   "whitelistedNonPeerDependencies": ["."]
