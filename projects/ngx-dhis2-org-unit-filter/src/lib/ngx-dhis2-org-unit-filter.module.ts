@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
@@ -22,6 +27,10 @@ import { orgUnitFilterReducer } from './store/reducers/org-unit-filter.reducer';
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatTooltipModule,
     StoreModule.forFeature('orgUnitFilter', orgUnitFilterReducer),
     EffectsModule.forFeature([
       OrgUnitLevelEffects,

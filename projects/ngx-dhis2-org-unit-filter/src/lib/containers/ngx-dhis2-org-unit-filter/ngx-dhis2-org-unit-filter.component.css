@@ -33,5 +33,5 @@
 }
 
 .ngx-dhis2-org-unit-filter__org-unit-buttons button {
-  background-color: transparent;
+  outline: none;
 }

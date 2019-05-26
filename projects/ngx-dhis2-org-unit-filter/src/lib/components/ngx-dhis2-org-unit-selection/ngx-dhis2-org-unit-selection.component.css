@@ -14,12 +14,8 @@
 
 /*Org unit tree css*/
 .ngx-dhis2-org-unit-selection-card {
-  margin-top: 5px;
   position: relative;
   border-radius: 0;
-}
-.ngx-dhis2-org-unit-selection-card-body {
-  padding: 5px;
 }
 
 .ngx-dhis2-org-unit-filter__disabled-overlay {
@@ -28,14 +24,12 @@
   bottom: 0;
   right: 0;
   left: 0;
-  background-color: rgba(233, 236, 239, 0.7);
+  background-color: rgba(0, 0, 0, 0.02);
   z-index: 400;
 }
 .ngx-dhis2-org-unit-selection__tree {
   width: 100%;
-  padding: 5px;
-  border-radius: 3px;
-  height: 318px;
+  height: 320px;
   overflow: auto;
 }
 
