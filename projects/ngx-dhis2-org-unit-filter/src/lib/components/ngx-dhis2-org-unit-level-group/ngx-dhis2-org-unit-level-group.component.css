@@ -88,3 +88,7 @@ mat-list-item {
   font-weight: 400;
   padding: 5px;
 }
+
+.org-unit-list-item {
+  font-size: 14px;
+}

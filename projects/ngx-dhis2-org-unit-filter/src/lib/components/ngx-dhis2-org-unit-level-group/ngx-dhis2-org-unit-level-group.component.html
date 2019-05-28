@@ -41,6 +41,7 @@
             "
           >
             <mat-checkbox
+              class="org-unit-list-item"
               [name]="orgUnitLevel.id"
               [checked]="orgUnitLevel.selected"
               (click)="onUpdate($event, orgUnitLevel, 'LEVEL')"
@@ -81,6 +82,7 @@
           >
             <mat-checkbox
               [name]="orgUnitGroup.id"
+              class="org-unit-list-item"
               [checked]="orgUnitGroup.selected"
               (click)="onUpdate($event, orgUnitGroup, 'GROUP')"
               >{{ orgUnitGroup.name }}</mat-checkbox
