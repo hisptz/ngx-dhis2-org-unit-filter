@@ -1,142 +1,93 @@
-<div class="ngx-dhis2-org-unit-level-group__container">
-  <div>
+<div class="row">
+  <mat-form-field class="col-12">
     <input
       type="text"
+      matInput
       (keyup)="onOrgUnitGroupLevelFilter($event)"
-      class="form-control form-control-sm ngx-dhis2-org-unit-level-group__search"
       placeholder="Search levels or groups"
     />
-  </div>
-  <div
-    class="card ngx-dhis2-org-unit-level-group__card"
-    style="margin-top: 5px;"
-  >
-    <div class="card-body ngx-dhis2-org-unit-level-group__card-body">
-      <ul class="ngx-dhis2-org-unit-level-group__list">
-        <li>
-          <ul class="ngx-dhis2-org-unit-level-group__inner-list">
-            <!-- header for levels section -->
-            <li>
-              <span class="ngx-dhis2-org-unit-level-group__item-header"
-                >Levels&nbsp;
-                <span
-                  class="badge badge-primary"
-                  *ngIf="selectedLevelsCount > 0"
-                  >{{ selectedLevelsCount }} selected</span
-                >
-              </span>
-            </li>
-            <!-- end of header for level section -->
-
-            <li *ngIf="loadingLevels">
-              <!-- loading org units -->
-              <div style="width: 100%;  padding: 7px;">
-                <div style="height: 7px; margin-bottom: 3px; width: 30%">
-                  <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
-                </div>
-                <div style="height: 7px; margin-bottom: 3px; width: 50%">
-                  <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
-                </div>
-                <div style="height: 7px; margin-bottom: 3px; width: 70%">
-                  <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
-                </div>
-                <div style="height: 7px; margin-bottom: 3px; width: 90%">
-                  <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
-                </div>
-                <div style="height: 7px; margin-bottom: 3px; width: 98%">
-                  <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
-                </div>
-              </div>
-              <!-- end of loading org units -->
-            </li>
-
-            <!-- level list -->
-            <li
-              *ngFor="
-                let orgUnitLevel of orgUnitLevels
-                  | orgUnitGroupLevelFilter
-                    : orgUnitGroupLevelSearchQuery
-                    : 'level'
-              "
+  </mat-form-field>
+  <div class="col-12">
+    <div class="card ngx-dhis2-org-unit-level-group__card">
+      <div class="ngx-dhis2-org-unit-level-group__inner-list">
+        <mat-list>
+          <div mat-subheader>
+            Levels
+            <span
+              class="ml-1 badge badge-secondary level-group-badge"
+              *ngIf="selectedLevelsCount > 0"
+              >{{ selectedLevelsCount }} selected</span
             >
-              <a
-                class="ngx-dhis2-org-unit-level-group__item"
-                (click)="onUpdate($event, orgUnitLevel, 'LEVEL')"
-              >
-                <img *ngIf="orgUnitLevel.selected" [src]="tickIcon" />
-                <span
-                  *ngIf="!orgUnitLevel.selected"
-                  class="ngx-dhis2-org-unit-level-group__item-selection-holder"
-                ></span>
-                <span class="ngx-dhis2-org-unit-level-group__item-name">{{
-                  orgUnitLevel.name
-                }}</span>
-              </a>
-            </li>
-            <!-- end of level list -->
-
-            <!-- header for group selections -->
-            <li>
-              <span class="ngx-dhis2-org-unit-level-group__item-header"
-                >Groups&nbsp;
-                <span
-                  class="badge badge-primary"
-                  *ngIf="selectedGroupsCount > 0"
-                  >{{ selectedGroupsCount }} selected</span
-                >
-              </span>
-            </li>
-            <!-- end of header for group selections -->
-
-            <li *ngIf="loadingGroups">
-              <!-- loading org units -->
-              <div style="width: 100%; padding: 7px;">
-                <div style="height: 7px; margin-bottom: 3px; width: 30%">
-                  <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
-                </div>
-                <div style="height: 7px; margin-bottom: 3px; width: 50%">
-                  <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
-                </div>
-                <div style="height: 7px; margin-bottom: 3px; width: 70%">
-                  <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
-                </div>
-                <div style="height: 7px; margin-bottom: 3px; width: 90%">
-                  <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
-                </div>
-                <div style="height: 7px; margin-bottom: 3px; width: 98%">
-                  <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
-                </div>
-              </div>
-              <!-- end of loading org units -->
-            </li>
-
-            <!-- group list -->
-            <li
-              *ngFor="
-                let orgUnitGroup of orgUnitGroups
-                  | orgUnitGroupLevelFilter
-                    : orgUnitGroupLevelSearchQuery
-                    : 'group'
-              "
+          </div>
+          <mat-list-item *ngIf="loadingLevels">
+            <div style="height: 24px; margin-bottom: 3px; width: 100%">
+              <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
+            </div>
+          </mat-list-item>
+          <mat-list-item *ngIf="loadingLevels">
+            <div style="height: 24px; margin-bottom: 3px; width: 100%">
+              <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
+            </div>
+          </mat-list-item>
+          <mat-list-item *ngIf="loadingLevels">
+            <div style="height: 24px; margin-bottom: 3px; width: 100%">
+              <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
+            </div>
+          </mat-list-item>
+          <mat-list-item
+            *ngFor="
+              let orgUnitLevel of orgUnitLevels
+                | orgUnitGroupLevelFilter: orgUnitGroupLevelSearchQuery:'level'
+            "
+          >
+            <mat-checkbox
+              [name]="orgUnitLevel.id"
+              [checked]="orgUnitLevel.selected"
+              (click)="onUpdate($event, orgUnitLevel, 'LEVEL')"
+              >{{ orgUnitLevel.name }}</mat-checkbox
             >
-              <a
-                class="ngx-dhis2-org-unit-level-group__item"
-                (click)="onUpdate($event, orgUnitGroup, 'GROUP')"
-              >
-                <img *ngIf="orgUnitGroup.selected" [src]="tickIcon" />
-                <span
-                  *ngIf="!orgUnitGroup.selected"
-                  class="ngx-dhis2-org-unit-level-group__item-selection-holder"
-                ></span>
-                <span class="ngx-dhis2-org-unit-level-group__item-name">{{
-                  orgUnitGroup.name
-                }}</span>
-              </a>
-            </li>
-            <!-- end of group list -->
-          </ul>
-        </li>
-      </ul>
+          </mat-list-item>
+        </mat-list>
+
+        <mat-list>
+          <div mat-subheader>
+            Groups
+            <span
+              class="ml-1 badge badge-secondary level-group-badge"
+              *ngIf="selectedGroupsCount > 0"
+              >{{ selectedGroupsCount }} selected</span
+            >
+          </div>
+          <mat-list-item *ngIf="loadingGroups">
+            <div style="height: 24px; margin-bottom: 3px; width: 100%">
+              <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
+            </div>
+          </mat-list-item>
+          <mat-list-item *ngIf="loadingGroups">
+            <div style="height: 24px; margin-bottom: 3px; width: 100%">
+              <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
+            </div>
+          </mat-list-item>
+          <mat-list-item *ngIf="loadingGroups">
+            <div style="height: 24px; margin-bottom: 3px; width: 100%">
+              <app-ngx-dhis2-org-unit-progress></app-ngx-dhis2-org-unit-progress>
+            </div>
+          </mat-list-item>
+          <mat-list-item
+            *ngFor="
+              let orgUnitGroup of orgUnitGroups
+                | orgUnitGroupLevelFilter: orgUnitGroupLevelSearchQuery:'group'
+            "
+          >
+            <mat-checkbox
+              [name]="orgUnitGroup.id"
+              [checked]="orgUnitGroup.selected"
+              (click)="onUpdate($event, orgUnitGroup, 'GROUP')"
+              >{{ orgUnitGroup.name }}</mat-checkbox
+            >
+          </mat-list-item>
+        </mat-list>
+      </div>
     </div>
   </div>
 </div>

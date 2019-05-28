@@ -4,7 +4,9 @@ import {
   Input,
   Output,
   EventEmitter,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  OnChanges,
+  SimpleChanges
 } from '@angular/core';
 import * as _ from 'lodash';
 import { TICK } from '../../icons/tick';

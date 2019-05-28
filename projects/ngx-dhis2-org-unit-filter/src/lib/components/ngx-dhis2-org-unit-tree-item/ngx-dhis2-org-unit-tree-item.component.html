@@ -9,11 +9,14 @@
       <i class="fa {{ expanded ? 'fa-caret-down' : 'fa-caret-right' }}"></i>
     </button>
     <mat-checkbox
+      *ngIf="orgUnit$ | async as orgUnit"
+      [name]="orgUnit.id"
+      [ngModel]="selected"
       [ngClass]="{
-        'ml-3': (orgUnit$ | async)?.children.length === 0,
+        'ml-3': orgUnit?.children.length === 0,
         'ngx-dhis2-org-unit-tree-item-name': true
       }"
-      (click)="onToggleOrgUnit($event)"
+      (ngModelChange)="onToggleOrgUnit(orgUnit)"
     >
       {{ (orgUnit$ | async)?.name }}
       <div

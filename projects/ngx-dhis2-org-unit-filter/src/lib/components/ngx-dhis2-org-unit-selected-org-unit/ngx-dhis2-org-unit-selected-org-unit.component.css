@@ -1,63 +1,10 @@
-.ngx-dhis2-org-unit-selected-org-unit-container {
-  display: flex;
-  justify-content: space-between;
+.selected-badge {
+  padding: 10px;
+  font-weight: 400;
+  font-size: 14px;
 }
 
-.ngx-dhis2-org-unit-selected-org-unit-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  overflow: auto;
-}
-
-.selected-org-unit-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 2px;
-  margin-right: 3px;
-}
-
-.selected-org-unit-item:last-child {
-  margin-right: 0;
-}
-
-.selected-org-unit-name {
-  font-size: 12px;
-  padding-left: 5px;
-  margin-right: 5px;
-}
-
-.selected-org-unit-close-btn {
-  font-size: 20px;
-  line-height: 10px;
-  padding: 3px;
-}
-
-.org-unit-close-btn {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.org-unit-close-all-label {
-  margin-left: 5px;
-  font-size: 10px;
-}
-
-.org-unit-close-icon {
-  font-size: 20px;
-  line-height: 15px;
-}
-
-.selected-org-unit-close-btn > img,
-.org-unit-close-btn > img {
-  height: 10px;
-}
-
-@media screen and (max-width: 900px) {
-  .org-unit-close-all-label {
-    font-size: 8px;
-  }
+.selected-badge > a {
+  text-decoration: underline;
+  cursor: pointer;
 }

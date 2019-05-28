@@ -27,7 +27,7 @@ export class NgxDhis2OrgUnitSelectedOrgUnitComponent implements OnInit {
   showAll: boolean;
   constructor() {
     this.closeIcon = CLOSE_ICON;
-    this.maxOrgUnitToShow = 4;
+    this.maxOrgUnitToShow = 3;
   }
 
   get selectedOrgUnitsForDisplay(): any[] {
@@ -39,6 +39,15 @@ export class NgxDhis2OrgUnitSelectedOrgUnitComponent implements OnInit {
 
   get countOfMoreSelectedOrgUnit(): number {
     return (this.selectedOrgUnits || []).length - this.maxOrgUnitToShow;
+  }
+
+  get selectedString() {
+    const selectedOrgUnitString = this.selectedOrgUnitsForDisplay
+      .map((selectedOrgUnit: any) => selectedOrgUnit.name)
+      .join(', ');
+    return this.countOfMoreSelectedOrgUnit > 0
+      ? selectedOrgUnitString + ` ${this.countOfMoreSelectedOrgUnit} and more`
+      : selectedOrgUnitString;
   }
 
   ngOnInit() {}

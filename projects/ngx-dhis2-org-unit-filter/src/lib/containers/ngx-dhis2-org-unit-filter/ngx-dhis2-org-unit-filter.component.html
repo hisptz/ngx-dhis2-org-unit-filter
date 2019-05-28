@@ -10,7 +10,7 @@
   <!--selected organisation unit summary section-->
 
   <!--user organisation unit selection options-->
-  <div class="col-12 mt-1">
+  <div class="col-12 mt-2">
     <ngx-dhis2-user-org-unit-selection
       [userOrgUnits]="userOrgUnits$ | async"
       (activateUserOrgUnit)="onSelectOrgUnit($event)"
@@ -20,7 +20,7 @@
   <!--end of user organisation unit selection options-->
 
   <!--organisation unit selection container-->
-  <div class="col-12 mt-2">
+  <div class="col-12 mt-3">
     <div class="row">
       <div class="col-7">
         <!--organisation unit selection area-->
@@ -57,15 +57,25 @@
   <!--organisation unit selection container-->
 
   <div class="col-12 mt-2">
-    <!--organisation unit buttons-->
-    <div class="ngx-dhis2-org-unit-filter__org-unit-buttons">
-      <button mat-stroked-button (click)="onClose($event)">
-        Close</button
-      >&nbsp;
-      <button mat-stroked-button color="primary" (click)="onUpdate($event)">
-        Update
-      </button>
+    <div class="row">
+      <div class="col-8">
+        <ngx-dhis2-org-unit-selected-org-unit
+          [selectedOrgUnits]="selectedOrgUnits"
+          (deactivateOrgUnit)="onDeselectOrgUnit($event)"
+          (deactivateAllOrgUnits)="onDeselectAllOrgUnits()"
+        ></ngx-dhis2-org-unit-selected-org-unit>
+      </div>
+
+      <!--organisation unit buttons-->
+      <div class="col-4 ngx-dhis2-org-unit-filter__org-unit-buttons">
+        <button mat-stroked-button (click)="onClose($event)">
+          Close</button
+        >&nbsp;
+        <button mat-stroked-button color="primary" (click)="onUpdate($event)">
+          Update
+        </button>
+      </div>
+      <!--end of organisation unit buttons-->
     </div>
-    <!--end of organisation unit buttons-->
   </div>
 </div>

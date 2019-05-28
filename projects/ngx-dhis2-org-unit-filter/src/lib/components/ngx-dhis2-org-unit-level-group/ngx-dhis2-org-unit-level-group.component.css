@@ -2,15 +2,11 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-  height: 268px;
+  height: 290px;
 }
 
 .ngx-dhis2-org-unit-level-group__card {
   border-radius: 0;
-}
-
-.ngx-dhis2-org-unit-level-group__card-body {
-  padding: 5px;
 }
 
 .ngx-dhis2-org-unit-level-group__inner-list {
@@ -18,7 +14,7 @@
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 260px;
+  height: 285px;
   overflow: auto;
 }
 
@@ -64,10 +60,6 @@
   margin-left: 5px;
 }
 
-.ngx-dhis2-org-unit-level-group__search {
-  border-radius: 0;
-}
-
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -86,4 +78,13 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.2);
+}
+
+mat-list-item {
+  height: 35px !important;
+}
+
+.level-group-badge {
+  font-weight: 400;
+  padding: 5px;
 }
