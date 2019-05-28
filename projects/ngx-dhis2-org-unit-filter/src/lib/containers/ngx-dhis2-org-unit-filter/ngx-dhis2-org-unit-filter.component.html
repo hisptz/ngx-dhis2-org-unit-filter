@@ -1,47 +1,42 @@
 <div class="row">
   <!--selected organisation unit summary section-->
-  <div class="col-12">
+  <!-- <div class="col-12">
     <ngx-dhis2-org-unit-selected-org-unit
       [selectedOrgUnits]="selectedOrgUnits"
       (deactivateOrgUnit)="onDeselectOrgUnit($event)"
       (deactivateAllOrgUnits)="onDeselectAllOrgUnits()"
     ></ngx-dhis2-org-unit-selected-org-unit>
-  </div>
+  </div> -->
   <!--selected organisation unit summary section-->
-</div>
-<div class="row" style="margin-top: 5px;">
+
+  <!--user organisation unit selection options-->
+  <div class="col-12 mt-2">
+    <ngx-dhis2-user-org-unit-selection
+      [userOrgUnits]="userOrgUnits$ | async"
+      (activateUserOrgUnit)="onSelectOrgUnit($event)"
+      (deactivateUserOrgUnit)="onDeselectOrgUnit($event)"
+    ></ngx-dhis2-user-org-unit-selection>
+  </div>
+  <!--end of user organisation unit selection options-->
+
   <!--organisation unit selection container-->
-  <div class="col-12">
+  <div class="col-12 mt-3">
     <div class="row">
-      <div class="col-6" style="padding-right: 0;">
-        <div class="ngx-dhis2-org-unit-filter__selection-container">
-          <!--organisation unit selection area-->
-          <div class="ngx-dhis2-org-unit-filter__org-unit-selection">
-            <ngx-dhis2-org-unit-selection
-              [selectedOrgUnits]="selectedOrgUnits"
-              [loadingOrgUnits]="loadingOrgUnits$ | async"
-              [userOrgUnitSelected]="isAnyUserOrgUnitSelected$ | async"
-              (activateOrgUnit)="onSelectOrgUnit($event)"
-              (deactivateOrgUnit)="onDeselectOrgUnit($event)"
-              (deactivateAllOrgUnit)="onDeselectAllOrgUnits()"
-            ></ngx-dhis2-org-unit-selection>
-          </div>
-          <!--end of organisation unit selection area-->
-        </div>
+      <div class="col-7">
+        <!--organisation unit selection area-->
+        <ngx-dhis2-org-unit-selection
+          [selectedOrgUnits]="selectedOrgUnits"
+          [loadingOrgUnits]="loadingOrgUnits$ | async"
+          [userOrgUnitSelected]="isAnyUserOrgUnitSelected$ | async"
+          (activateOrgUnit)="onSelectOrgUnit($event)"
+          (deactivateOrgUnit)="onDeselectOrgUnit($event)"
+          (deactivateAllOrgUnit)="onDeselectAllOrgUnits()"
+        ></ngx-dhis2-org-unit-selection>
+        <!--end of organisation unit selection area-->
       </div>
-      <div class="col-6" style="padding-left: 5px;">
+      <div class="col-5" style="padding-left: 5px;">
         <!--organisation unit options area-->
         <div class="ngx-dhis2-org-unit-filter__org-unit-options">
-          <!--user organisation unit selection options-->
-          <div class="ngx-dhis2-org-unit-filter__user-org-unit-selection">
-            <ngx-dhis2-user-org-unit-selection
-              [userOrgUnits]="userOrgUnits$ | async"
-              (activateUserOrgUnit)="onSelectOrgUnit($event)"
-              (deactivateUserOrgUnit)="onDeselectOrgUnit($event)"
-            ></ngx-dhis2-user-org-unit-selection>
-          </div>
-          <!--end of user organisation unit selection options-->
-
           <!--organisation unit level group section -->
           <div class="ngx-dhis2-org-unit-filter__org-unit-level-group">
             <ngx-dhis2-org-unit-level-group
@@ -60,18 +55,27 @@
     </div>
   </div>
   <!--organisation unit selection container-->
-</div>
-<div class="row" style="margin-top: 10px;">
-  <div class="col-12">
-    <!--organisation unit buttons-->
-    <div class="ngx-dhis2-org-unit-filter__org-unit-buttons">
-      <button class="btn btn-light btn-sm" (click)="onClose($event)">
-        CLOSE</button
-      >&nbsp;
-      <button class="btn btn-light btn-sm" (click)="onUpdate($event)">
-        UPDATE
-      </button>
+
+  <div class="col-12 mt-2">
+    <div class="row">
+      <div class="col-8">
+        <ngx-dhis2-org-unit-selected-org-unit
+          [selectedOrgUnits]="selectedOrgUnits"
+          (deactivateOrgUnit)="onDeselectOrgUnit($event)"
+          (deactivateAllOrgUnits)="onDeselectAllOrgUnits()"
+        ></ngx-dhis2-org-unit-selected-org-unit>
+      </div>
+
+      <!--organisation unit buttons-->
+      <div class="col-4 ngx-dhis2-org-unit-filter__org-unit-buttons">
+        <button mat-stroked-button (click)="onClose($event)">
+          Close</button
+        >&nbsp;
+        <button mat-stroked-button color="primary" (click)="onUpdate($event)">
+          Update
+        </button>
+      </div>
+      <!--end of organisation unit buttons-->
     </div>
-    <!--end of organisation unit buttons-->
   </div>
 </div>

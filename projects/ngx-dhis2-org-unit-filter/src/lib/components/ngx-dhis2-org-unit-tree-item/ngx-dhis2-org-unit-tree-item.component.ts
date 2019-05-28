@@ -11,6 +11,7 @@ import {
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import * as _ from 'lodash';
 
 import { isOrgUnitSelected } from '../../helpers/is-org-unit-selected.helper';
 import { OrgUnit } from '../../models/org-unit.model';
@@ -65,6 +66,7 @@ export class NgxDhis2OrgUnitTreeItemComponent implements OnInit, OnChanges {
     if (this.orgUnitId) {
       // fetch current org unit
       this.orgUnit$ = this.store.select(getOrgUnitById(this.orgUnitId));
+
       this.setOrgUnitProperties(true);
     }
   }
@@ -76,26 +78,22 @@ export class NgxDhis2OrgUnitTreeItemComponent implements OnInit, OnChanges {
       this.selectedOrgUnits || []
     );
 
-    this.orgUnit$.pipe(take(1)).subscribe((orgUnit: OrgUnit) => {
-      if (orgUnit) {
-        // Get count of selected children for this organisation unit
-        this.selectedChildrenCount$ = this.store.select(
-          getSelectedOrgUnitChildrenCount(
-            this.orgUnitId,
-            this.selectedOrgUnits || []
-          )
-        );
+    // Get count of selected children for this organisation unit
+    this.selectedChildrenCount$ = this.store.select(
+      getSelectedOrgUnitChildrenCount(
+        this.orgUnitId,
+        this.selectedOrgUnits || []
+      )
+    );
 
-        this.selectedChildrenCount$
-          .pipe(take(1))
-          .subscribe((selectedChildrenCount: number) => {
-            // Set expanded property for the current orgunits
-            if (!this.expanded && firstChange) {
-              this.expanded = !this.parentOrgUnit || selectedChildrenCount > 0;
-            }
-          });
-      }
-    });
+    this.selectedChildrenCount$
+      .pipe(take(1))
+      .subscribe((selectedChildrenCount: number) => {
+        // Set expanded property for the current orgunits
+        if (!this.expanded && firstChange) {
+          this.expanded = !this.parentOrgUnit || selectedChildrenCount > 0;
+        }
+      });
   }
 
   onToggleOrgUnitChildren(e) {
@@ -103,17 +101,14 @@ export class NgxDhis2OrgUnitTreeItemComponent implements OnInit, OnChanges {
     this.expanded = !this.expanded;
   }
 
-  onToggleOrgUnit(e) {
-    e.stopPropagation();
-    this.orgUnit$.pipe(take(1)).subscribe((orgUnit: OrgUnit) => {
-      if (this.selected) {
-        this.onDeactivateOu(orgUnit);
-      } else {
-        this.onActivateOu(orgUnit);
-      }
+  onToggleOrgUnit(orgUnit: OrgUnit) {
+    if (_.find(this.selectedOrgUnits, ['id', orgUnit.id])) {
+      this.onDeactivateOu(orgUnit);
+    } else {
+      this.onActivateOu(orgUnit);
+    }
 
-      this.selected = !this.selected;
-    });
+    this.selected = !this.selected;
   }
 
   onDeactivateOu(organisationUnit) {

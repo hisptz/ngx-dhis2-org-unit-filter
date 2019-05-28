@@ -1,22 +1,3 @@
-.ngx-dhis2-user-org-unit-selection__container {
-  margin-bottom: 5px;
-}
-
-.ngx-dhis2-user-org-unit-buttons img {
-  height: 20px;
-}
-
 .user-org-unit-name {
-  font-size: 10px;
-}
-
-.user-org-unit-button {
-  border-color: #ced4da;
-  border-radius: 0;
-}
-
-.user-org-unit-button-selected {
-  border-color: #ced4da;
-  background-color: #e9ecef;
-  border-radius: 0;
+  font-size: 14px;
 }

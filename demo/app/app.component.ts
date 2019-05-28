@@ -14,7 +14,7 @@ export class AppComponent {
     singleSelection: false
   };
   selectedOrgUnitItems: any[] = [
-    { id: 'kbPmt60yi0L', name: 'Bramaia', level: 3 },
+    { id: 'O6uvpzGd5pu', name: 'Bo', level: 3 },
     {
       id: 'OU_GROUP.AQQCxQqDxLe',
       name: 'Konta CHP',

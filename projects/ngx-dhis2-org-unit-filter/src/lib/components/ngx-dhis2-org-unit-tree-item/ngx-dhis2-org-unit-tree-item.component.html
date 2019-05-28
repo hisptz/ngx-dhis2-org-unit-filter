@@ -6,31 +6,32 @@
       (click)="onToggleOrgUnitChildren($event)"
       *ngIf="(orgUnit$ | async)?.children.length > 0"
     >
-      <img [src]="expanded ? minusCircleIcon : plusCircleIcon" alt="" />
+      <i class="fa {{ expanded ? 'fa-caret-down' : 'fa-caret-right' }}"></i>
     </button>
-    <div *ngIf="(orgUnit$ | async)?.children.length === 0">&nbsp;</div>
-    <div
+    <mat-checkbox
+      *ngIf="orgUnit$ | async as orgUnit"
+      [name]="orgUnit.id"
+      [ngModel]="selected"
       [ngClass]="{
-        'ngx-dhis2-org-unit-tree-item-name': true,
-        'bg-primary text-white': selected
+        'ml-3': orgUnit?.children.length === 0,
+        'ngx-dhis2-org-unit-tree-item-name': true
       }"
-      (click)="onToggleOrgUnit($event)"
+      (ngModelChange)="onToggleOrgUnit(orgUnit)"
     >
-      <div>{{ (orgUnit$ | async)?.name }}</div>
-      &nbsp;
+      {{ (orgUnit$ | async)?.name }}
       <div
-        class="badge {{ selected ? 'badge-light' : 'badge-secondary' }}"
+        class="badge badge-secondary"
         *ngIf="(selectedChildrenCount$ | async) > 0"
       >
         {{ selectedChildrenCount$ | async }}
       </div>
-    </div>
+    </mat-checkbox>
   </div>
   <!-- end of org unit title area -->
 
   <!-- org unit children area -->
   <div
-    [style.margin-left]="parentOrgUnit ? '23px' : '11px'"
+    [style.margin-left]="'25px'"
     *ngIf="(orgUnit$ | async)?.children.length > 0 && expanded"
   >
     <div
