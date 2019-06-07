@@ -16,7 +16,7 @@
     "@iapps/ngx-dhis2-http-client": "^2.0.2",
     "@ngrx/effects": "^6.0.1 || ^7.0.0",
     "@ngrx/entity": "^6.0.1 || ^7.0.0",
-    "@ngrx/store": "^6.0.1 || ^7.0.0",
+    "@ngrx/store": "^8.0.0",
     "lodash": "^4.17.10"
   }
 }
