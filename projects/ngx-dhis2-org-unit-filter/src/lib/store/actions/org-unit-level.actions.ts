@@ -1,32 +1,21 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
+
 import { OrgUnitLevel } from '../../models/org-unit-level.model';
-export enum OrgUnitLevelActionsTypes {
-  LoadOrgUnitLevels = '[OrgUnitLevel] load organisation unit levels',
-  InitiateOrgUnitLevels = '[OrgUnitLevel] initiate organisation unit levels',
-  LoadOrgUnitLevelsFail = '[OrgUnitLevel] load organisation unit levels fail',
-  AddOrgUnitLevels = '[OrgUnitLevel] add organisation unit levels'
-}
 
-export class LoadOrgUnitLevelsAction implements Action {
-  readonly type = OrgUnitLevelActionsTypes.LoadOrgUnitLevels;
-}
+export const initiateOrgUnitLevels = createAction(
+  '[OrgUnitLevel] initiate organisation unit levels'
+);
 
-export class InitiateOrgUnitLevelsAction implements Action {
-  readonly type = OrgUnitLevelActionsTypes.InitiateOrgUnitLevels;
-}
+export const loadOrgUnitLevels = createAction(
+  '[OrgUnitLevel] load organisation unit levels'
+);
 
-export class AddOrgUnitLevelsAction implements Action {
-  readonly type = OrgUnitLevelActionsTypes.AddOrgUnitLevels;
-  constructor(public orgUnitLevels: OrgUnitLevel[]) {}
-}
+export const addOrgUnitLevels = createAction(
+  '[OrgUnitLevel] add organisation unit levels',
+  props<{ orgUnitLevels: OrgUnitLevel[] }>()
+);
 
-export class LoadOrgUnitLevelsFailAction implements Action {
-  readonly type = OrgUnitLevelActionsTypes.LoadOrgUnitLevelsFail;
-  constructor(public error: any) {}
-}
-
-export type OrgUnitLevelActions =
-  | LoadOrgUnitLevelsAction
-  | AddOrgUnitLevelsAction
-  | LoadOrgUnitLevelsFailAction
-  | InitiateOrgUnitLevelsAction;
+export const loadOrgUnitLevelsFail = createAction(
+  '[OrgUnitLevel] load organisation unit levels fail',
+  props<{ error: any }>()
+);
