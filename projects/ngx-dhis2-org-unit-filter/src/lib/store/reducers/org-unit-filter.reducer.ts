@@ -1,4 +1,8 @@
-import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
+import {
+  ActionReducerMap,
+  createFeatureSelector,
+  MemoizedSelector
+} from '@ngrx/store';
 import {
   OrgUnitLevelState,
   orgUnitLevelReducer
@@ -21,6 +25,7 @@ export const orgUnitFilterReducer: ActionReducerMap<OrgUnitFilterState> = {
   orgUnit: orgUnitReducer
 };
 
-export const getOrgUnitFilterState = createFeatureSelector<OrgUnitFilterState>(
-  'orgUnitFilter'
-);
+export const getOrgUnitFilterState: MemoizedSelector<
+  object,
+  OrgUnitFilterState
+> = createFeatureSelector<OrgUnitFilterState>('orgUnitFilter');

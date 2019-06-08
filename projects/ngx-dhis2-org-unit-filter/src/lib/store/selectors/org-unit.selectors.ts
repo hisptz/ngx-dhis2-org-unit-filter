@@ -1,19 +1,18 @@
 import { createSelector } from '@ngrx/store';
 import * as _ from 'lodash';
 
+import { getOrgUnitChildrenIds } from '../../helpers/get-org-unit-children-ids.helper';
+import { updateOrgUnitListWithSelectionStatus } from '../../helpers/update-org-unit-list-with-selection-status.helper';
+import { OrgUnit } from '../../models/org-unit.model';
 import {
   getOrgUnitFilterState,
   OrgUnitFilterState
 } from '../reducers/org-unit-filter.reducer';
 import {
-  getOrgUnitLoadedState,
   getOrgUnitLoadingInitiatedState,
   getOrgUnitLoadingState,
   selectAllOrgUnits
 } from '../reducers/org-unit.reducer';
-import { OrgUnit } from '../../models/org-unit.model';
-import { getOrgUnitChildrenIds } from '../../helpers/get-org-unit-children-ids.helper';
-import { updateOrgUnitListWithSelectionStatus } from '../../helpers/update-org-unit-list-with-selection-status.helper';
 
 export const getOrgUnitState = createSelector(
   getOrgUnitFilterState,
@@ -28,11 +27,6 @@ export const getOrgUnitLoading = createSelector(
 export const getOrgUnitLoadingInitiated = createSelector(
   getOrgUnitState,
   getOrgUnitLoadingInitiatedState
-);
-
-export const getOrgUnitLoaded = createSelector(
-  getOrgUnitState,
-  getOrgUnitLoadedState
 );
 
 export const getOrgUnits = createSelector(
