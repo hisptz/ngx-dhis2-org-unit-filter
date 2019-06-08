@@ -19,7 +19,6 @@ import { OrgUnitGroup } from '../../models/org-unit-group.model';
 import { OrgUnitLevel } from '../../models/org-unit-level.model';
 import { OrgUnit } from '../../models/org-unit.model';
 import {
-  LoadOrgUnitGroupsAction,
   LoadOrgUnitLevelsAction,
   LoadOrgUnitsAction
 } from '../../store/actions';
@@ -32,6 +31,7 @@ import {
   getOrgUnitLoading,
   getUserOrgUnitsBasedOnOrgUnitsSelected
 } from '../../store/selectors';
+import { loadOrgUnitGroups } from '../../store/actions/org-unit-group.actions';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -113,7 +113,7 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
     }
     // Dispatching actions to load organisation unit information
     this.store.dispatch(new LoadOrgUnitLevelsAction());
-    this.store.dispatch(new LoadOrgUnitGroupsAction());
+    this.store.dispatch(loadOrgUnitGroups());
     this.store.dispatch(new LoadOrgUnitsAction(this.orgUnitFilterConfig));
 
     // Set organisation unit information

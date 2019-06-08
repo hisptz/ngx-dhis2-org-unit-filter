@@ -1,9 +1,12 @@
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { Dictionary } from '@ngrx/entity/src/models';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { Action, createReducer, on } from '@ngrx/store';
+
 import { OrgUnitGroup } from '../../models/org-unit-group.model';
 import {
-  OrgUnitGroupActions,
-  OrgUnitGroupActionsTypes
+  addOrgUnitGroups,
+  initiateOrgUnitGroups,
+  loadOrgUnitGroups,
+  loadOrgUnitGroupsFail
 } from '../actions/org-unit-group.actions';
 
 /**
@@ -18,11 +21,11 @@ export interface OrgUnitGroupState extends EntityState<OrgUnitGroup> {
   error: any;
 }
 
-export const OrgUnitGroupAdapter: EntityAdapter<
+export const orgUnitGroupAdapter: EntityAdapter<
   OrgUnitGroup
 > = createEntityAdapter<OrgUnitGroup>();
 
-export const initialState: OrgUnitGroupState = OrgUnitGroupAdapter.getInitialState(
+export const initialState: OrgUnitGroupState = orgUnitGroupAdapter.getInitialState(
   {
     loading: false,
     loaded: false,
@@ -32,31 +35,33 @@ export const initialState: OrgUnitGroupState = OrgUnitGroupAdapter.getInitialSta
   }
 );
 
+export const reducer = createReducer(
+  initialState,
+  on(initiateOrgUnitGroups, state => ({ ...state, loadInitiated: true })),
+  on(loadOrgUnitGroups, state => ({
+    ...state,
+    loading: state.loaded ? false : true,
+    loaded: state.loaded,
+    hasError: false,
+    error: null
+  })),
+  on(addOrgUnitGroups, (state, { orgUnitGroups }) => {
+    return orgUnitGroupAdapter.addMany(orgUnitGroups, {
+      ...state,
+      loaded: true,
+      loading: false
+    });
+  }),
+  on(loadOrgUnitGroupsFail, (state, { error }) => {
+    return { ...state, error };
+  })
+);
+
 export function orgUnitGroupReducer(
-  state: OrgUnitGroupState = initialState,
-  action: OrgUnitGroupActions
+  state: OrgUnitGroupState | undefined,
+  action: Action
 ): OrgUnitGroupState {
-  switch (action.type) {
-    case OrgUnitGroupActionsTypes.InitiateOrgUnitGroups: {
-      return { ...state, loadInitiated: true };
-    }
-    case OrgUnitGroupActionsTypes.LoadOrgUnitGroups:
-      return {
-        ...state,
-        loading: state.loaded ? false : true,
-        loaded: state.loaded,
-        hasError: false,
-        error: null
-      };
-    case OrgUnitGroupActionsTypes.AddOrgUnitGroups: {
-      return OrgUnitGroupAdapter.addMany(action.OrgUnitGroups, {
-        ...state,
-        loaded: true,
-        loading: false
-      });
-    }
-  }
-  return state;
+  return reducer(state, action);
 }
 
 export const getOrgUnitGroupLoadingState = (state: OrgUnitGroupState) =>
@@ -72,4 +77,4 @@ export const getOrgUnitGroupErrorState = (state: OrgUnitGroupState) =>
 
 export const {
   selectAll: selectAllOrgUnitGroups
-} = OrgUnitGroupAdapter.getSelectors();
+} = orgUnitGroupAdapter.getSelectors();

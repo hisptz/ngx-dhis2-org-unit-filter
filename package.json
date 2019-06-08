@@ -29,6 +29,7 @@
     "@angular/platform-browser-dynamic": "^8.1.0-next.1",
     "@angular/router": "^8.1.0-next.1",
     "@iapps/ngx-dhis2-http-client": "^2.0.2",
+    "@iapps/ngx-dhis2-org-unit-filter": "file:dist/ngx-dhis2-org-unit-filter/iapps-ngx-dhis2-org-unit-filter-1.0.19.tgz",
     "@ngrx/effects": "^8.0.0",
     "@ngrx/entity": "^7.4.0",
     "@ngrx/store": "^8.0.0",
