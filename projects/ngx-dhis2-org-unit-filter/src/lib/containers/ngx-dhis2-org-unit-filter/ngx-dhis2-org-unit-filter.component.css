@@ -11,7 +11,7 @@
 .ngx-dhis2-org-unit-filter__selection-container {
   display: flex;
   justify-content: space-between;
-  min-height: 300px;
+  min-height: 400px;
   width: 100%;
   position: relative;
 }
