@@ -18,7 +18,6 @@ import { OrgUnitFilterConfig } from '../../models/org-unit-filter-config.model';
 import { OrgUnitGroup } from '../../models/org-unit-group.model';
 import { OrgUnitLevel } from '../../models/org-unit-level.model';
 import { OrgUnit } from '../../models/org-unit.model';
-import { LoadOrgUnitsAction, loadOrgUnitLevels } from '../../store/actions';
 import { OrgUnitFilterState } from '../../store/reducers/org-unit-filter.reducer';
 import {
   getOrgUnitGroupBasedOnOrgUnitsSelected,
@@ -29,6 +28,7 @@ import {
   getUserOrgUnitsBasedOnOrgUnitsSelected
 } from '../../store/selectors';
 import { loadOrgUnitGroups } from '../../store/actions/org-unit-group.actions';
+import { loadOrgUnitLevels, loadOrgUnits } from '../../store/actions';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -111,7 +111,9 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
     // Dispatching actions to load organisation unit information
     this.store.dispatch(loadOrgUnitLevels());
     this.store.dispatch(loadOrgUnitGroups());
-    this.store.dispatch(new LoadOrgUnitsAction(this.orgUnitFilterConfig));
+    this.store.dispatch(
+      loadOrgUnits({ orgUnitFilterConfig: this.orgUnitFilterConfig })
+    );
 
     // Set organisation unit information
     this._setOrUpdateOrgUnitProperties();

@@ -1,11 +1,14 @@
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { Dictionary } from '@ngrx/entity/src/models';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { Action, createReducer, on } from '@ngrx/store';
+
+import { USER_ORG_UNITS } from '../../constants/user-org-units.constants';
 import { OrgUnit } from '../../models/org-unit.model';
 import {
-  OrgUnitActions,
-  OrgUnitActionsTypes
+  addOrgUnits,
+  loadOrgUnitFail,
+  loadOrgUnits,
+  initiateOrgUnits
 } from '../actions/org-unit.actions';
-import { USER_ORG_UNITS } from '../../constants/user-org-units.constants';
 
 /**
  * Org unit level state model
@@ -19,13 +22,13 @@ export interface OrgUnitState extends EntityState<OrgUnit> {
   error: any;
 }
 
-export const OrgUnitAdapter: EntityAdapter<OrgUnit> = createEntityAdapter<
+export const orgUnitAdapter: EntityAdapter<OrgUnit> = createEntityAdapter<
   OrgUnit
 >();
 
-const initialState = OrgUnitAdapter.addMany(
+const initialState = orgUnitAdapter.addMany(
   USER_ORG_UNITS,
-  OrgUnitAdapter.getInitialState({
+  orgUnitAdapter.getInitialState({
     loading: false,
     loadInitiated: false,
     loaded: false,
@@ -34,31 +37,33 @@ const initialState = OrgUnitAdapter.addMany(
   })
 );
 
+export const reducer = createReducer(
+  initialState,
+  on(initiateOrgUnits, state => ({ ...state, loadInitiated: true })),
+  on(loadOrgUnits, state => ({
+    ...state,
+    loading: state.loaded ? false : true,
+    loaded: state.loaded,
+    hasError: false,
+    error: null
+  })),
+  on(addOrgUnits, (state, { orgUnits }) => {
+    return orgUnitAdapter.addMany(orgUnits, {
+      ...state,
+      loaded: true,
+      loading: false
+    });
+  }),
+  on(loadOrgUnitFail, (state, { error }) => {
+    return { ...state, error };
+  })
+);
+
 export function orgUnitReducer(
-  state: OrgUnitState = initialState,
-  action: OrgUnitActions
+  state: OrgUnitState | undefined,
+  action: Action
 ): OrgUnitState {
-  switch (action.type) {
-    case OrgUnitActionsTypes.LoadOrgUnits:
-      return {
-        ...state,
-        loading: state.loaded ? false : true,
-        loaded: state.loaded,
-        hasError: false,
-        error: null
-      };
-    case OrgUnitActionsTypes.LoadOrgUnitsInitiated: {
-      return { ...state, loadInitiated: true };
-    }
-    case OrgUnitActionsTypes.AddOrgUnits: {
-      return OrgUnitAdapter.addMany(action.OrgUnits, {
-        ...state,
-        loaded: true,
-        loading: false
-      });
-    }
-  }
-  return state;
+  return reducer(state, action);
 }
 
 export const getOrgUnitLoadingState = (state: OrgUnitState) => state.loading;
@@ -71,4 +76,4 @@ export const getOrgUnitErrorState = (state: OrgUnitState) => state.error;
 export const {
   selectAll: selectAllOrgUnits,
   selectEntities: selectOrgUnitEntities
-} = OrgUnitAdapter.getSelectors();
+} = orgUnitAdapter.getSelectors();
