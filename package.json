@@ -31,7 +31,7 @@
     "@iapps/ngx-dhis2-http-client": "^2.0.2",
     "@iapps/ngx-dhis2-org-unit-filter": "file:dist/ngx-dhis2-org-unit-filter/iapps-ngx-dhis2-org-unit-filter-1.0.19.tgz",
     "@ngrx/effects": "^8.0.0",
-    "@ngrx/entity": "^7.4.0",
+    "@ngrx/entity": "^8.0.1",
     "@ngrx/store": "^8.0.0",
     "@ngrx/store-devtools": "^8.0.0",
     "async": "^3.0.1",
@@ -45,8 +45,8 @@
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.800.0",
-    "@angular-devkit/build-ng-packagr": "~0.800.0",
+    "@angular-devkit/build-angular": "~0.801.0",
+    "@angular-devkit/build-ng-packagr": "~0.801.0",
     "@angular/cli": "^8.0.2",
     "@angular/compiler-cli": "^8.1.0-next.1",
     "@angular/language-service": "^8.1.0-next.1",
@@ -57,7 +57,7 @@
     "codelyzer": "^5.0.1",
     "commitizen": "^3.1.1",
     "cz-conventional-changelog": "^2.1.0",
-    "husky": "^2.1.0",
+    "husky": "^3.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^4.1.0",
@@ -67,10 +67,10 @@
     "karma-jasmine-html-reporter": "^1.4.2",
     "ng-packagr": "^5.1.0",
     "protractor": "^6.0.0",
-    "ts-node": "~8.2.0",
+    "ts-node": "~8.3.0",
     "tsickle": "^0.35.0",
     "tslib": "^1.9.0",
-    "tslint": "~5.16.0",
+    "tslint": "~5.18.0",
     "typescript": "^3.4.5"
   },
   "config": {
