@@ -83,12 +83,6 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
   topOrgUnitLevel$: Observable<number>;
 
   constructor(private store: Store<OrgUnitFilterState>) {
-    // default org unit filter configuration
-    this.orgUnitFilterConfig = {
-      ...DEFAULT_ORG_UNIT_FILTER_CONFIG,
-      ...this.orgUnitFilterConfig
-    };
-
     this.selectedOrgUnitItems = [];
   }
 
@@ -105,6 +99,12 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // Set orgUnit filter configuration
+    this.orgUnitFilterConfig = {
+      ...DEFAULT_ORG_UNIT_FILTER_CONFIG,
+      ...(this.orgUnitFilterConfig || {})
+    };
+
     if (!this.selectedOrgUnitItems) {
       this.selectedOrgUnitItems = [];
     }

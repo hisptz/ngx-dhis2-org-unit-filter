@@ -1,6 +1,6 @@
 <div class="row">
   <!--user organisation unit selection options-->
-  <div class="col-12 mt-2">
+  <div class="col-12 mt-2" *ngIf="orgUnitFilterConfig.showUserOrgUnitSection">
     <ngx-dhis2-user-org-unit-selection
       [userOrgUnits]="userOrgUnits$ | async"
       (activateUserOrgUnit)="onSelectOrgUnit($event)"
@@ -12,7 +12,11 @@
   <!--organisation unit selection container-->
   <div class="col-12 mt-3">
     <div class="row">
-      <div class="col-6">
+      <div
+        class="col-{{
+          orgUnitFilterConfig.showOrgUnitLevelGroupSection ? '6' : '12'
+        }}"
+      >
         <!--organisation unit selection area-->
         <ngx-dhis2-org-unit-selection
           [selectedOrgUnits]="selectedOrgUnits"
@@ -24,7 +28,11 @@
         ></ngx-dhis2-org-unit-selection>
         <!--end of organisation unit selection area-->
       </div>
-      <div class="col-6" style="padding-left: 5px;">
+      <div
+        class="col-6"
+        style="padding-left: 5px;"
+        *ngIf="orgUnitFilterConfig.showOrgUnitLevelGroupSection"
+      >
         <!--organisation unit options area-->
         <div class="ngx-dhis2-org-unit-filter__org-unit-options">
           <!--organisation unit level group section -->
@@ -34,6 +42,7 @@
               [orgUnitGroups]="orgUnitGroups$ | async"
               [loadingLevels]="loadingOrgUnitLevels$ | async"
               [loadingGroups]="loadingOrgUnitGroups$ | async"
+              [orgUnitFilterConfig]="orgUnitFilterConfig"
               (activateOrgUnitLevelOrGroup)="onSelectOrgUnit($event)"
               (deactivateOrgUnitLevelOrGroup)="onDeselectOrgUnit($event)"
             ></ngx-dhis2-org-unit-level-group>
