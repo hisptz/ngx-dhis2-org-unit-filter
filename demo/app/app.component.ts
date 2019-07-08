@@ -13,7 +13,9 @@ export class AppComponent {
   orgUnitFilterConfig: OrgUnitFilterConfig = {
     singleSelection: false,
     showUserOrgUnitSection: false,
-    showOrgUnitLevelGroupSection: false
+    showOrgUnitLevelGroupSection: true,
+    showOrgUnitGroupSection: true,
+    showOrgUnitLevelSection: false
   };
   selectedOrgUnitItems: any[] = [
     { id: 'O6uvpzGd5pu', name: 'Bo', level: 3 },

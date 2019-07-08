@@ -10,7 +10,7 @@
   <div class="col-12">
     <div class="card ngx-dhis2-org-unit-level-group__card">
       <div class="ngx-dhis2-org-unit-level-group__inner-list">
-        <mat-list>
+        <mat-list *ngIf="orgUnitFilterConfig.showOrgUnitLevelSection">
           <div mat-subheader>
             Levels
             <span
@@ -50,7 +50,7 @@
           </mat-list-item>
         </mat-list>
 
-        <mat-list>
+        <mat-list *ngIf="orgUnitFilterConfig.showOrgUnitGroupSection">
           <div mat-subheader>
             Groups
             <span

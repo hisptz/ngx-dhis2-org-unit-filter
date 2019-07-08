@@ -42,6 +42,7 @@
               [orgUnitGroups]="orgUnitGroups$ | async"
               [loadingLevels]="loadingOrgUnitLevels$ | async"
               [loadingGroups]="loadingOrgUnitGroups$ | async"
+              [orgUnitFilterConfig]="orgUnitFilterConfig"
               (activateOrgUnitLevelOrGroup)="onSelectOrgUnit($event)"
               (deactivateOrgUnitLevelOrGroup)="onDeselectOrgUnit($event)"
             ></ngx-dhis2-org-unit-level-group>
