@@ -12,7 +12,7 @@ export class AppComponent {
   action: string;
   orgUnitFilterConfig: OrgUnitFilterConfig = {
     singleSelection: false,
-    showUserOrgUnitSection: false,
+    showUserOrgUnitSection: true,
     showOrgUnitLevelGroupSection: true,
     showOrgUnitGroupSection: true,
     showOrgUnitLevelSection: false
