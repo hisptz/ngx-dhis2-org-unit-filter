@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxDhis2OrgUnitFilterModule } from 'projects/ngx-dhis2-org-unit-filter/src/public_api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxDhis2HttpClientModule } from '@iapps/ngx-dhis2-http-client';
+import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material/core';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +30,9 @@ import { NgxDhis2HttpClientModule } from '@iapps/ngx-dhis2-http-client';
     EffectsModule.forRoot([AppEffects]),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'never' } }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

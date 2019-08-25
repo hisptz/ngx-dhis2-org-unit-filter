@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   padding: 0;
+  height: 25px;
 }
 
 .ngx-dhis2-org-unit-tree-item-toggle-btn {
@@ -11,10 +12,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-}
-
-.ngx-dhis2-org-unit-tree-item-toggle-btn img {
-  height: 15px;
+  margin-bottom: 0.5rem;
 }
 
 .ngx-dhis2-org-unit-tree-item-name {
@@ -23,4 +21,12 @@
   align-items: center;
   padding: 3px;
   cursor: pointer;
+}
+
+.ngx-dhis2-org-unit-count {
+  font-size: 9px;
+  padding: 3px 5px;
+  border-radius: 2px;
+  font-weight: 400;
+  margin-bottom: 0.42rem;
 }
