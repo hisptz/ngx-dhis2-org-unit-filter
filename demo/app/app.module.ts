@@ -11,6 +11,8 @@ import { AppEffects } from './app.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxDhis2OrgUnitFilterModule } from 'projects/ngx-dhis2-org-unit-filter/src/public_api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxDhis2HttpClientModule } from '@iapps/ngx-dhis2-http-client';
+import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material/core';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,12 +20,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     HttpClientModule,
     NgxDhis2OrgUnitFilterModule,
+    NgxDhis2HttpClientModule.forRoot({
+      version: 1,
+      namespace: 'iapps',
+      models: {}
+    }),
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([AppEffects]),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'never' } }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
