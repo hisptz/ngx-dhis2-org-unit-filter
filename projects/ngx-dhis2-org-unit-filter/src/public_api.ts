@@ -18,3 +18,14 @@ export {
   getOrgUnitById,
   getOrgUnits
 } from './lib/store/selectors';
+
+export {
+  getOrgUnitsWithoutChildrenAndGroups
+} from './lib/helpers/get-org-units-without-children.helper';
+
+export {
+  getOrgUnitsWithChildren
+} from './lib/helpers/get-org-units-with-children.helper';
+
+export { getOrgUnitsByType } from './lib/helpers/get-org-units-by-type.helper';
+export { getUserOrgUnitIds } from './lib/helpers/get-user-org-unit-ids.helper';
