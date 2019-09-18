@@ -28,8 +28,8 @@ import {
   getUserOrgUnitsBasedOnOrgUnitsSelected
 } from '../../store/selectors';
 import { loadOrgUnitGroups } from '../../store/actions/org-unit-group.actions';
-import { loadOrgUnitLevels, loadOrgUnits } from '../../store/actions';
-
+import { loadOrgUnitLevels } from '../../store/actions/org-unit-level.actions';
+import { loadOrgUnits } from '../../store/actions/org-unit.actions';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'ngx-dhis2-org-unit-filter',
