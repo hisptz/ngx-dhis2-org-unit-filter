@@ -6,7 +6,8 @@ import {
 import {
   selectAllOrgUnitLevels,
   getOrgUnitLevelLoadingState,
-  getOrgUnitLevelLoadInitiatedState
+  getOrgUnitLevelLoadInitiatedState,
+  getOrgUnitLevelLoadedState
 } from '../reducers/org-unit-level.reducer';
 import { getTopSelectedOrgUnitLevel } from './org-unit.selectors';
 import { OrgUnitLevel } from '../../models/org-unit-level.model';
@@ -19,6 +20,11 @@ export const getOrgUnitLevelState = createSelector(
 export const getOrgUnitLevelLoadInitiated = createSelector(
   getOrgUnitLevelState,
   getOrgUnitLevelLoadInitiatedState
+);
+
+export const getOrgUnitLevelLoaded = createSelector(
+  getOrgUnitLevelState,
+  getOrgUnitLevelLoadedState
 );
 
 export const getOrgUnitLevelLoading = createSelector(

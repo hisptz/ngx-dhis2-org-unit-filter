@@ -18,7 +18,10 @@ export {
   getOrgUnitGroups,
   getOrgUnitLevels,
   getOrgUnitById,
-  getOrgUnits
+  getOrgUnits,
+  getOrgUnitGroupLoaded,
+  getOrgUnitLevelLoaded,
+  getOrgUnitLoaded
 } from './lib/store/selectors';
 
 export { loadOrgUnitGroups } from './lib/store/actions/org-unit-group.actions';

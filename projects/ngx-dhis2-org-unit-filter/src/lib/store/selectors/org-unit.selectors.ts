@@ -11,7 +11,8 @@ import {
 import {
   getOrgUnitLoadingInitiatedState,
   getOrgUnitLoadingState,
-  selectAllOrgUnits
+  selectAllOrgUnits,
+  getOrgUnitLoadedState
 } from '../reducers/org-unit.reducer';
 
 export const getOrgUnitState = createSelector(
@@ -27,6 +28,11 @@ export const getOrgUnitLoading = createSelector(
 export const getOrgUnitLoadingInitiated = createSelector(
   getOrgUnitState,
   getOrgUnitLoadingInitiatedState
+);
+
+export const getOrgUnitLoaded = createSelector(
+  getOrgUnitState,
+  getOrgUnitLoadedState
 );
 
 export const getOrgUnits = createSelector(
