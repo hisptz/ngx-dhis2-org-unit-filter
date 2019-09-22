@@ -18,11 +18,6 @@ import { OrgUnitFilterConfig } from '../../models/org-unit-filter-config.model';
 import { OrgUnitGroup } from '../../models/org-unit-group.model';
 import { OrgUnitLevel } from '../../models/org-unit-level.model';
 import { OrgUnit } from '../../models/org-unit.model';
-import {
-  LoadOrgUnitGroupsAction,
-  LoadOrgUnitLevelsAction,
-  LoadOrgUnitsAction
-} from '../../store/actions';
 import { OrgUnitFilterState } from '../../store/reducers/org-unit-filter.reducer';
 import {
   getOrgUnitGroupBasedOnOrgUnitsSelected,
@@ -32,7 +27,9 @@ import {
   getOrgUnitLoading,
   getUserOrgUnitsBasedOnOrgUnitsSelected
 } from '../../store/selectors';
-
+import { loadOrgUnitGroups } from '../../store/actions/org-unit-group.actions';
+import { loadOrgUnitLevels } from '../../store/actions/org-unit-level.actions';
+import { loadOrgUnits } from '../../store/actions/org-unit.actions';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'ngx-dhis2-org-unit-filter',
@@ -86,12 +83,6 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
   topOrgUnitLevel$: Observable<number>;
 
   constructor(private store: Store<OrgUnitFilterState>) {
-    // default org unit filter configuration
-    this.orgUnitFilterConfig = {
-      ...DEFAULT_ORG_UNIT_FILTER_CONFIG,
-      ...this.orgUnitFilterConfig
-    };
-
     this.selectedOrgUnitItems = [];
   }
 
@@ -108,13 +99,21 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // Set orgUnit filter configuration
+    this.orgUnitFilterConfig = {
+      ...DEFAULT_ORG_UNIT_FILTER_CONFIG,
+      ...(this.orgUnitFilterConfig || {})
+    };
+
     if (!this.selectedOrgUnitItems) {
       this.selectedOrgUnitItems = [];
     }
     // Dispatching actions to load organisation unit information
-    this.store.dispatch(new LoadOrgUnitLevelsAction());
-    this.store.dispatch(new LoadOrgUnitGroupsAction());
-    this.store.dispatch(new LoadOrgUnitsAction(this.orgUnitFilterConfig));
+    this.store.dispatch(loadOrgUnitLevels());
+    this.store.dispatch(loadOrgUnitGroups());
+    this.store.dispatch(
+      loadOrgUnits({ orgUnitFilterConfig: this.orgUnitFilterConfig })
+    );
 
     // Set organisation unit information
     this._setOrUpdateOrgUnitProperties();

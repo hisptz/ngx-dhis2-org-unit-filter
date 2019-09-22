@@ -25,6 +25,7 @@ export const orgUnitFilterReducer: ActionReducerMap<OrgUnitFilterState> = {
   orgUnit: orgUnitReducer
 };
 
-export const getOrgUnitFilterState = createFeatureSelector<OrgUnitFilterState>(
-  'orgUnitFilter'
-);
+export const getOrgUnitFilterState: MemoizedSelector<
+  object,
+  OrgUnitFilterState
+> = createFeatureSelector<OrgUnitFilterState>('orgUnitFilter');

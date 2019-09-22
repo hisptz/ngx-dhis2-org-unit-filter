@@ -1,17 +1,11 @@
-<div class="ngx-dhis2-user-org-unit-selection__container">
-  <div class="btn-group btn-block" role="group">
-    <button
-      *ngFor="let userOrgUnit of userOrgUnits"
-      class="btn btn-sm {{
-        userOrgUnit?.selected
-          ? 'user-org-unit-button-selected'
-          : 'user-org-unit-button'
-      }} ngx-dhis2-user-org-unit-buttons"
-      [title]="userOrgUnit.description"
-      (click)="onUpdate($event, userOrgUnit)"
-    >
-      <img [src]="userOrgUnit.icon" alt="" />
-      <div class="user-org-unit-name">{{ userOrgUnit.name }}</div>
-    </button>
-  </div>
+<div class="d-flex align-items-center justify-content-between">
+  <mat-checkbox
+    *ngFor="let userOrgUnit of userOrgUnits"
+    class="user-org-unit-name"
+    [(ngModel)]="userOrgUnit.selected"
+    [matTooltip]="userOrgUnit.description"
+    (click)="onUpdate($event, userOrgUnit)"
+  >
+    {{ userOrgUnit.name }}
+  </mat-checkbox>
 </div>

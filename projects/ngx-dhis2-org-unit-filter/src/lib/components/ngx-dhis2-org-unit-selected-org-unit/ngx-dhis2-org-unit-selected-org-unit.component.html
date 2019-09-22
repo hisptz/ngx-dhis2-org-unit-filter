@@ -1,48 +1,16 @@
 <div class="row">
-  <div class="col-10">
-    <small class="text-muted" *ngIf="selectedOrgUnitsForDisplay.length === 0">
-      No Organisation unit selected
-    </small>
-    <ul class="ngx-dhis2-org-unit-selected-org-unit-list">
-      <li
-        *ngFor="let orgUnit of selectedOrgUnitsForDisplay"
-        class="btn btn-sm btn-light selected-org-unit-item"
-      >
-        <span class="selected-org-unit-name">{{ orgUnit.name }}</span>
-        <button
-          class="btn btn-sm selected-org-unit-close-btn"
-          [title]="'Remove from selected'"
-          (click)="onDeactivateOrgUnit(orgUnit, $event)"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </li>
-      <li
-        class="btn btn-sm btn-light selected-org-unit-item"
-        *ngIf="countOfMoreSelectedOrgUnit > 0"
-        (click)="onToggleShowMore($event)"
-      >
-        <span
-          *ngIf="!showAll"
-          class="selected-org-unit-name"
-          title="View all selected"
-          >and {{ countOfMoreSelectedOrgUnit }} more</span
-        >
-        <span title="Show less" *ngIf="showAll" class="selected-org-unit-name"
-          >show less</span
-        >
-      </li>
-    </ul>
-  </div>
-  <div class="col-2">
-    <button
-      class="btn btn-sm btn-outline-warning org-unit-close-btn float-right"
-      title="Remove all selected"
-      [disabled]="selectedOrgUnits.length === 0"
-      (click)="onDeactivateAllOrgUnits($event)"
+  <div class="col-12">
+    <div
+      class="badge badge-secondary selected-badge"
+      *ngIf="selectedOrgUnits.length > 0"
     >
-      <span aria-hidden="true" class="org-unit-close-icon">&times;</span>
-      <span class="org-unit-close-all-label"> Clear All</span>
-    </button>
+      {{ selectedString }}
+
+      <a
+        (click)="onDeactivateAllOrgUnits($event)"
+        matTooltip="Deselect all Organisation units"
+        >Deselect all</a
+      >
+    </div>
   </div>
 </div>

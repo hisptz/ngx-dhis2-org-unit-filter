@@ -4,12 +4,15 @@ import {
   Input,
   Output,
   EventEmitter,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  OnChanges,
+  SimpleChanges
 } from '@angular/core';
 import * as _ from 'lodash';
 import { TICK } from '../../icons/tick';
 import { OrgUnitLevel } from '../../models/org-unit-level.model';
 import { OrgUnitGroup } from '../../models/org-unit-group.model';
+import { OrgUnitFilterConfig } from '../../models/org-unit-filter-config.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -19,29 +22,14 @@ import { OrgUnitGroup } from '../../models/org-unit-group.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxDhis2OrgUnitLevelGroupComponent implements OnInit {
-  /**
-   * Input for organisation unit levels
-   */
   @Input() orgUnitLevels: OrgUnitLevel[];
-
   @Input() loadingLevels: boolean;
   @Input() loadingGroups: boolean;
-
-  /**
-   * Input for organisation unit groups
-   */
   @Input() orgUnitGroups: OrgUnitGroup[];
+  @Input() orgUnitFilterConfig: OrgUnitFilterConfig;
 
-  /**
-   * base 64 image string for the tick icon
-   */
   tickIcon: string;
-
-  /**
-   * Search query for org unit group and levels
-   */
   orgUnitGroupLevelSearchQuery: string;
-
   @Output() activateOrgUnitLevelOrGroup = new EventEmitter();
   @Output() deactivateOrgUnitLevelOrGroup = new EventEmitter();
 

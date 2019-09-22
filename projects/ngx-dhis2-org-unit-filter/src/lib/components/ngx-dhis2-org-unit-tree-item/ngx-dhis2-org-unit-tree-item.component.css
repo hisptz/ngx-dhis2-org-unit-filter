@@ -1,6 +1,8 @@
 .ngx-dhis2-org-unit-tree-item-title {
   display: flex;
   align-items: center;
+  padding: 0;
+  height: 25px;
 }
 
 .ngx-dhis2-org-unit-tree-item-toggle-btn {
@@ -10,41 +12,21 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-}
-
-.ngx-dhis2-org-unit-tree-item-toggle-btn img {
-  height: 15px;
+  margin-bottom: 0.5rem;
 }
 
 .ngx-dhis2-org-unit-tree-item-name {
   font-size: 14px;
-  padding: 3px;
-  margin: 3px 3px 3px 1px;
-  border-radius: 3px;
   display: flex;
   align-items: center;
+  padding: 3px;
   cursor: pointer;
 }
 
-.ngx-dhis2-org-unit-tree-item-name:hover {
-  background-color: #e9ecef;
-}
-
-.ngx-dhis2-org-unit-tree-item-children {
-  border-left: solid thin #eeeeee;
-}
-
-.ngx-dhis2-org-unit-tree-item-count {
-  color: #777777;
-  font-size: 10px;
-}
-
-.ngx-dhis2-org-unit-tree-item-selected {
-  color: #ffa500 !important;
-}
-
-.ngx-dhis2-org-unit-line {
-  border-top: solid thin #dddddd;
-  width: 10px;
-  margin-right: 2px;
+.ngx-dhis2-org-unit-count {
+  font-size: 9px;
+  padding: 3px 5px;
+  border-radius: 2px;
+  font-weight: 400;
+  margin-bottom: 0.42rem;
 }

@@ -1,34 +1,23 @@
-import { Action } from '@ngrx/store';
-import { OrgUnit } from '../../models/org-unit.model';
+import { createAction, props } from '@ngrx/store';
+
 import { OrgUnitFilterConfig } from '../../models/org-unit-filter-config.model';
-export enum OrgUnitActionsTypes {
-  LoadOrgUnits = '[OrgUnit] load organisation units',
-  LoadOrgUnitsInitiated = '[OrgUnit] load organisation units initiated',
-  LoadOrgUnitsFail = '[OrgUnit] load organisation units fail',
-  AddOrgUnits = '[OrgUnit] add organisation units'
-}
+import { OrgUnit } from '../../models/org-unit.model';
 
-export class LoadOrgUnitsAction implements Action {
-  readonly type = OrgUnitActionsTypes.LoadOrgUnits;
-  constructor(public orgUnitFilterConfig: OrgUnitFilterConfig) {}
-}
+export const loadOrgUnits = createAction(
+  '[OrgUnit] load organisation units',
+  props<{ orgUnitFilterConfig: OrgUnitFilterConfig }>()
+);
 
-export class LoadOrgUnitsInitiatedAction implements Action {
-  readonly type = OrgUnitActionsTypes.LoadOrgUnitsInitiated;
-}
+export const initiateOrgUnits = createAction(
+  '[OrgUnit] load organisation units initiated'
+);
 
-export class AddOrgUnitsAction implements Action {
-  readonly type = OrgUnitActionsTypes.AddOrgUnits;
-  constructor(public OrgUnits: OrgUnit[]) {}
-}
+export const addOrgUnits = createAction(
+  '[OrgUnit] add organisation units',
+  props<{ orgUnits: OrgUnit[] }>()
+);
 
-export class LoadOrgUnitsFailAction implements Action {
-  readonly type = OrgUnitActionsTypes.LoadOrgUnitsFail;
-  constructor(public error: any) {}
-}
-
-export type OrgUnitActions =
-  | LoadOrgUnitsAction
-  | AddOrgUnitsAction
-  | LoadOrgUnitsFailAction
-  | LoadOrgUnitsInitiatedAction;
+export const loadOrgUnitFail = createAction(
+  '[OrgUnit] load organisation units fail',
+  props<{ error: any }>()
+);

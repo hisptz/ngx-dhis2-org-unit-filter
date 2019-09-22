@@ -1,9 +1,12 @@
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { Dictionary } from '@ngrx/entity/src/models';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { Action, createReducer, on } from '@ngrx/store';
+
 import { OrgUnitLevel } from '../../models/org-unit-level.model';
 import {
-  OrgUnitLevelActions,
-  OrgUnitLevelActionsTypes
+  addOrgUnitLevels,
+  initiateOrgUnitLevels,
+  loadOrgUnitLevels,
+  loadOrgUnitLevelsFail
 } from '../actions/org-unit-level.actions';
 
 function sortByLevelNo(
@@ -41,32 +44,33 @@ export const initialState: OrgUnitLevelState = orgUnitLevelAdapter.getInitialSta
   }
 );
 
-export function orgUnitLevelReducer(
-  state: OrgUnitLevelState = initialState,
-  action: OrgUnitLevelActions
-): OrgUnitLevelState {
-  switch (action.type) {
-    case OrgUnitLevelActionsTypes.InitiateOrgUnitLevels: {
-      return { ...state, loadInitiated: true };
-    }
-    case OrgUnitLevelActionsTypes.LoadOrgUnitLevels:
-      return {
-        ...state,
-        loading: state.loaded ? false : true,
-        loaded: state.loaded,
-        hasError: false,
-        error: null
-      };
+export const reducer = createReducer(
+  initialState,
+  on(initiateOrgUnitLevels, state => ({ ...state, loadInitiated: true })),
+  on(loadOrgUnitLevels, state => ({
+    ...state,
+    loading: state.loaded ? false : true,
+    loaded: state.loaded,
+    hasError: false,
+    error: null
+  })),
+  on(addOrgUnitLevels, (state, { orgUnitLevels }) => {
+    return orgUnitLevelAdapter.addMany(orgUnitLevels, {
+      ...state,
+      loaded: true,
+      loading: false
+    });
+  }),
+  on(loadOrgUnitLevelsFail, (state, { error }) => {
+    return { ...state, error };
+  })
+);
 
-    case OrgUnitLevelActionsTypes.AddOrgUnitLevels: {
-      return orgUnitLevelAdapter.addMany(action.orgUnitLevels, {
-        ...state,
-        loaded: true,
-        loading: false
-      });
-    }
-  }
-  return state;
+export function orgUnitLevelReducer(
+  state: OrgUnitLevelState | undefined,
+  action: Action
+): OrgUnitLevelState {
+  return reducer(state, action);
 }
 
 export const getOrgUnitLevelLoadingState = (state: OrgUnitLevelState) =>
