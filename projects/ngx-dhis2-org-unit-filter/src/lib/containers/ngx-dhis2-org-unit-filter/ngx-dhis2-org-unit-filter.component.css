@@ -17,6 +17,7 @@
 .ngx-dhis2-org-unit-filter__org-unit-selection,
 .ngx-dhis2-org-unit-filter__org-unit-options {
   flex: 1;
+  height: 380px !important;
 }
 
 .ngx-dhis2-org-unit-filter__org-unit-selection,
