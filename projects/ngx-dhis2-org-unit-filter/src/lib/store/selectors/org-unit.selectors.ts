@@ -35,10 +35,7 @@ export const getOrgUnitLoaded = createSelector(
   getOrgUnitLoadedState
 );
 
-export const getOrgUnits = createSelector(
-  getOrgUnitState,
-  selectAllOrgUnits
-);
+export const getOrgUnits = createSelector(getOrgUnitState, selectAllOrgUnits);
 
 export const getHighestLevelOrgUnitIds = createSelector(
   getOrgUnits,
@@ -59,46 +56,41 @@ export const getHighestLevelOrgUnitIds = createSelector(
 );
 
 export const getOrgUnitById = orgUnitId =>
-  createSelector(
-    getOrgUnits,
-    (orgUnits: OrgUnit[]) => {
-      const orgUnit = _.find(orgUnits, ['id', orgUnitId]);
-      return orgUnit
-        ? { ...orgUnit, children: getOrgUnitChildrenIds(orgUnits, orgUnit) }
-        : null;
-    }
-  );
+  createSelector(getOrgUnits, (orgUnits: OrgUnit[]) => {
+    const orgUnit = _.find(orgUnits, ['id', orgUnitId]);
+    return orgUnit
+      ? { ...orgUnit, children: getOrgUnitChildrenIds(orgUnits, orgUnit) }
+      : null;
+  });
 
 export const getTopSelectedOrgUnitLevel = selectedOrgUnits =>
-  createSelector(
-    getOrgUnits,
-    (orgUnits: OrgUnit[]) => {
-      const selectedOrgUnitsWithLevels: OrgUnit[] = _.sortBy(
-        _.map(selectedOrgUnits || [], orgUnit =>
-          _.find(orgUnits, ['id', orgUnit.id])
-        ),
-        'level'
-      );
+  createSelector(getOrgUnits, (orgUnits: OrgUnit[]) => {
+    const selectedOrgUnitsWithLevels: OrgUnit[] = _.sortBy(
+      _.map(selectedOrgUnits || [], orgUnit =>
+        _.find(orgUnits, ['id', orgUnit.id])
+      ),
+      'level'
+    );
 
-      return selectedOrgUnitsWithLevels[0]
-        ? selectedOrgUnitsWithLevels[0].level
-        : 0;
-    }
-  );
+    return selectedOrgUnitsWithLevels[0]
+      ? selectedOrgUnitsWithLevels[0].level
+      : 0;
+  });
 
 export const getUserOrgUnits = createSelector(
   getOrgUnits,
   (orgUnits: OrgUnit[]) =>
     (orgUnits || []).filter(
-      (orgUnit: OrgUnit) => orgUnit && orgUnit.id.indexOf('USER_ORGUNIT') !== -1
+      (orgUnit: OrgUnit) =>
+        orgUnit &&
+        orgUnit.id &&
+        orgUnit.id.toString().indexOf('USER_ORGUNIT') !== -1
     )
 );
 
 export const getUserOrgUnitsBasedOnOrgUnitsSelected = selectedOrgUnits =>
-  createSelector(
-    getUserOrgUnits,
-    userOrgUnits =>
-      updateOrgUnitListWithSelectionStatus(userOrgUnits, selectedOrgUnits)
+  createSelector(getUserOrgUnits, userOrgUnits =>
+    updateOrgUnitListWithSelectionStatus(userOrgUnits, selectedOrgUnits)
   );
 
 export const getSelectedOrgUnitChildrenCount = (orgUnitId, selectedOrgUnits) =>
