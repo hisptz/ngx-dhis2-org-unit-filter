@@ -28,9 +28,9 @@
   z-index: 400;
 }
 
-[draggable="true"] {
+/* [draggable='true'] {
   cursor: move;
-}
+} */
 
 .ngx-dhis2-org-unit-selection__tree {
   width: 100%;
