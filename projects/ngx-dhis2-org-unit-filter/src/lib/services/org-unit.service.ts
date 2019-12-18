@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { NgxDhis2HttpClientService } from '@iapps/ngx-dhis2-http-client';
 import * as _ from 'lodash';
 import { from, Observable } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 import { OrgUnitFilterConfig } from '../models/org-unit-filter-config.model';
 import { OrgUnit } from '../models/org-unit.model';
 import { getUserOrgUnitIds } from '../helpers/get-user-org-unit-ids.helper';
@@ -49,9 +49,7 @@ export class OrgUnitService {
   }
 
   private _loadUserOrgUnits() {
-    return this.httpClient.get(
-      'me.json?fields=organisationUnits,dataViewOrganisationUnits'
-    );
+    return this.httpClient.me();
   }
 
   private _loadOrgUnitsByUrl(orgUnitUrl: string) {
