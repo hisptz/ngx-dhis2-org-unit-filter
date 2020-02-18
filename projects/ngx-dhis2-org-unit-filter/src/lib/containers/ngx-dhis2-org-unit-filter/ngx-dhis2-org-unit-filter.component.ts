@@ -19,17 +19,22 @@ import { OrgUnitGroup } from '../../models/org-unit-group.model';
 import { OrgUnitLevel } from '../../models/org-unit-level.model';
 import { OrgUnit } from '../../models/org-unit.model';
 import { OrgUnitFilterState } from '../../store/reducers/org-unit-filter.reducer';
-import {
-  getOrgUnitGroupBasedOnOrgUnitsSelected,
-  getOrgUnitGroupLoading,
-  getOrgUnitLevelBasedOnOrgUnitsSelected,
-  getOrgUnitLevelLoading,
-  getOrgUnitLoading,
-  getUserOrgUnitsBasedOnOrgUnitsSelected
-} from '../../store/selectors';
+
 import { loadOrgUnitGroups } from '../../store/actions/org-unit-group.actions';
 import { loadOrgUnitLevels } from '../../store/actions/org-unit-level.actions';
 import { loadOrgUnits } from '../../store/actions/org-unit.actions';
+import {
+  getOrgUnitGroupLoading,
+  getOrgUnitGroupBasedOnOrgUnitsSelected
+} from '../../store/selectors/org-unit-group.selectors';
+import {
+  getOrgUnitLevelLoading,
+  getOrgUnitLevelBasedOnOrgUnitsSelected
+} from '../../store/selectors/org-unit-level.selectors';
+import {
+  getOrgUnitLoading,
+  getUserOrgUnitsBasedOnOrgUnitsSelected
+} from '../../store/selectors/org-unit.selectors';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'ngx-dhis2-org-unit-filter',
@@ -92,8 +97,8 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
       selectedOrgUnit =>
         (!selectedOrgUnit.type &&
           selectedOrgUnit.id &&
-          (selectedOrgUnit.id.indexOf('LEVEL') === -1 &&
-            selectedOrgUnit.id.indexOf('OU_GROUP') === -1)) ||
+          selectedOrgUnit.id.indexOf('LEVEL') === -1 &&
+            selectedOrgUnit.id.indexOf('OU_GROUP') === -1) ||
         selectedOrgUnit.type === 'ORGANISATION_UNIT'
     );
   }
