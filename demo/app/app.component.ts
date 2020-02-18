@@ -15,7 +15,8 @@ export class AppComponent {
     showUserOrgUnitSection: true,
     showOrgUnitLevelGroupSection: true,
     showOrgUnitGroupSection: true,
-    showOrgUnitLevelSection: false
+    showOrgUnitLevelSection: false,
+    reportUse: false
   };
   selectedOrgUnitItems: any[] = [
     { id: 'O6uvpzGd5pu', name: 'Bo', level: 3 },

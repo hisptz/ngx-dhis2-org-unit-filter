@@ -15,7 +15,10 @@ export class OrgUnitService {
   loadAll(orgUnitFilterConfig: OrgUnitFilterConfig): Observable<OrgUnit[]> {
     return this._loadUserOrgUnits().pipe(
       mergeMap((userInfo: any) => {
-        const userOrgUnits = getUserOrgUnitIds(userInfo);
+        const userOrgUnits = getUserOrgUnitIds(
+          userInfo,
+          orgUnitFilterConfig.reportUse
+        );
         return this._getOrgUnitLength(userOrgUnits, orgUnitFilterConfig).pipe(
           mergeMap((orgUnitLength: number) => {
             const pageSize = 5000;
@@ -39,7 +42,7 @@ export class OrgUnitService {
   ) {
     return this.httpClient
       .get(
-        'organisationUnits.json?fields=!:all&paging=false&filter=path:ilike:' +
+        'organisationUnits.json?fields=!:all&pageSize=1&filter=path:ilike:' +
           userOrgUnits.join(';') +
           (orgUnitFilterConfig.minLevel
             ? '&filter=level:le:' + orgUnitFilterConfig.minLevel

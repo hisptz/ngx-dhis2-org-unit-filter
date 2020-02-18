@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { OrgUnit } from '../../models/org-unit.model';
 import { OrgUnitFilterState } from '../../store/reducers/org-unit-filter.reducer';
 import { getHighestLevelOrgUnitIds } from '../../store/selectors/org-unit.selectors';
+import { OrgUnitTypes } from '../../constants/org-unit-types.constants';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -40,7 +41,7 @@ export class NgxDhis2OrgUnitSelectionComponent implements OnInit {
       id: orgUnit.id,
       name: orgUnit.name,
       level: orgUnit.level,
-      type: 'ORGANISATION_UNIT'
+      type: OrgUnitTypes.ORGANISATION_UNIT
     });
   }
 
@@ -49,7 +50,7 @@ export class NgxDhis2OrgUnitSelectionComponent implements OnInit {
       id: orgUnit.id,
       name: orgUnit.name,
       level: orgUnit.level,
-      type: 'ORGANISATION_UNIT'
+      type: OrgUnitTypes.ORGANISATION_UNIT
     });
   }
 }
