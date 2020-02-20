@@ -23,7 +23,7 @@ import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material/core';
     NgxDhis2HttpClientModule.forRoot({
       version: 1,
       namespace: 'iapps',
-      models: {}
+      models: { organisationUnits: 'id,level' }
     }),
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],

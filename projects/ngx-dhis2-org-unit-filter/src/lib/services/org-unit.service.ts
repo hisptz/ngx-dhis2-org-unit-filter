@@ -19,6 +19,7 @@ export class OrgUnitService {
           userInfo,
           orgUnitFilterConfig.reportUse
         );
+
         return this._getOrgUnitLength(
           userOrgUnits,
           orgUnitFilterConfig.minLevel
@@ -26,7 +27,7 @@ export class OrgUnitService {
           mergeMap((orgUnitLength: number) => {
             const pageSize = 5000;
             const pageCount = Math.ceil(orgUnitLength / pageSize);
-            return from(getOrgUnitUrls(pageCount, pageSize, userOrgUnits)).pipe(
+            return from(getOrgUnitUrls(userOrgUnits, pageCount, pageSize)).pipe(
               mergeMap((orgUnitUrl: string) =>
                 this._loadOrgUnitsByUrl(orgUnitUrl)
               )
@@ -49,7 +50,13 @@ export class OrgUnitService {
 
   private _loadOrgUnitsByUrl(orgUnitUrl: string) {
     return this.httpClient
-      .get(orgUnitUrl)
-      .pipe(map((orgUnitResult: any) => orgUnitResult.organisationUnits));
+      .get(orgUnitUrl, {
+        useIndexDb: true
+      })
+      .pipe(
+        map((orgUnitResult: any) => {
+          return orgUnitResult.organisationUnits;
+        })
+      );
   }
 }

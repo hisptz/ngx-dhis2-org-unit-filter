@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 export function getOrgUnitUrls(
+  userOrgUnits: any,
   pageCount: number,
-  pageSize: number,
-  userOrgUnits: any
+  pageSize: number
 ) {
   return _.map(
     _.range(1, pageCount + 1),
