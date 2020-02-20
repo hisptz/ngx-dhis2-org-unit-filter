@@ -1,18 +1,16 @@
 import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
   ChangeDetectionStrategy,
-  OnChanges,
-  SimpleChanges
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output
 } from '@angular/core';
-import * as _ from 'lodash';
-import { TICK } from '../../icons/tick';
-import { OrgUnitLevel } from '../../models/org-unit-level.model';
-import { OrgUnitGroup } from '../../models/org-unit-group.model';
+
 import { OrgUnitFilterConfig } from '../../models/org-unit-filter-config.model';
+import { OrgUnitGroup } from '../../models/org-unit-group.model';
+import { OrgUnitLevel } from '../../models/org-unit-level.model';
+import { OrgUnitTypes } from '../../constants/org-unit-types.constants';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -28,7 +26,6 @@ export class NgxDhis2OrgUnitLevelGroupComponent implements OnInit {
   @Input() orgUnitGroups: OrgUnitGroup[];
   @Input() orgUnitFilterConfig: OrgUnitFilterConfig;
 
-  tickIcon: string;
   orgUnitGroupLevelSearchQuery: string;
   @Output() activateOrgUnitLevelOrGroup = new EventEmitter();
   @Output() deactivateOrgUnitLevelOrGroup = new EventEmitter();
@@ -45,9 +42,7 @@ export class NgxDhis2OrgUnitLevelGroupComponent implements OnInit {
     ).length;
   }
 
-  constructor() {
-    this.tickIcon = TICK;
-  }
+  constructor() {}
 
   ngOnInit() {}
 
@@ -67,8 +62,8 @@ export class NgxDhis2OrgUnitLevelGroupComponent implements OnInit {
         name: selectedOrgUnitLevelOrGroup.name,
         type:
           itemType === 'LEVEL'
-            ? 'ORGANISATION_UNIT_LEVEL'
-            : 'ORGANISATION_UNIT_GROUP'
+            ? OrgUnitTypes.ORGANISATION_UNIT_LEVEL
+            : OrgUnitTypes.ORGANISATION_UNIT_GROUP
       });
     } else {
       this.activateOrgUnitLevelOrGroup.emit({
@@ -79,8 +74,8 @@ export class NgxDhis2OrgUnitLevelGroupComponent implements OnInit {
         name: selectedOrgUnitLevelOrGroup.name,
         type:
           itemType === 'LEVEL'
-            ? 'ORGANISATION_UNIT_LEVEL'
-            : 'ORGANISATION_UNIT_GROUP'
+            ? OrgUnitTypes.ORGANISATION_UNIT_LEVEL
+            : OrgUnitTypes.ORGANISATION_UNIT_GROUP
       });
     }
   }

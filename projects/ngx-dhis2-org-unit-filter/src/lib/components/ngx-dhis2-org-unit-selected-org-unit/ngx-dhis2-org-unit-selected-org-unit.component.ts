@@ -1,13 +1,12 @@
 import {
+  ChangeDetectionStrategy,
   Component,
-  OnInit,
-  Input,
-  Output,
   EventEmitter,
-  ChangeDetectionStrategy
+  Input,
+  OnInit,
+  Output
 } from '@angular/core';
-import * as _ from 'lodash';
-import { CLOSE_ICON } from '../../icons/close.icon';
+
 import { OrgUnit } from '../../models/org-unit.model';
 
 @Component({
@@ -22,31 +21,14 @@ export class NgxDhis2OrgUnitSelectedOrgUnitComponent implements OnInit {
   @Output() deactivateOrgUnit = new EventEmitter();
   @Output() deactivateAllOrgUnits = new EventEmitter();
 
-  closeIcon: string;
-  maxOrgUnitToShow: number;
   showAll: boolean;
-  constructor() {
-    this.closeIcon = CLOSE_ICON;
-    this.maxOrgUnitToShow = 1;
-  }
-
-  get selectedOrgUnitsForDisplay(): any[] {
-    if (this.showAll) {
-      return this.selectedOrgUnits || [];
-    }
-    return (this.selectedOrgUnits || []).slice(0, this.maxOrgUnitToShow);
-  }
-
-  get countOfMoreSelectedOrgUnit(): number {
-    return (this.selectedOrgUnits || []).length - this.maxOrgUnitToShow;
-  }
-
+  constructor() {}
   get selectedString() {
-    const selectedOrgUnitString = this.selectedOrgUnitsForDisplay
+    const selectedOrgUnitString = (this.selectedOrgUnits || [])
       .map((selectedOrgUnit: any) => selectedOrgUnit.name)
       .join(', ');
-    return this.countOfMoreSelectedOrgUnit > 0
-      ? selectedOrgUnitString + ` and ${this.countOfMoreSelectedOrgUnit} more`
+    return (this.selectedOrgUnits || []).length > 1
+      ? `${(this.selectedOrgUnits || []).length} Selected`
       : selectedOrgUnitString;
   }
 

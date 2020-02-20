@@ -1,17 +1,17 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
-  OnChanges,
-  SimpleChanges,
-  ChangeDetectionStrategy
+  SimpleChanges
 } from '@angular/core';
 import { Store } from '@ngrx/store';
+import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import * as _ from 'lodash';
 
 import { isOrgUnitSelected } from '../../helpers/is-org-unit-selected.helper';
 import { OrgUnit } from '../../models/org-unit.model';
@@ -20,8 +20,6 @@ import {
   getOrgUnitById,
   getSelectedOrgUnitChildrenCount
 } from '../../store/selectors/org-unit.selectors';
-import { PLUS_CIRCLE_ICON } from '../../icons/plus-circle.icon';
-import { MINUS_CIRCLE_ICON } from '../../icons/minus-circle.icon';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -44,14 +42,7 @@ export class NgxDhis2OrgUnitTreeItemComponent implements OnInit, OnChanges {
   selected: boolean;
   selectedChildrenCount$: Observable<number>;
 
-  // icons
-  plusCircleIcon: string;
-  minusCircleIcon: string;
-  constructor(private store: Store<OrgUnitFilterState>) {
-    // icons initialization
-    this.plusCircleIcon = PLUS_CIRCLE_ICON;
-    this.minusCircleIcon = MINUS_CIRCLE_ICON;
-  }
+  constructor(private store: Store<OrgUnitFilterState>) {}
 
   ngOnChanges(simpleChanges: SimpleChanges) {
     if (
