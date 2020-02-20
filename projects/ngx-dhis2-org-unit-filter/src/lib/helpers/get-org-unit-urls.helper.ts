@@ -7,7 +7,7 @@ export function getOrgUnitUrls(
   return _.map(
     _.range(1, pageCount + 1),
     pageNumber =>
-      'organisationUnits.json?fields=id,name,level,created,lastUpdated,' +
+      'organisationUnits.json?fields=id,name,level,' +
       'path,parent&page=' +
       pageNumber +
       '&pageSize=' +

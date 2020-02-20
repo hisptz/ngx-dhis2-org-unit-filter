@@ -9,7 +9,8 @@ export class OrgUnitLevelService {
   loadAll() {
     return this.httpClient
       .get(
-        `organisationUnitLevels.json?fields=id,name,level&paging=false&order=level:asc`
+        `organisationUnitLevels.json?fields=id,name,level&paging=false&order=level:asc`,
+        { useIndexDb: true }
       )
       .pipe(map((res: any) => res.organisationUnitLevels || []));
   }

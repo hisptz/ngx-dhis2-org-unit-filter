@@ -8,7 +8,9 @@ export class OrgUnitGroupService {
 
   loadAll() {
     return this.httpClient
-      .get(`organisationUnitGroups.json?fields=id,name&paging=false`)
+      .get(`organisationUnitGroups.json?fields=id,name&paging=false`, {
+        useIndexDb: true
+      })
       .pipe(map((res: any) => res.organisationUnitGroups || []));
   }
 }
