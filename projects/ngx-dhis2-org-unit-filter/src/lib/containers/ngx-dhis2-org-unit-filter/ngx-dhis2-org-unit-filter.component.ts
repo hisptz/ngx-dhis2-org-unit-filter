@@ -84,6 +84,7 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
     if (!this.selectedOrgUnitItems) {
       this.selectedOrgUnitItems = [];
     }
+
     // Dispatching actions to load organisation unit information
     this.store.dispatch(loadOrgUnitLevels());
     this.store.dispatch(loadOrgUnitGroups());
