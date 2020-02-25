@@ -25,7 +25,7 @@ export class OrgUnitService {
           orgUnitFilterConfig.minLevel
         ).pipe(
           mergeMap((orgUnitLength: number) => {
-            const pageSize = 5000;
+            const pageSize = orgUnitFilterConfig.batchSize || 1000;
             const pageCount = Math.ceil(orgUnitLength / pageSize);
             return from(getOrgUnitUrls(userOrgUnits, pageCount, pageSize)).pipe(
               mergeMap((orgUnitUrl: string) =>
