@@ -42,6 +42,8 @@ export class OrgUnitService {
                     orgUnitFilterConfig.reportUse
                   );
 
+                  console.log(userOrgUnits);
+
                   return this._getInitialOrgUnits(
                     userOrgUnits,
                     pageSize,

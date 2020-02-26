@@ -35,6 +35,12 @@
   resize: vertical;
 }
 
+.ngx-dhis2-org-unit-selection_no_org_unit {
+  color: #777777;
+  font-size: 13px;
+  padding: 15px;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;

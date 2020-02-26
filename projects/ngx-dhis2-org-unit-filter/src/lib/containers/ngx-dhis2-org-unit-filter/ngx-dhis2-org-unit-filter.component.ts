@@ -33,7 +33,8 @@ import {
 } from '../../store/selectors/org-unit-level.selectors';
 import {
   getOrgUnitLoading,
-  getUserOrgUnitsBasedOnOrgUnitsSelected
+  getUserOrgUnitsBasedOnOrgUnitsSelected,
+  getOrgUnitLoaded
 } from '../../store/selectors/org-unit.selectors';
 import { OrgUnitTypes } from '../../constants/org-unit-types.constants';
 @Component({
@@ -53,6 +54,7 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
   loadingOrgUnitLevels$: Observable<boolean>;
   loadingOrgUnitGroups$: Observable<boolean>;
   loadingOrgUnits$: Observable<boolean>;
+  orgUnitLoaded$: Observable<boolean>;
   topOrgUnitLevel$: Observable<number>;
 
   @Output() orgUnitUpdate: EventEmitter<any> = new EventEmitter<any>();
@@ -97,6 +99,7 @@ export class NgxDhis2OrgUnitFilterComponent implements OnInit, OnDestroy {
     this.loadingOrgUnitGroups$ = this.store.select(getOrgUnitGroupLoading);
     this.loadingOrgUnitLevels$ = this.store.select(getOrgUnitLevelLoading);
     this.loadingOrgUnits$ = this.store.select(getOrgUnitLoading);
+    this.orgUnitLoaded$ = this.store.select(getOrgUnitLoaded);
   }
 
   ngOnDestroy() {

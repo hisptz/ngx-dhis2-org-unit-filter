@@ -24,6 +24,7 @@ import { OrgUnitTypes } from '../../constants/org-unit-types.constants';
 export class NgxDhis2OrgUnitSelectionComponent implements OnInit {
   @Input() selectedOrgUnits: any[];
   @Input() loadingOrgUnits: boolean;
+  @Input() orgUnitsLoaded: boolean;
   @Input() userOrgUnitSelected: boolean;
 
   @Output() activateOrgUnit = new EventEmitter();
