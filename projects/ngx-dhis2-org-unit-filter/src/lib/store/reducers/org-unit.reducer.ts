@@ -72,5 +72,3 @@ export const getOrgUnitLoadingInitiatedState = (state: OrgUnitState) =>
 export const getOrgUnitLoadedState = (state: OrgUnitState) => state.loaded;
 export const getOrgUnitHasErrorState = (state: OrgUnitState) => state.hasError;
 export const getOrgUnitErrorState = (state: OrgUnitState) => state.error;
-
-export const { selectAll: selectAllOrgUnits } = orgUnitAdapter.getSelectors();

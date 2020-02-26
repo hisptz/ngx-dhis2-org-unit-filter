@@ -11,13 +11,17 @@ import {
 import {
   getOrgUnitLoadingInitiatedState,
   getOrgUnitLoadingState,
-  selectAllOrgUnits,
   getOrgUnitLoadedState
 } from '../reducers/org-unit.reducer';
+import { orgUnitGroupAdapter } from '../reducers/org-unit-group.reducer';
 
 export const getOrgUnitState = createSelector(
   getOrgUnitFilterState,
   (state: OrgUnitFilterState) => state.orgUnit
+);
+
+export const { selectAll: getOrgUnits } = orgUnitGroupAdapter.getSelectors(
+  getOrgUnitState
 );
 
 export const getOrgUnitLoading = createSelector(
@@ -34,8 +38,6 @@ export const getOrgUnitLoaded = createSelector(
   getOrgUnitState,
   getOrgUnitLoadedState
 );
-
-export const getOrgUnits = createSelector(getOrgUnitState, selectAllOrgUnits);
 
 export const getHighestLevelOrgUnitIds = createSelector(
   getOrgUnits,

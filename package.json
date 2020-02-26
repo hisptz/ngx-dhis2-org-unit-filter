@@ -27,7 +27,7 @@
     "@angular/platform-browser": "^9.0.1",
     "@angular/platform-browser-dynamic": "^9.0.1",
     "@angular/router": "^9.0.1",
-    "@iapps/ngx-dhis2-http-client": "^2.0.8-rc.0",
+    "@iapps/ngx-dhis2-http-client": "^2.0.8-rc.2",
     "@ngrx/effects": "^8.6.0",
     "@ngrx/entity": "^8.6.0",
     "@ngrx/store": "^8.6.0",
