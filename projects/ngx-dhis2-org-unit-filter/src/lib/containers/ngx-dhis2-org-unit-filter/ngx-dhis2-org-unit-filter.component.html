@@ -15,8 +15,9 @@
         }}">
         <!--organisation unit selection area-->
         <ngx-dhis2-org-unit-selection [selectedOrgUnits]="selectedOrgUnits" [loadingOrgUnits]="loadingOrgUnits$ | async"
-          [userOrgUnitSelected]="isAnyUserOrgUnitSelected$ | async" (activateOrgUnit)="onSelectOrgUnit($event)"
-          (deactivateOrgUnit)="onDeselectOrgUnit($event)" (deactivateAllOrgUnit)="onDeselectAllOrgUnits()">
+          [orgUnitsLoaded]="orgUnitLoaded$ | async" [userOrgUnitSelected]="isAnyUserOrgUnitSelected$ | async"
+          (activateOrgUnit)="onSelectOrgUnit($event)" (deactivateOrgUnit)="onDeselectOrgUnit($event)"
+          (deactivateAllOrgUnit)="onDeselectAllOrgUnits()">
         </ngx-dhis2-org-unit-selection>
         <!--end of organisation unit selection area-->
       </div>

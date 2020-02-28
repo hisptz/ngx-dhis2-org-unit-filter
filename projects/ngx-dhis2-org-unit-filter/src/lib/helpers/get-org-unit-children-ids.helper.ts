@@ -5,11 +5,14 @@ export function getOrgUnitChildrenIds(
   currentOrgUnit: OrgUnit
 ): string[] {
   return _.map(
-    _.filter(orgUnits, (orgUnit: OrgUnit) => {
-      const splitedPath =
-        orgUnit && orgUnit.path ? orgUnit.path.split('/') : [];
-      return splitedPath[splitedPath.length - 2] === currentOrgUnit.id;
-    }),
+    _.sortBy(
+      _.filter(orgUnits, (orgUnit: OrgUnit) =>
+        orgUnit && orgUnit.parent
+          ? orgUnit.parent.id === currentOrgUnit.id
+          : false
+      ),
+      'name'
+    ),
     orgUnitChild => orgUnitChild.id
   );
 }

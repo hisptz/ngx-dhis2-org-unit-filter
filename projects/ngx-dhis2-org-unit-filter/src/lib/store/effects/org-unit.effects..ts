@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
+import { NgxDhis2HttpClientService, User } from '@iapps/ngx-dhis2-http-client';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { concatMap, tap, withLatestFrom } from 'rxjs/operators';
+import { concatMap, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
+import { getUserOrgUnitIds } from '../../helpers/get-user-org-unit-ids.helper';
 import { OrgUnit } from '../../models/org-unit.model';
 import { OrgUnitService } from '../../services/org-unit.service';
 import {
   addOrgUnits,
   initiateOrgUnits,
   loadOrgUnitFail,
-  loadOrgUnits
+  loadOrgUnits,
+  setHighestLevelOrgUnits
 } from '../actions/org-unit.actions';
 import { OrgUnitFilterState } from '../reducers/org-unit-filter.reducer';
 import { getOrgUnitLoadingInitiated } from '../selectors/org-unit.selectors';
@@ -29,14 +32,39 @@ export class OrgUnitEffects {
         tap(([action, orgUnitLoadingInitiated]) => {
           if (!orgUnitLoadingInitiated) {
             this.store.dispatch(initiateOrgUnits());
-            this.orgUnitService.loadAll(action.orgUnitFilterConfig).subscribe(
-              (orgUnits: OrgUnit[]) => {
-                this.store.dispatch(addOrgUnits({ orgUnits }));
-              },
-              (error: any) => {
-                this.store.dispatch(loadOrgUnitFail({ error }));
-              }
-            );
+            this.httClient
+              .me()
+              .pipe(
+                switchMap((currentUser: User) => {
+                  const userOrgUnits = getUserOrgUnitIds(
+                    currentUser,
+                    action.orgUnitFilterConfig.reportUse
+                  );
+
+                  this.store.dispatch(
+                    setHighestLevelOrgUnits({
+                      highestLevelOrgUnits: userOrgUnits
+                    })
+                  );
+
+                  return this.orgUnitService
+                    .loadAll(action.orgUnitFilterConfig, userOrgUnits)
+                    .pipe(
+                      map((orgUnits: OrgUnit[]) => ({
+                        orgUnits,
+                        currentUser
+                      }))
+                    );
+                })
+              )
+              .subscribe(
+                ({ orgUnits }) => {
+                  this.store.dispatch(addOrgUnits({ orgUnits }));
+                },
+                (error: any) => {
+                  this.store.dispatch(loadOrgUnitFail({ error }));
+                }
+              );
           }
         })
       ),
@@ -46,6 +74,7 @@ export class OrgUnitEffects {
   constructor(
     private actions$: Actions,
     private store: Store<OrgUnitFilterState>,
-    private orgUnitService: OrgUnitService
+    private orgUnitService: OrgUnitService,
+    private httClient: NgxDhis2HttpClientService
   ) {}
 }

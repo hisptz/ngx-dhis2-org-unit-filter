@@ -23,6 +23,12 @@ export interface OrgUnitFilterConfig {
   // Specify whether org unit selection is single or multiple
   singleSelection: boolean;
 
-  // Tells whether close event should be fired when distroying organisation unit component
+  // Tells whether close event should be fired when destroying organisation unit component
   closeOnDestroy?: boolean;
+
+  // Specify size when loading organisation units
+  batchSize?: number;
+
+  // Specify additional organisation unit query fields
+  additionalQueryFields?: string[];
 }

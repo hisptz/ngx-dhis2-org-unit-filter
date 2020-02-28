@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/ngx-dhis2-org-unit-module",
             "index": "demo/index.html",
             "main": "demo/main.ts",
@@ -33,6 +34,12 @@
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "demo/environments/environment.ts",
@@ -128,7 +135,8 @@
           "configurations": {
             "production": {
               "project": "projects/ngx-dhis2-org-unit-filter/ng-package.prod.json"
-            }
+            ,              "tsConfig": "projects/ngx-dhis2-org-unit-filter/tsconfig.lib.prod.json"
+}
           }
         },
         "test": {

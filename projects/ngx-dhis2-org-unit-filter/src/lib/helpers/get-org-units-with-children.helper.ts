@@ -1,16 +1,26 @@
 import * as _ from 'lodash';
 import { getOrgUnitsByType } from './get-org-units-by-type.helper';
 import { USER_ORG_UNITS } from '../constants/user-org-units.constants';
+import { OrgUnitTypes } from '../constants/org-unit-types.constants';
 
 export function getOrgUnitsWithChildren(orgUnits: any[]) {
-  const orgUnitLevels = getOrgUnitsByType(orgUnits, 'ORGANISATION_UNIT_LEVEL');
-  const orgUnitGroups = getOrgUnitsByType(orgUnits, 'ORGANISATION_UNIT_GROUP');
+  const orgUnitLevels = getOrgUnitsByType(
+    orgUnits,
+    OrgUnitTypes.ORGANISATION_UNIT_LEVEL
+  );
+  const orgUnitGroups = getOrgUnitsByType(
+    orgUnits,
+    OrgUnitTypes.ORGANISATION_UNIT_GROUP
+  );
 
   if (orgUnitLevels.length > 0 || orgUnitGroups.length > 0) {
     return orgUnits;
   }
 
-  const userOrgUnits = getOrgUnitsByType(orgUnits, 'USER_ORGANISATION_UNIT');
+  const userOrgUnits = getOrgUnitsByType(
+    orgUnits,
+    OrgUnitTypes.USER_ORGANISATION_UNIT
+  );
 
   const userOrgUnitChildren = _.filter(
     userOrgUnits,
@@ -31,7 +41,7 @@ export function getOrgUnitsWithChildren(orgUnits: any[]) {
         {
           id: `LEVEL-${highestOrgUnitLevel + 1}`,
           name: `Level ${highestOrgUnitLevel + 1}`,
-          type: 'ORGANISATION_UNIT_LEVEL'
+          type: OrgUnitTypes.ORGANISATION_UNIT_LEVEL
         }
       ]
     : _.filter(

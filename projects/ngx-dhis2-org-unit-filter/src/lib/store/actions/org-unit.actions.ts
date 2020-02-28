@@ -21,3 +21,8 @@ export const loadOrgUnitFail = createAction(
   '[OrgUnit] load organisation units fail',
   props<{ error: any }>()
 );
+
+export const setHighestLevelOrgUnits = createAction(
+  '[OrgUnit] set highest level orgunits',
+  props<{ highestLevelOrgUnits: string[] }>()
+);

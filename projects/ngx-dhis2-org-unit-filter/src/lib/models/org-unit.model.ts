@@ -5,6 +5,7 @@ export interface OrgUnit {
   path?: string;
   selected?: boolean;
   children?: string[];
+  parent?: { id: string };
   type?: string;
   icon?: string;
   description?: string;
