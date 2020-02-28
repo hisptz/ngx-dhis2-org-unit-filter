@@ -5,10 +5,13 @@ export function getOrgUnitChildrenIds(
   currentOrgUnit: OrgUnit
 ): string[] {
   return _.map(
-    _.filter(orgUnits, (orgUnit: OrgUnit) =>
-      orgUnit && orgUnit.parent
-        ? orgUnit.parent.id === currentOrgUnit.id
-        : false
+    _.sortBy(
+      _.filter(orgUnits, (orgUnit: OrgUnit) =>
+        orgUnit && orgUnit.parent
+          ? orgUnit.parent.id === currentOrgUnit.id
+          : false
+      ),
+      'name'
     ),
     orgUnitChild => orgUnitChild.id
   );
