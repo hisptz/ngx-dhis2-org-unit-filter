@@ -6,6 +6,8 @@ import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import { getOrgUnitUrls } from '../helpers/get-org-unit-urls.helper';
 import { OrgUnitFilterConfig } from '../models/org-unit-filter-config.model';
 import { OrgUnit } from '../models/org-unit.model';
+import { DEFAULT_ORG_UNIT_FIELDS } from '../constants/default-org-unit-fields.constants';
+import * as _ from 'lodash';
 
 @Injectable()
 export class OrgUnitService {
@@ -16,6 +18,13 @@ export class OrgUnitService {
     userOrgUnits: string[]
   ): Observable<OrgUnit[]> {
     const pageSize = orgUnitFilterConfig.batchSize || 500;
+    const orgUnitFields = _.join(
+      _.uniq([
+        ...DEFAULT_ORG_UNIT_FIELDS,
+        ...(orgUnitFilterConfig.additionalQueryFields || [])
+      ]),
+      ','
+    );
     return this.httpClient
       .get('organisationUnits.json', {
         useIndexDb: true,
@@ -33,7 +42,8 @@ export class OrgUnitService {
             : this._getInitialOrgUnits(
                 userOrgUnits,
                 pageSize,
-                orgUnitFilterConfig.minLevel
+                orgUnitFilterConfig.minLevel,
+                orgUnitFields
               ).pipe(
                 mergeMap((orgUnitResponse: any) => {
                   const orgUnitLength =
@@ -46,13 +56,13 @@ export class OrgUnitService {
                   }
 
                   const pageCount = Math.ceil(orgUnitLength / pageSize);
-
                   return from(
                     getOrgUnitUrls(
                       userOrgUnits,
                       pageCount,
                       pageSize,
-                      orgUnitFilterConfig.minLevel
+                      orgUnitFilterConfig.minLevel,
+                      orgUnitFields
                     )
                   ).pipe(
                     mergeMap((orgUnitUrl: string, index: number) => {
@@ -70,10 +80,13 @@ export class OrgUnitService {
   private _getInitialOrgUnits(
     userOrgUnits: string[],
     pageSize: number,
-    minLevel: number
+    minLevel: number,
+    orgUnitFields
   ) {
     return this.httpClient.get(
-      'organisationUnits.json?fields=id,name,level,path,parent&order=level:asc' +
+      'organisationUnits.json?fields=' +
+        orgUnitFields +
+        '&order=level:asc' +
         '&order=name:asc&filter=path:ilike:' +
         userOrgUnits.join(';') +
         '&pageSize=' +

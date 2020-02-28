@@ -28,4 +28,7 @@ export interface OrgUnitFilterConfig {
 
   // Specify size when loading organisation units
   batchSize?: number;
+
+  // Specify additional organisation unit query fields
+  additionalQueryFields?: string[];
 }

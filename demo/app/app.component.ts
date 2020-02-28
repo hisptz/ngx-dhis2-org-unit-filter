@@ -17,6 +17,7 @@ export class AppComponent {
     showOrgUnitGroupSection: true,
     showOrgUnitLevelSection: false,
     reportUse: false,
+    additionalQueryFields: ['dataSets'],
     batchSize: 400
   };
   selectedOrgUnitItems: any[] = [
