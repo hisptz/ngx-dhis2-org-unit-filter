@@ -7,14 +7,12 @@ import {
   addOrgUnits,
   loadOrgUnitFail,
   loadOrgUnits,
-  initiateOrgUnits
+  initiateOrgUnits,
+  setHighestLevelOrgUnits
 } from '../actions/org-unit.actions';
 
-/**
- * Org unit level state model
- */
 export interface OrgUnitState extends EntityState<OrgUnit> {
-  // additional parameters
+  highestLevelOrgUnits: string[];
   loading: boolean;
   loaded: boolean;
   loadInitiated: boolean;
@@ -29,6 +27,7 @@ export const orgUnitAdapter: EntityAdapter<OrgUnit> = createEntityAdapter<
 const initialState = orgUnitAdapter.addMany(
   USER_ORG_UNITS,
   orgUnitAdapter.getInitialState({
+    highestLevelOrgUnits: [],
     loading: false,
     loadInitiated: false,
     loaded: false,
@@ -56,7 +55,11 @@ export const reducer = createReducer(
   }),
   on(loadOrgUnitFail, (state, { error }) => {
     return { ...state, error };
-  })
+  }),
+  on(setHighestLevelOrgUnits, (state, { highestLevelOrgUnits }) => ({
+    ...state,
+    highestLevelOrgUnits
+  }))
 );
 
 export function orgUnitReducer(
@@ -65,10 +68,3 @@ export function orgUnitReducer(
 ): OrgUnitState {
   return reducer(state, action);
 }
-
-export const getOrgUnitLoadingState = (state: OrgUnitState) => state.loading;
-export const getOrgUnitLoadingInitiatedState = (state: OrgUnitState) =>
-  state.loadInitiated;
-export const getOrgUnitLoadedState = (state: OrgUnitState) => state.loaded;
-export const getOrgUnitHasErrorState = (state: OrgUnitState) => state.hasError;
-export const getOrgUnitErrorState = (state: OrgUnitState) => state.error;

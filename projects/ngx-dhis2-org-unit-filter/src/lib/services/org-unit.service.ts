@@ -1,25 +1,20 @@
 import { Injectable } from '@angular/core';
 import { NgxDhis2HttpClientService } from '@iapps/ngx-dhis2-http-client';
-import * as _ from 'lodash';
 import { from, Observable, of } from 'rxjs';
-import {
-  map,
-  mergeMap,
-  tap,
-  switchMap,
-  mergeAll,
-  catchError
-} from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
+
+import { getOrgUnitUrls } from '../helpers/get-org-unit-urls.helper';
 import { OrgUnitFilterConfig } from '../models/org-unit-filter-config.model';
 import { OrgUnit } from '../models/org-unit.model';
-import { getUserOrgUnitIds } from '../helpers/get-user-org-unit-ids.helper';
-import { getOrgUnitUrls } from '../helpers/get-org-unit-urls.helper';
 
 @Injectable()
 export class OrgUnitService {
   constructor(private httpClient: NgxDhis2HttpClientService) {}
 
-  loadAll(orgUnitFilterConfig: OrgUnitFilterConfig): Observable<OrgUnit[]> {
+  loadAll(
+    orgUnitFilterConfig: OrgUnitFilterConfig,
+    userOrgUnits: string[]
+  ): Observable<OrgUnit[]> {
     const pageSize = orgUnitFilterConfig.batchSize || 500;
     return this.httpClient
       .get('organisationUnits.json', {
@@ -35,44 +30,35 @@ export class OrgUnitService {
 
           return indexDBOrgUnits.length > 0
             ? of(indexDBOrgUnits)
-            : this.httpClient.me().pipe(
-                mergeMap((userInfo: any) => {
-                  const userOrgUnits = getUserOrgUnitIds(
-                    userInfo,
-                    orgUnitFilterConfig.reportUse
-                  );
+            : this._getInitialOrgUnits(
+                userOrgUnits,
+                pageSize,
+                orgUnitFilterConfig.minLevel
+              ).pipe(
+                mergeMap((orgUnitResponse: any) => {
+                  const orgUnitLength =
+                    orgUnitResponse && orgUnitResponse.pager
+                      ? orgUnitResponse.pager.total
+                      : 0;
 
-                  return this._getInitialOrgUnits(
-                    userOrgUnits,
-                    pageSize,
-                    orgUnitFilterConfig.minLevel
+                  if (orgUnitLength === 0) {
+                    return of([]);
+                  }
+
+                  const pageCount = Math.ceil(orgUnitLength / pageSize);
+
+                  return from(
+                    getOrgUnitUrls(
+                      userOrgUnits,
+                      pageCount,
+                      pageSize,
+                      orgUnitFilterConfig.minLevel
+                    )
                   ).pipe(
-                    mergeMap((orgUnitResponse: any) => {
-                      const orgUnitLength =
-                        orgUnitResponse && orgUnitResponse.pager
-                          ? orgUnitResponse.pager.total
-                          : 0;
-
-                      if (orgUnitLength === 0) {
-                        return of([]);
-                      }
-
-                      const pageCount = Math.ceil(orgUnitLength / pageSize);
-
-                      return from(
-                        getOrgUnitUrls(
-                          userOrgUnits,
-                          pageCount,
-                          pageSize,
-                          orgUnitFilterConfig.minLevel
-                        )
-                      ).pipe(
-                        mergeMap((orgUnitUrl: string, index: number) => {
-                          return index === 0
-                            ? of(orgUnitResponse.organisationUnits || [])
-                            : this._loadOrgUnitsByUrl(orgUnitUrl);
-                        })
-                      );
+                    mergeMap((orgUnitUrl: string, index: number) => {
+                      return index === 0
+                        ? of(orgUnitResponse.organisationUnits || [])
+                        : this._loadOrgUnitsByUrl(orgUnitUrl);
                     })
                   );
                 })

@@ -8,12 +8,8 @@ import {
   getOrgUnitFilterState,
   OrgUnitFilterState
 } from '../reducers/org-unit-filter.reducer';
-import {
-  getOrgUnitLoadingInitiatedState,
-  getOrgUnitLoadingState,
-  getOrgUnitLoadedState
-} from '../reducers/org-unit.reducer';
 import { orgUnitGroupAdapter } from '../reducers/org-unit-group.reducer';
+import { OrgUnitState } from '../reducers/org-unit.reducer';
 
 export const getOrgUnitState = createSelector(
   getOrgUnitFilterState,
@@ -26,35 +22,22 @@ export const { selectAll: getOrgUnits } = orgUnitGroupAdapter.getSelectors(
 
 export const getOrgUnitLoading = createSelector(
   getOrgUnitState,
-  getOrgUnitLoadingState
+  (orgUnitState: OrgUnitState) => orgUnitState.loading
 );
 
 export const getOrgUnitLoadingInitiated = createSelector(
   getOrgUnitState,
-  getOrgUnitLoadingInitiatedState
+  (orgUnitState: OrgUnitState) => orgUnitState.loadInitiated
 );
 
 export const getOrgUnitLoaded = createSelector(
   getOrgUnitState,
-  getOrgUnitLoadedState
+  (orgUnitState: OrgUnitState) => orgUnitState.loaded
 );
 
 export const getHighestLevelOrgUnitIds = createSelector(
-  getOrgUnits,
-  (orgUnits: OrgUnit[]) => {
-    const sortedOrgUnits = _.sortBy(orgUnits, 'level');
-    const highestLevel = sortedOrgUnits[0] ? sortedOrgUnits[0].level : 0;
-    return _.map(
-      _.filter(
-        sortedOrgUnits,
-        orgUnit =>
-          orgUnit &&
-          orgUnit.level === highestLevel &&
-          orgUnit.id.indexOf('USER_ORGUNIT') === -1
-      ),
-      (orgUnit: OrgUnit) => orgUnit.id
-    );
-  }
+  getOrgUnitState,
+  (orgUnitState: OrgUnitState) => orgUnitState.highestLevelOrgUnits
 );
 
 export const getOrgUnitById = orgUnitId =>
