@@ -58,7 +58,7 @@ export class OrgUnitEffects {
                 })
               )
               .subscribe(
-                ({ orgUnits, currentUser }) => {
+                ({ orgUnits }) => {
                   this.store.dispatch(addOrgUnits({ orgUnits }));
                 },
                 (error: any) => {

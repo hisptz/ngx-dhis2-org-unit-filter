@@ -3,7 +3,8 @@
   <div class="ngx-dhis2-org-unit-tree-item-title">
     <button class="ngx-dhis2-org-unit-tree-item-toggle-btn" (click)="onToggleOrgUnitChildren($event)"
       *ngIf="(orgUnit$ | async)?.children.length > 0">
-      <i class="fa {{ expanded ? 'fa-caret-down' : 'fa-caret-right' }}"></i>
+      <mat-icon *ngIf="expanded">arrow_drop_down</mat-icon>
+      <mat-icon *ngIf="!expanded">arrow_right</mat-icon>
     </button>
     <mat-checkbox *ngIf="orgUnit$ | async as orgUnit" [name]="orgUnit.id" [ngModel]="selected" [ngClass]="{
         'ml-3': orgUnit?.children.length === 0,

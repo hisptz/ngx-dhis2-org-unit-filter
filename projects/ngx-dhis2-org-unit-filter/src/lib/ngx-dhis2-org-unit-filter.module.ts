@@ -25,6 +25,7 @@ import { OrgUnitGroupEffects } from './store/effects/org-unit-group.effects';
 import { OrgUnitLevelEffects } from './store/effects/org-unit-level.effects';
 import { OrgUnitEffects } from './store/effects/org-unit.effects.';
 import { orgUnitFilterReducer } from './store/reducers/org-unit-filter.reducer';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { orgUnitFilterReducer } from './store/reducers/org-unit-filter.reducer';
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
+    MatIconModule,
     StoreModule.forFeature('orgUnitFilter', orgUnitFilterReducer),
     EffectsModule.forFeature([
       OrgUnitLevelEffects,
